@@ -39,7 +39,7 @@ export default function ProjectsPage() {
             Our Projects
           </h1>
           <p className="text-xl md:text-2xl text-[#B0B0B0] max-w-3xl">
-            Discover the transformations we've created for our clients, from stunning kitchens to luxurious bathrooms and beyond.
+            Discover the transformations we&apos;ve created for our clients, from stunning kitchens to luxurious bathrooms and beyond.
           </p>
         </div>
       </div>

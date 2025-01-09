@@ -25,7 +25,7 @@ export default function ContactPage() {
             Contact Us
           </h1>
           <p className="text-xl md:text-2xl text-[#B0B0B0] mb-8 max-w-3xl">
-            We're here to help you transform your living space. Reach out to us for any questions, consultations, or to start your next project.
+            We&apos;re here to help you transform your living space. Reach out to us for any questions, consultations, or to start your next project.
           </p>
         </div>
       </div>

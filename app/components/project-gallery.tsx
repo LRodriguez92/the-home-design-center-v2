@@ -14,9 +14,10 @@ interface Project {
 
 interface ProjectGalleryProps {
   projects: Project[]
+  allTags: string[]
 }
 
-export default function ProjectGallery({ projects }: ProjectGalleryProps) {
+export default function ProjectGallery({ projects, allTags }: ProjectGalleryProps) {
   const theme = useTheme()
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [selectedTags, setSelectedTags] = useState<string[]>([])
@@ -34,7 +35,7 @@ export default function ProjectGallery({ projects }: ProjectGalleryProps) {
   return (
     <>
       <div className="mb-8 flex flex-wrap justify-center gap-2">
-        {['Kitchen', 'Bathroom', 'Living Room', 'Bedroom', 'Whole House', 'Office', 'Outdoor', 'Dining Room'].map(tag => (
+        {allTags.map(tag => (
           <button
             key={tag}
             onClick={() => toggleTag(tag)}
