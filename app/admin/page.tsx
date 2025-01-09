@@ -2,13 +2,7 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Metadata } from 'next'
 import AdminDashboard from '../components/admin-dashboard'
-
-export const metadata: Metadata = {
-  title: 'Admin Dashboard | Home Design Center',
-  description: 'Admin dashboard for managing photos and reviews',
-}
 
 export default function AdminPage() {
   const router = useRouter()
