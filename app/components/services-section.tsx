@@ -57,7 +57,7 @@ const services = [
   },
   {
     title: 'Drywall Texture',
-    description: 'Enhance your home\'s interior with professional drywall texturing.',
+    description: 'Enhance your home&apos;s interior with professional drywall texturing.',
     icon: Hammer,
     image: '/images/services/drywall-texture.jpg',
     href: '/services#drywall-texture'

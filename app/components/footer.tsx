@@ -45,7 +45,7 @@ export default function Footer() {
           {/* Left Column */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-4xl font-bold text-white mb-4">We'd love to hear from you!</h2>
+              <h2 className="text-4xl font-bold text-white mb-4">We&apos;d love to hear from you!</h2>
               <p className={`text-[${theme.colors.text}] text-lg`}>
                 Whether you have a question about our services, want to discuss a new project, or just want to say hello, our team is here to help.
               </p>

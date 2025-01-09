@@ -15,7 +15,7 @@ const testimonials = [
   },
   {
     name: 'Michael Chen',
-    review: 'We couldn\'t be happier with our bathroom renovation. The team was professional, efficient, and delivered exactly what we envisioned. Highly recommended!',
+    review: 'We couldn&apos;t be happier with our bathroom renovation. The team was professional, efficient, and delivered exactly what we envisioned. Highly recommended!',
     rating: 5,
   },
   {
