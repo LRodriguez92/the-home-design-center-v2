@@ -1,10 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { useTheme } from './theme-provider'
 
 export default function ContactForm() {
-  const theme = useTheme()
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',

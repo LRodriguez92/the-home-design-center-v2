@@ -14,10 +14,9 @@ interface Project {
 
 interface ProjectGalleryProps {
   projects: Project[]
-  allTags: string[]
 }
 
-export default function ProjectGallery({ projects, allTags }: ProjectGalleryProps) {
+export default function ProjectGallery({ projects }: ProjectGalleryProps) {
   const theme = useTheme()
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [selectedTags, setSelectedTags] = useState<string[]>([])

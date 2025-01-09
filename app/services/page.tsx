@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { CookingPot, Bath, Grid3X3, Lightbulb, PaintBucket, BrickWall, Palette, Hammer } from 'lucide-react'
@@ -23,7 +23,7 @@ const services = [
   {
     id: 'bath-remodel',
     title: 'Bath Remodel',
-    description: 'Elevate your bathroom\'s functionality and style with our remodeling services.',
+    description: 'Elevate your bathroom&apos;s functionality and style with our remodeling services.',
     icon: Bath,
     image: '/images/services/bathroom.jpg',
     details: [
@@ -104,7 +104,7 @@ const services = [
   {
     id: 'drywall-texture',
     title: 'Drywall Texture',
-    description: 'Enhance your home\'s interior with professional drywall texturing.',
+    description: 'Enhance your home&apos;s interior with professional drywall texturing.',
     icon: Hammer,
     image: '/images/services/drywall-texture.jpg',
     details: [
@@ -117,7 +117,6 @@ const services = [
 
 export default function ServicesPage() {
   const searchParams = useSearchParams()
-  const scrollToRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const scrollToService = searchParams.get('scrollTo')
@@ -150,7 +149,7 @@ export default function ServicesPage() {
             Our Services
           </h1>
           <p className="text-xl md:text-2xl text-[#B0B0B0] mb-8 max-w-3xl">
-            Discover our comprehensive range of home improvement and design services. From kitchen remodels to custom lighting solutions, we're here to transform your vision into reality.
+            Discover our comprehensive range of home improvement and design services. From kitchen remodels to custom lighting solutions, we&apos;re here to transform your vision into reality.
           </p>
         </div>
       </section>
