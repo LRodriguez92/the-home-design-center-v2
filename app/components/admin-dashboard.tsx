@@ -6,12 +6,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/components/ui/ta
 import PhotoUpload from './photo-upload'
 import ReviewApproval from './review-approval'
 
-export default function AdminDashboard() {
+interface AdminDashboardProps {
+  className?: string
+}
+
+export default function AdminDashboard({ className }: AdminDashboardProps) {
   const theme = useTheme()
   const [activeTab, setActiveTab] = useState('photos')
 
   return (
-    <div className="min-h-screen bg-[#0F0F0F] p-6">
+    <div className={`min-h-screen bg-[#0F0F0F] p-6 ${className || ''}`}>
       <div className="max-w-3xl mx-auto">
         <h1 className={`text-3xl font-bold text-[${theme.colors.text}] mb-6`}>Admin Dashboard</h1>
         <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
