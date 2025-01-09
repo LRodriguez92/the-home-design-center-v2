@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
-import { useRouter, usePathname } from 'next/navigation'
-import { ChevronDown, Menu, X } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { Menu, X } from 'lucide-react'
 import Image from 'next/image'
 import { useTheme } from './theme-provider'
 
@@ -33,15 +33,9 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [menuHeight, setMenuHeight] = useState(0)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
-  const [isAdmin, setIsAdmin] = useState(false)
 
   const closeMobileMenu = useCallback(() => {
     setIsOpen(false)
-  }, [])
-
-  useEffect(() => {
-    const adminToken = document.cookie.includes('admin_token=authenticated')
-    setIsAdmin(adminToken)
   }, [])
 
   useEffect(() => {
@@ -76,7 +70,6 @@ export default function Navbar() {
               <NavItem href="/services">Services</NavItem>
               <NavItem href="/projects">Projects</NavItem>
               <NavItem href="/contact">Contact</NavItem>
-              {isAdmin && <NavItem href="/admin">Admin</NavItem>}
             </div>
           </div>
           <div className="-mr-2 flex md:hidden">
@@ -106,7 +99,6 @@ export default function Navbar() {
           <NavItem href="/services" onClick={closeMobileMenu}>Services</NavItem>
           <NavItem href="/projects" onClick={closeMobileMenu}>Projects</NavItem>
           <NavItem href="/contact" onClick={closeMobileMenu}>Contact</NavItem>
-          {isAdmin && <NavItem href="/admin" onClick={closeMobileMenu}>Admin</NavItem>}
         </div>
       </div>
     </nav>
