@@ -59,10 +59,10 @@ export default function Navbar() {
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
               <Image
-                src="/images/logo.svg"
+                src="/images/logo-gold.png"
                 alt="Home Design Center Logo"
-                width={40}
-                height={40}
+                width={100}
+                height={100}
                 className="mr-3"
               />
               <Link href="/" className={`text-[${theme.colors.primary}] font-bold text-xl`}>

@@ -10,7 +10,7 @@ export default function Hero() {
     <div className="relative h-screen flex items-center justify-center">
       {/* Background Image */}
       <Image
-        src="/images/heroes/home-hero.jpg"
+        src="/images/heroes/kitchen-service-2.jpg"
         alt="Luxurious home interior"
         layout="fill"
         objectFit="cover"
@@ -34,13 +34,13 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link 
               href="/contact"
-              className={`inline-flex items-center px-8 py-3 rounded-md bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] text-lg font-semibold hover:bg-[${theme.colors.primary}]/90 transition duration-300`}
+              className={`inline-flex items-center px-8 py-3 rounded-md bg-[${theme.colors.primary}] text-[${theme.colors.text}] text-lg font-semibold hover:bg-[${theme.colors.primary}]/90 transition duration-300`}
             >
               Begin Your Transformation
             </Link>
             <Link 
               href="/projects"
-              className={`inline-flex items-center px-8 py-3 rounded-md border-2 border-[${theme.colors.secondary}] bg-transparent text-[${theme.colors.secondary}] text-lg font-semibold hover:bg-[${theme.colors.secondary}] hover:text-[${theme.colors.onSecondary}] transition duration-300`}
+              className={`inline-flex items-center px-8 py-3 rounded-md border-2 border-[${theme.colors.secondary}] bg-transparent text-[${theme.colors.text}] text-lg font-semibold hover:bg-[${theme.colors.secondary}] hover:text-[${theme.colors.text}] transition duration-300`}
             >
               Explore Our Portfolio
             </Link>

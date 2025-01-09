@@ -24,7 +24,7 @@ const services = [
     title: '3D Design',
     description: 'Visualize your dream space with our 3D design services.',
     icon: Grid3X3,
-    image: '/images/services/kitchen-service-1.png',
+    image: '/images/services/3D.png',
     href: '/services#3d-design'
   },
   {
@@ -38,14 +38,14 @@ const services = [
     title: 'Painting',
     description: 'Revitalize your space with professional painting services.',
     icon: PaintBucket,
-    image: '/images/services/drywall-texture.jpg',
+    image: '/images/services/painting.png',
     href: '/services#painting'
   },
   {
     title: 'Wall Removal',
     description: 'Open up your living space with our wall removal services.',
     icon: BrickWall,
-    image: '/images/services/flooring.jpg',
+    image: '/images/services/wall-removal.jpg',
     href: '/services#wall-removal'
   },
   {
@@ -56,11 +56,11 @@ const services = [
     href: '/services#flooring'
   },
   {
-    title: 'Custom Cabinetry',
-    description: 'Enhance your space with bespoke cabinetry solutions.',
+    title: 'Drywall Texture',
+    description: 'Enhance your home\'s interior with professional drywall texturing.',
     icon: Hammer,
-    image: '/images/services/kitchen-service-2.jpg',
-    href: '/services#custom-cabinetry'
+    image: '/images/services/drywall-texture.jpg',
+    href: '/services#drywall-texture'
   }
 ]
 

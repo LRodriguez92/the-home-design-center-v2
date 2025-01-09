@@ -26,7 +26,7 @@ export default function ProjectsPage() {
       {/* Hero Section */}
       <div className="relative h-[50vh] md:h-[60vh] lg:h-[70vh]">
         <Image
-          src="/images/heroes/projects-hero.jpg"
+          src="/images/heroes/projects.jpg"
           alt="Showcase of our best projects"
           layout="fill"
           objectFit="cover"

@@ -11,7 +11,7 @@ const services = [
     title: 'Kitchen Remodel',
     description: 'Transform your kitchen into a functional and stylish space.',
     icon: CookingPot,
-    image: '/placeholder.svg?height=400&width=600',
+    image: '/images/services/kitchen-hero.jpg',
     details: [
       'Custom cabinets and islands',
       'Durable countertops',
@@ -25,7 +25,7 @@ const services = [
     title: 'Bath Remodel',
     description: 'Elevate your bathroom\'s functionality and style with our remodeling services.',
     icon: Bath,
-    image: '/placeholder.svg?height=400&width=600',
+    image: '/images/services/bathroom.jpg',
     details: [
       'High-quality materials and fixtures',
       'Tailored designs',
@@ -38,7 +38,7 @@ const services = [
     title: '3D Design',
     description: 'Visualize your new kitchen before any materials are ordered with our 3D design services.',
     icon: Grid3X3,
-    image: '/placeholder.svg?height=400&width=600',
+    image: '/images/services/3D.png',
     details: [
       'Precise measurements',
       'Accurate 3D renderings',
@@ -51,7 +51,7 @@ const services = [
     title: 'LED Lighting',
     description: 'Illuminate your home with energy-efficient, stylish LED lighting solutions.',
     icon: Lightbulb,
-    image: '/placeholder.svg?height=400&width=600',
+    image: '/images/services/LED.jpg',
     details: [
       'Custom lighting design',
       'Energy-efficient solutions',
@@ -66,7 +66,7 @@ const services = [
     title: 'Painting',
     description: 'Enhance the beauty and ambiance of your home with our comprehensive interior painting services.',
     icon: PaintBucket,
-    image: '/placeholder.svg?height=400&width=600',
+    image: '/images/services/painting.png',
     details: [
       'Thorough surface preparation',
       'High-quality paint application',
@@ -79,7 +79,7 @@ const services = [
     title: 'Wall Removal',
     description: 'Transform your living spaces by removing unnecessary walls to create an open-concept design.',
     icon: BrickWall,
-    image: '/placeholder.svg?height=400&width=600',
+    image: '/images/services/wall-removal.jpg',
     details: [
       'Load-bearing wall expertise',
       'Design consultation',
@@ -91,7 +91,7 @@ const services = [
     title: 'Flooring',
     description: 'Choose from a wide range of flooring solutions to suit every room in your home.',
     icon: Palette,
-    image: '/placeholder.svg?height=400&width=600',
+    image: '/images/services/flooring.jpg',
     details: [
       'Ceramic tile',
       'Solid wood',
@@ -106,7 +106,7 @@ const services = [
     title: 'Drywall Texture',
     description: 'Enhance your home\'s interior with professional drywall texturing.',
     icon: Hammer,
-    image: '/placeholder.svg?height=400&width=600',
+    image: '/images/services/drywall-texture.jpg',
     details: [
       'Professional application',
       'Seamless blending',
@@ -137,7 +137,7 @@ export default function ServicesPage() {
       <section className="relative bg-[#1C1F33] py-24 md:py-32">
         <div className="absolute inset-0 overflow-hidden">
           <Image
-            src="/images/heroes/services-hero.jpg"
+            src="/images/heroes/workers.jpg"
             alt="Home Design Services"
             layout="fill"
             objectFit="cover"
