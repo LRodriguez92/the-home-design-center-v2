@@ -20,6 +20,8 @@ interface SelectedPhoto {
 export default function PhotoUpload() {
   const theme = useTheme()
   const [selectedPhotos, setSelectedPhotos] = useState<SelectedPhoto[]>([])
+  const [uploadSuccess, setUploadSuccess] = useState(false)
+  const [uploadedDetails, setUploadedDetails] = useState<{name: string, tags: string[]}[]>([])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -41,14 +43,14 @@ export default function PhotoUpload() {
     })
   }
 
-  const handleTagChange = (photoIndex: number, tag: string) => {
+  const handleTagChange = (photoIndex: number, tag: string, checked: boolean) => {
     setSelectedPhotos(prev => {
       const newPhotos = [...prev]
       const photo = newPhotos[photoIndex]
-      if (photo.tags.includes(tag)) {
-        photo.tags = photo.tags.filter(t => t !== tag)
+      if (checked) {
+        photo.tags = [...photo.tags, tag]
       } else {
-        photo.tags.push(tag)
+        photo.tags = photo.tags.filter(t => t !== tag)
       }
       return newPhotos
     })
@@ -56,17 +58,43 @@ export default function PhotoUpload() {
 
   const handleUpload = useCallback(async () => {
     // Here you would typically upload the files to your server
-    console.log('Uploading files:', selectedPhotos.map(photo => ({
+    const details = selectedPhotos.map(photo => ({
       name: photo.file.name,
       tags: photo.tags
-    })))
+    }))
+    console.log('Uploading files:', details)
+
+    // Save the details before resetting
+    setUploadedDetails(details)
+    setUploadSuccess(true)
 
     // Reset form after upload
     setSelectedPhotos([])
+
+    // Hide success message after 5 seconds
+    setTimeout(() => {
+      setUploadSuccess(false)
+      setUploadedDetails([])
+    }, 5000)
   }, [selectedPhotos])
 
   return (
     <div className="space-y-6">
+      {uploadSuccess && (
+        <div className="bg-green-500/20 border border-green-500 text-green-500 p-4 rounded-lg">
+          <h4 className="font-semibold mb-2">Successfully uploaded {uploadedDetails.length} photo{uploadedDetails.length > 1 ? 's' : ''}!</h4>
+          <div className="space-y-2">
+            {uploadedDetails.map((file, index) => (
+              <div key={index} className="text-sm">
+                <span className="font-medium">{file.name}</span>
+                {file.tags.length > 0 && (
+                  <span className="text-green-400"> - Tags: {file.tags.join(', ')}</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       <div>
         <h2 className={`text-2xl font-semibold mb-4 text-[${theme.colors.text}]`}>Upload New Photos</h2>
         <p className={`text-sm text-[${theme.colors.textMuted}]`}>
@@ -122,10 +150,10 @@ export default function PhotoUpload() {
                           <Checkbox
                             id={`${index}-${tag}`}
                             checked={photo.tags.includes(tag)}
-                            onCheckedChange={() => handleTagChange(index, tag)}
-                            className={`border-2 border-[${theme.colors.primary}] data-[state=checked]:bg-[${theme.colors.primary}] data-[state=checked]:border-[${theme.colors.primary}]`}
+                            onCheckedChange={(checked) => handleTagChange(index, tag, checked as boolean)}
+                            className="border-2 border-[#C9A227] data-[state=checked]:bg-[#C9A227] data-[state=checked]:border-[#C9A227] cursor-pointer"
                           />
-                          <span className={`text-xs text-[${theme.colors.text}]`}>{tag}</span>
+                          <span className="text-xs text-[#F5F5F5]">{tag}</span>
                         </label>
                       ))}
                     </div>
