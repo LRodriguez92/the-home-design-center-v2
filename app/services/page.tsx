@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { CookingPot, Bath, Grid3X3, Lightbulb, PaintBucket, BrickWall, Palette, Hammer } from 'lucide-react'
@@ -115,7 +115,7 @@ const services = [
   }
 ]
 
-export default function ServicesPage() {
+function ServicesContent() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
@@ -123,7 +123,7 @@ export default function ServicesPage() {
     if (scrollToService) {
       const element = document.getElementById(scrollToService)
       if (element) {
-        const yOffset = -80 // Adjust this value to account for any fixed headers
+        const yOffset = -80
         const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
         window.scrollTo({ top: y, behavior: 'smooth' })
       }
@@ -167,7 +167,7 @@ export default function ServicesPage() {
                   e.preventDefault()
                   const element = document.getElementById(service.id)
                   if (element) {
-                    const yOffset = -80 // Adjust this value to account for any fixed headers
+                    const yOffset = -80
                     const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
                     window.scrollTo({ top: y, behavior: 'smooth' })
                     // Update the URL without triggering a page reload
@@ -218,6 +218,14 @@ export default function ServicesPage() {
         </div>
       </main>
     </div>
+  )
+}
+
+export default function ServicesPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ServicesContent />
+    </Suspense>
   )
 }
 
