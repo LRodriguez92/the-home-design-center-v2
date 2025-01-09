@@ -76,14 +76,22 @@ export default function PhotoUpload() {
       <div className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="photo-upload">Select Photos</Label>
-          <Input
-            id="photo-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            multiple
-            className={`bg-[${theme.colors.surface}] border-2 border-[${theme.colors.primary}] focus:border-[${theme.colors.primary}] focus:ring-0 text-[${theme.colors.text}] file:bg-[${theme.colors.primary}] file:text-[${theme.colors.onPrimary}] file:border-0 file:rounded-md file:px-4 file:py-2 file:mr-4 hover:file:bg-[${theme.colors.primary}]/90 flex items-center justify-center h-auto py-2`}
-          />
+          <Button
+            asChild
+            className={`w-full bg-[${theme.colors.primary}] text-[#0F0F0F] hover:bg-[${theme.colors.primary}]/90 font-medium h-auto py-2 px-4`}
+          >
+            <label>
+              <Input
+                id="photo-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                multiple
+                className="hidden"
+              />
+              Choose Files
+            </label>
+          </Button>
         </div>
         {selectedPhotos.length > 0 && (
           <div className="space-y-4">
@@ -130,7 +138,7 @@ export default function PhotoUpload() {
         {selectedPhotos.length > 0 && (
           <Button
             onClick={handleUpload}
-            className={`w-full bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] hover:bg-[${theme.colors.primary}]/90 flex items-center justify-center`}
+            className={`w-full bg-[${theme.colors.primary}] text-[#0F0F0F] hover:bg-[${theme.colors.primary}]/90 flex items-center justify-center font-medium`}
           >
             <Upload className="mr-2" size={20} />
             Upload {selectedPhotos.length} Photo{selectedPhotos.length > 1 ? 's' : ''}

@@ -53,7 +53,7 @@ export default function ReviewApproval() {
       </div>
       <div className="space-y-4">
         {reviews.map(review => (
-          <Card key={review.id} className={`bg-[${theme.colors.surface}] border-2 border-[${theme.colors.primary}]`}>
+          <Card key={review.id} className={`bg-transparent border-2 border-[${theme.colors.primary}]`}>
             <CardContent className="pt-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
@@ -63,7 +63,7 @@ export default function ReviewApproval() {
                       <Star
                         key={i}
                         className={`w-4 h-4 ${
-                          i < review.rating ? `text-[${theme.colors.primary}] fill-[${theme.colors.primary}]` : `text-[${theme.colors.textMuted}]`
+                          i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-yellow-400'
                         }`}
                       />
                     ))}

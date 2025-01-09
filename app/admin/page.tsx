@@ -16,7 +16,6 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-[#0F0F0F] flex flex-col p-4 pt-16">
-      <h1 className="text-4xl font-bold mb-8 text-[#F5F5F5]">Admin Dashboard</h1>
       <AdminDashboard className="mt-8" />
     </div>
   )
