@@ -2,6 +2,10 @@
 
 import { useState } from 'react'
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Button } from '@/app/components/ui/button'
+import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from '@/app/components/ui/dialog'
+import ReviewSubmissionForm from '@/app/components/review-submission-form'
+import { useTheme } from './theme-provider'
 
 const testimonials = [
   {
@@ -27,7 +31,10 @@ const testimonials = [
 ]
 
 export default function TestimonialCarousel() {
+  const theme = useTheme()
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isReviewDialogOpen, setIsReviewDialogOpen] = useState(false)
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
   const nextTestimonial = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)
@@ -37,10 +44,32 @@ export default function TestimonialCarousel() {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length)
   }
 
+  const handleReviewSubmit = () => {
+    setIsReviewDialogOpen(false)
+    setTimeout(() => {
+      setShowSuccessMessage(true)
+      setTimeout(() => {
+        setShowSuccessMessage(false)
+      }, 2000)
+    }, 100)
+  }
+
   return (
-    <section className="py-16 md:py-24 bg-[#2D2E2E]">
+    <section 
+      className="py-16 md:py-24"
+      style={{ backgroundColor: theme.colors.background }}
+    >
+      {showSuccessMessage && (
+        <div className="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-lg shadow-lg z-50" role="alert">
+          <span className="block font-medium">Success!</span>
+          <span className="block">Thank you for your review!</span>
+        </div>
+      )}
       <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-[#FBFBFB] mb-12">
+        <h2 
+          className="text-3xl md:text-4xl font-bold text-center mb-12"
+          style={{ color: theme.colors.text }}
+        >
           What Our Clients Say
         </h2>
         <div className="relative">
@@ -57,7 +86,7 @@ export default function TestimonialCarousel() {
                         <Star
                           key={i}
                           className={`w-5 h-5 ${
-                            i < testimonial.rating ? 'text-[#BCABAE] fill-[#BCABAE]' : 'text-[#716969]'
+                            i < testimonial.rating ? 'text-[#C9A227] fill-[#C9A227]' : 'text-[#C9A227]'
                           }`}
                         />
                       ))}
@@ -83,6 +112,23 @@ export default function TestimonialCarousel() {
           >
             <ChevronRight className="w-6 h-6" />
           </button>
+        </div>
+        <div className="flex justify-center mt-8">
+          <Dialog open={isReviewDialogOpen} onOpenChange={setIsReviewDialogOpen}>
+            <DialogTrigger asChild>
+              <Button 
+                className={`bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] hover:bg-[${theme.colors.primary}]/90`}
+              >
+                Submit Your Review
+              </Button>
+            </DialogTrigger>
+            <DialogContent className={`bg-[${theme.colors.background}] text-[${theme.colors.text}]`}>
+              <DialogHeader>
+                <DialogTitle>Submit Your Review</DialogTitle>
+              </DialogHeader>
+              <ReviewSubmissionForm onSubmit={handleReviewSubmit} />
+            </DialogContent>
+          </Dialog>
         </div>
         <div className="flex justify-center mt-6">
           {testimonials.map((_, index) => (

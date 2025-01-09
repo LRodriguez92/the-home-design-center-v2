@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTheme } from './theme-provider'
-import { Button } from '@/app/components/ui/button'
-import { Card, CardContent, CardFooter } from '@/app/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
+import { Star } from 'lucide-react'
 
 interface Review {
   id: number
@@ -23,16 +24,23 @@ export default function ReviewApproval() {
   const theme = useTheme()
   const [reviews, setReviews] = useState<Review[]>(initialReviews)
 
+  useEffect(() => {
+    // In a real application, you would fetch pending reviews from your backend here
+    // For now, we'll just use the initialReviews
+  }, [])
+
   const handleApprove = (id: number) => {
     setReviews(reviews.map(review =>
       review.id === id ? { ...review, status: 'approved' } : review
     ))
+    // In a real application, you would send this update to your backend
   }
 
   const handleReject = (id: number) => {
     setReviews(reviews.map(review =>
       review.id === id ? { ...review, status: 'rejected' } : review
     ))
+    // In a real application, you would send this update to your backend
   }
 
   return (
@@ -45,12 +53,21 @@ export default function ReviewApproval() {
       </div>
       <div className="space-y-4">
         {reviews.map(review => (
-          <Card key={review.id} className={`bg-transparent border-2 border-[${theme.colors.primary}]`}>
+          <Card key={review.id} className={`bg-[${theme.colors.surface}] border-2 border-[${theme.colors.primary}]`}>
             <CardContent className="pt-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <p className={`font-semibold text-[${theme.colors.text}]`}>{review.name}</p>
-                  <p className={`text-sm text-[${theme.colors.textMuted}]`}>Rating: {review.rating}/5</p>
+                  <div className="flex items-center">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${
+                          i < review.rating ? `text-[${theme.colors.primary}] fill-[${theme.colors.primary}]` : `text-[${theme.colors.textMuted}]`
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
                 <span className={`text-sm px-2 py-1 rounded ${
                   review.status === 'approved' ? 'bg-green-500/20 text-green-500' :

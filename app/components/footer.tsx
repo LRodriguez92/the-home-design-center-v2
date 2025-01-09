@@ -60,7 +60,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center">
                 <Phone className={`mr-3 h-5 w-5 text-[${theme.colors.primary}]`} />
-                <span>+1 (201) 555-0123</span>
+                <span>+1 (407) 807-1328</span>
               </div>
               <div className="flex items-start">
                 <MapPin className={`mr-3 h-5 w-5 text-[${theme.colors.primary}] flex-shrink-0`} />
@@ -197,7 +197,7 @@ export default function Footer() {
               <Link href="/" className={`hover:text-[${theme.colors.primary}] transition-colors`}>Home</Link>
               <Link href="/services" className={`hover:text-[${theme.colors.primary}] transition-colors`}>Services</Link>
               <Link href="/projects" className={`hover:text-[${theme.colors.primary}] transition-colors`}>Projects</Link>
-              <Link href="/about" className={`hover:text-[${theme.colors.primary}] transition-colors`}>About Us</Link>
+              {/* <Link href="/about" className={`hover:text-[${theme.colors.primary}] transition-colors`}>About Us</Link> */}
               <Link href="/contact" className={`hover:text-[${theme.colors.primary}] transition-colors`}>Contact Us</Link>
             </nav>
             <div className="flex space-x-4">

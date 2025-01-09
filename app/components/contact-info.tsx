@@ -22,7 +22,7 @@ export default function ContactInfo() {
           <div>
             <p className="font-medium">Phone</p>
             <a href="tel:+12015550123" className="text-[#B0B0B0] hover:text-[#C9A227] transition-colors">
-              +1 (201) 555-0123
+              +1 (407) 807-1328
             </a>
           </div>
         </div>
