@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useTheme } from './theme-provider'
 import { Button } from '@/app/components/ui/button'
 import { Input } from '@/app/components/ui/input'
@@ -8,6 +8,7 @@ import { Textarea } from '@/app/components/ui/textarea'
 import { Label } from '@/app/components/ui/label'
 import { Star } from 'lucide-react'
 import { FormEvent } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 interface ReviewSubmissionFormProps {
   onSubmit: () => void
@@ -18,9 +19,17 @@ export default function ReviewSubmissionForm({ onSubmit }: ReviewSubmissionFormP
   const [name, setName] = useState('')
   const [rating, setRating] = useState(0)
   const [review, setReview] = useState('')
+  const [captchaValue, setCaptchaValue] = useState<string | null>(null)
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    
+    if (!captchaValue) {
+      alert('Please complete the captcha verification')
+      return
+    }
+
     // Here you would typically send the review data to your backend
     if (typeof onSubmit === 'function') {
       await onSubmit()
@@ -28,6 +37,13 @@ export default function ReviewSubmissionForm({ onSubmit }: ReviewSubmissionFormP
     setName('')
     setRating(0)
     setReview('')
+    setCaptchaValue(null)
+    // Reset the captcha
+    recaptchaRef.current?.reset()
+  }
+
+  const handleCaptchaChange = (value: string | null) => {
+    setCaptchaValue(value)
   }
 
   return (
@@ -67,6 +83,14 @@ export default function ReviewSubmissionForm({ onSubmit }: ReviewSubmissionFormP
           required
           className={`bg-[${theme.colors.surface}] text-[${theme.colors.text}]`}
           rows={4}
+        />
+      </div>
+      <div className="flex justify-center my-4">
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+          onChange={handleCaptchaChange}
+          theme={theme.colors.background === '#ffffff' ? 'light' : 'dark'}
         />
       </div>
       <Button 
