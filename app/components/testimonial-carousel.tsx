@@ -25,7 +25,7 @@ const testimonials = [
   },
   {
     name: 'David Thompson',
-    review: 'From start to finish, the Home Design Center team was fantastic. They guided us through the entire process and delivered a stunning living room remodel on time and within budget.',
+    review: 'From start to finish, The Home Design Center team was fantastic. They guided us through the entire process and delivered a stunning living room remodel on time and within budget.',
     rating: 5,
   },
 ]

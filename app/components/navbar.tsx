@@ -54,13 +54,13 @@ export default function Navbar() {
             <div className="flex-shrink-0 flex items-center">
               <Image
                 src="/images/logo-gold.png"
-                alt="Home Design Center Logo"
+                alt="The Home Design Center Logo"
                 width={100}
                 height={100}
                 className="mr-3"
               />
               <Link href="/" className={`text-[${theme.colors.primary}] font-bold text-xl`}>
-                Home Design Center
+                The Home Design Center
               </Link>
             </div>
           </div>

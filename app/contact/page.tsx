@@ -4,8 +4,8 @@ import ContactInfo from '@/app/components/contact-info'
 import Image from 'next/image'
 
 export const metadata: Metadata = {
-  title: 'Contact Us | Home Design Center',
-  description: 'Get in touch with Home Design Center for all your home renovation and design needs.',
+  title: 'Contact Us | The Home Design Center',
+  description: 'Get in touch with The Home Design Center for all your home renovation and design needs.',
 }
 
 export default function ContactPage() {

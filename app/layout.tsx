@@ -8,7 +8,7 @@ import { ThemeProvider } from './components/theme-provider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Home Design Center',
+  title: 'The Home Design Center',
   description: 'Transform your living space with expert remodeling services',
 }
 

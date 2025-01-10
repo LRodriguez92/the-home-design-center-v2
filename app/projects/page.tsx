@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import Image from 'next/image'
 
 export const metadata: Metadata = {
-  title: 'Our Projects | Home Design Center',
+  title: 'Our Projects | The Home Design Center',
   description: 'Explore our portfolio of stunning home design and remodeling projects.',
 }
 
