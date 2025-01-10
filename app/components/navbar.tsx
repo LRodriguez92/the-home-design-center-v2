@@ -70,17 +70,18 @@ export default function Navbar() {
             </button>
           </div>
           
-          <div className="flex items-center justify-center w-full md:w-auto md:flex-none">
+          <div className="flex items-center justify-start w-full md:w-auto md:flex-none">
             <div className="flex-shrink-0 flex items-center">
               <Image
                 src="/images/logo-gold.png"
                 alt={t('navigation.logo')}
                 width={100}
                 height={100}
+                className="hidden min-[410px]:block"
               />
               <Link 
                 href="/" 
-                className={`text-[${theme.colors.primary}] font-bold text-xl hidden md:block`}
+                className={`text-[${theme.colors.primary}] font-bold text-xl`}
               >
                 {t('navigation.title')}
               </Link>
