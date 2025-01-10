@@ -49,30 +49,8 @@ export default function Navbar() {
   return (
     <nav className={`bg-[${theme.colors.background}] sticky top-0 z-50`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center">
-              <Image
-                src="/images/logo-gold.png"
-                alt="The Home Design Center Logo"
-                width={100}
-                height={100}
-                className="mr-3"
-              />
-              <Link href="/" className={`text-[${theme.colors.primary}] font-bold text-xl`}>
-                The Home Design Center
-              </Link>
-            </div>
-          </div>
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-4">
-              <NavItem href="/">Home</NavItem>
-              <NavItem href="/services">Services</NavItem>
-              <NavItem href="/projects">Projects</NavItem>
-              <NavItem href="/contact">Contact</NavItem>
-            </div>
-          </div>
-          <div className="-mr-2 flex md:hidden">
+        <div className="relative flex items-center justify-between h-16">
+          <div className="absolute right-0 md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`inline-flex items-center justify-center p-2 rounded-md text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] hover:bg-[${theme.colors.surface}] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[${theme.colors.primary}] transition-colors duration-200`}
@@ -85,6 +63,32 @@ export default function Navbar() {
                 <Menu className="block h-6 w-6" aria-hidden="true" />
               )}
             </button>
+          </div>
+          
+          <div className="flex items-center justify-center w-full md:w-auto md:flex-none">
+            <div className="flex-shrink-0 flex items-center">
+              <Image
+                src="/images/logo-gold.png"
+                alt="The Home Design Center Logo"
+                width={100}
+                height={100}
+              />
+              <Link 
+                href="/" 
+                className={`text-[${theme.colors.primary}] font-bold text-xl hidden md:block`}
+              >
+                The Home Design Center
+              </Link>
+            </div>
+          </div>
+
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-center space-x-4">
+              <NavItem href="/">Home</NavItem>
+              <NavItem href="/services">Services</NavItem>
+              <NavItem href="/projects">Projects</NavItem>
+              <NavItem href="/contact">Contact</NavItem>
+            </div>
           </div>
         </div>
       </div>

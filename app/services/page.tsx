@@ -17,7 +17,8 @@ const services = [
       'Durable countertops',
       'Modern lighting designs',
       'Quality doors and drawers',
-      'Premium hardware and fixtures'
+      'Premium hardware',
+      'Fixtures'
     ]
   },
   {
@@ -27,10 +28,11 @@ const services = [
     icon: Bath,
     image: '/images/services/bathroom.jpg',
     details: [
-      'High-quality materials and fixtures',
+      'High-quality materials',
+      'Fixtures',
       'Tailored designs',
       'Water-saving solutions',
-      'Restoration of existing elements'
+      'Restoration'
     ]
   },
   {
@@ -66,12 +68,12 @@ const services = [
     title: 'Painting',
     description: 'Enhance the beauty and ambiance of your home with our comprehensive interior painting services.',
     icon: PaintBucket,
-    image: '/images/services/painting.png',
+    image: '/images/services/painting.jpg',
     details: [
-      'Thorough surface preparation',
+      'Thorough surface prep',
       'High-quality paint application',
       'Hardware installation',
-      'Precision trim and molding painting'
+      'Trim and molding painting'
     ]
   },
   {
@@ -79,9 +81,9 @@ const services = [
     title: 'Wall Removal',
     description: 'Transform your living spaces by removing unnecessary walls to create an open-concept design.',
     icon: BrickWall,
-    image: '/images/services/wall-removal.jpg',
+    image: '/images/services/open-floor.jpg',
     details: [
-      'Load-bearing wall expertise',
+      'Non load-bearing walls',
       'Design consultation',
       'Efficient debris management'
     ]
@@ -91,22 +93,24 @@ const services = [
     title: 'Flooring',
     description: 'Choose from a wide range of flooring solutions to suit every room in your home.',
     icon: Palette,
-    image: '/images/services/flooring.jpg',
+    image: '/images/services/flooring-tiles.jpg',
     details: [
+      'Procelain tile',
       'Ceramic tile',
       'Solid wood',
-      'Laminate and engineered wood',
+      'Laminate wood',
+      'Engineered wood',
       'Luxury vinyl',
       'Carpeting',
       'Outdoor pavers'
     ]
   },
   {
-    id: 'drywall-texture',
-    title: 'Drywall Texture',
-    description: 'Enhance your home&apos;s interior with professional drywall texturing.',
+    id: 'drywall-repair',
+    title: 'Drywall Repair',
+    description: 'Enhance your home&apos;s interior with professional drywall repair.',
     icon: Hammer,
-    image: '/images/services/drywall-texture.jpg',
+    image: '/images/services/drywall-repair.jpg',
     details: [
       'Professional application',
       'Seamless blending',

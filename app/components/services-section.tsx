@@ -38,28 +38,28 @@ const services = [
     title: 'Painting',
     description: 'Revitalize your space with professional painting services.',
     icon: PaintBucket,
-    image: '/images/services/painting.png',
+    image: '/images/services/painting.jpg',
     href: '/services#painting'
   },
   {
     title: 'Wall Removal',
     description: 'Open up your living space with our wall removal services.',
     icon: BrickWall,
-    image: '/images/services/wall-removal.jpg',
+    image: '/images/services/open-floor.jpg',
     href: '/services#wall-removal'
   },
   {
     title: 'Flooring',
     description: 'Install beautiful, durable flooring solutions for your home.',
     icon: Palette,
-    image: '/images/services/flooring.jpg',
+    image: '/images/services/flooring-tiles.jpg',
     href: '/services#flooring'
   },
   {
-    title: 'Drywall Texture',
-    description: 'Enhance your home&apos;s interior with professional drywall texturing.',
+    title: 'Drywall Repair',
+    description: 'Enhance your home&apos;s interior with professional drywall repair.',
     icon: Hammer,
-    image: '/images/services/drywall-texture.jpg',
+    image: '/images/services/drywall-repair.jpg',
     href: '/services#drywall-texture'
   }
 ]
