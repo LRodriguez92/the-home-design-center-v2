@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import Navbar from './components/navbar'
 import Footer from './components/footer'
 import { ThemeProvider } from './components/theme-provider'
+import FloatingLanguageSwitcher from './components/floating-language-switcher'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
       description: 'Transform your living space with expert remodeling services',
     },
     es: {
-      title: 'Centro de Diseño del Hogar',
+      title: 'The Home Design Center',
       description: 'Transforme su espacio vital con servicios expertos de remodelación',
     },
   }
@@ -38,6 +39,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
           <Navbar />
+          <FloatingLanguageSwitcher />
           <main>{children}</main>
           <Footer />
         </ThemeProvider>
