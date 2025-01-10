@@ -40,8 +40,7 @@ export default function ContactInfo() {
           <div>
             <p className="font-medium">Business Hours</p>
             <p className="text-[#B0B0B0]">
-              Monday - Friday: 9:00 AM - 6:00 PM<br />
-              Saturday: 10:00 AM - 4:00 PM<br />
+              Monday - Saturday: 9:00 AM - 6:00 PM EST<br />
               Sunday: Closed
             </p>
           </div>
