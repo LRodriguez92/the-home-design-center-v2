@@ -204,7 +204,7 @@ export default function Footer() {
               <a href="#" className={`text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] transition-colors`}>
                 <Facebook className="h-6 w-6" />
               </a>
-              <a href="#" className={`text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] transition-colors`}>
+              <a href="https://www.instagram.com/the_homedesigncenter/" className={`text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] transition-colors`}>
                 <Instagram className="h-6 w-6" />
               </a>
             </div>
