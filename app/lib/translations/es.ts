@@ -30,115 +30,92 @@ export const es = {
     },
     detailsTitle: 'Detalles del Servicio',
     kitchen: {
-      title: 'Remodelación de Cocinas',
-      description: 'Transforme su cocina en un espacio moderno y funcional con nuestros servicios expertos de remodelación.',
+      title: 'Remodelación de Cocina',
+      description: 'Transforma tu cocina en un espacio funcional y elegante.',
       details: JSON.stringify([
-        'Diseño e instalación de gabinetes personalizados',
-        'Selección e instalación de encimeras',
-        'Actualización e instalación de electrodomésticos',
-        'Diseño de iluminación y trabajo eléctrico',
-        'Modificaciones de plomería y accesorios',
-        'Instalación de pisos',
-        'Diseño e instalación de salpicaderos',
-        'Pintura y toques finales'
+        'Gabinetes e islas personalizados',
+        'Encimeras duraderas',
+        'Diseños de iluminación moderna',
+        'Puertas y cajones de calidad',
+        'Hardware premium',
+        'Accesorios',
+        'Puertas de cierre suave',
+        'Cajones de cierre suave'
       ])
     },
     bath: {
-      title: 'Remodelación de Baños',
-      description: 'Cree el baño de sus sueños con nuestras soluciones integrales de remodelación.',
+      title: 'Remodelación de Baño',
+      description: 'Eleva la funcionalidad y el estilo de tu baño con nuestros servicios de remodelación.',
       details: JSON.stringify([
-        'Diseño e instalación de tocadores personalizados',
-        'Instalación de duchas y bañeras',
-        'Trabajo de azulejos e impermeabilización',
-        'Accesorios y actualizaciones de plomería',
-        'Actualizaciones de iluminación y electricidad',
-        'Soluciones de almacenamiento',
-        'Modificaciones de accesibilidad',
-        'Mejoras de ventilación'
+        'Materiales de alta calidad',
+        'Accesorios',
+        'Diseños personalizados',
+        'Soluciones de ahorro de agua',
+        'Restauración'
       ])
     },
     design: {
-      title: 'Servicios de Diseño 3D',
-      description: 'Visualice su proyecto antes de la construcción con nuestros servicios avanzados de diseño 3D.',
+      title: 'Diseño 3D',
+      description: 'Visualiza tu nueva cocina antes de ordenar cualquier material con nuestros servicios de diseño 3D.',
       details: JSON.stringify([
-        'Renderizados 3D detallados',
-        'Recorridos virtuales',
-        'Selección de materiales y acabados',
-        'Planificación y optimización del espacio',
-        'Visualización de iluminación',
-        'Revisiones y ajustes de diseño',
-        'Documentación de construcción',
-        'Apoyo en estimación de costos'
+        'Mediciones precisas',
+        'Renderizados 3D precisos',
+        'Consulta de diseño',
+        'Visualización 3D realista'
       ])
     },
     lighting: {
-      title: 'Instalación de Iluminación LED',
-      description: 'Mejore el ambiente y la eficiencia de su hogar con soluciones modernas de iluminación LED.',
+      title: 'Iluminación LED',
+      description: 'Ilumina tu hogar con soluciones de iluminación LED eficientes y elegantes.',
       details: JSON.stringify([
-        'Actualizaciones LED eficientes',
-        'Instalación de iluminación empotrada',
-        'Iluminación bajo gabinetes',
-        'Sistemas de iluminación inteligente',
-        'Instalación de interruptores reguladores',
-        'Diseño de iluminación exterior',
-        'Iluminación de seguridad',
-        'Instalación de luminarias decorativas'
+        'Diseño de iluminación personalizado',
+        'Soluciones eficientes en energía',
+        'Integración de iluminación inteligente',
+        'Iluminación de acento y tarea',
+        'Iluminación LED exterior',
+        'Servicios de actualización'
       ])
     },
     painting: {
-      title: 'Pintura Interior y Exterior',
-      description: 'Servicios profesionales de pintura para renovar y proteger su hogar.',
+      title: 'Pintura',
+      description: 'Mejora la belleza y el ambiente de tu hogar con nuestros servicios integrales de pintura interior.',
       details: JSON.stringify([
-        'Pintura de paredes interiores',
-        'Pintura exterior de casas',
-        'Refinado de gabinetes',
-        'Pintura de molduras y acabados',
-        'Consulta de colores',
-        'Preparación de superficies',
-        'Eliminación de papel tapiz',
-        'Acabados especiales'
+        'Preparación minuciosa de superficies',
+        'Aplicación de pintura de alta calidad',
+        'Instalación de hardware',
+        'Pintura de molduras y acabados'
       ])
     },
     wall: {
-      title: 'Eliminación de Paredes y Conceptos Abiertos',
-      description: 'Cree espacios abiertos y fluidos mediante la eliminación de paredes y la actualización de planos.',
+      title: 'Eliminación de Paredes',
+      description: 'Transforma tus espacios eliminando paredes innecesarias para crear un diseño de concepto abierto.',
       details: JSON.stringify([
-        'Evaluación de paredes de carga',
-        'Apoyo de ingeniería estructural',
-        'Obtención de permisos',
-        'Demolición y remoción',
-        'Reubicación eléctrica',
-        'Modificaciones de plomería',
-        'Reparación de pisos y techos',
-        'Trabajo de acabado y molduras'
+        'Paredes no estructurales',
+        'Consulta de diseño',
+        'Gestión eficiente de escombros'
       ])
     },
     flooring: {
-      title: 'Instalación de Pisos',
-      description: 'Instalación experta de varios tipos de pisos para adaptarse a su estilo y necesidades.',
+      title: 'Pisos',
+      description: 'Elige entre una amplia gama de soluciones de pisos para cada habitación de tu hogar.',
       details: JSON.stringify([
-        'Instalación de pisos de madera',
-        'Instalación de azulejos y piedra',
-        'Instalación de tablones de vinilo de lujo',
-        'Instalación de alfombras',
-        'Preparación del contrapiso',
-        'Nivelación de pisos',
-        'Instalación de barreras contra humedad',
-        'Trabajo de molduras y transiciones'
+        'Baldosa de porcelana',
+        'Baldosa cerámica',
+        'Madera sólida',
+        'Madera laminada',
+        'Madera de ingeniería',
+        'Vinilo de lujo',
+        'Alfombras',
+        'Adoquines exteriores'
       ])
     },
     drywall: {
-      title: 'Reparación e Instalación de Paneles de Yeso',
-      description: 'Servicios profesionales de paneles de yeso para reparaciones, parches e instalaciones nuevas.',
+      title: 'Reparación de Paneles de Yeso',
+      description: 'Mejora el interior de tu hogar con reparación profesional de paneles de yeso.',
       details: JSON.stringify([
-        'Reparación y parcheo de agujeros',
-        'Reparación de daños por agua',
-        'Construcción de paredes nuevas',
-        'Igualación de texturas',
-        'Encintado y acabado de juntas',
-        'Instalación de esquineros',
-        'Insonorización',
-        'Preparación para pintura'
+        'Aplicación profesional',
+        'Mezcla perfecta',
+        'Mejora de ambiente'
       ])
     }
   },

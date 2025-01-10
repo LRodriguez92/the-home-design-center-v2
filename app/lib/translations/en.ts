@@ -30,115 +30,92 @@ export const en = {
     },
     detailsTitle: 'Service Details',
     kitchen: {
-      title: 'Kitchen Remodeling',
-      description: 'Transform your kitchen into a modern, functional space with our expert remodeling services.',
+      title: 'Kitchen Remodel',
+      description: 'Transform your kitchen into a functional and stylish space.',
       details: JSON.stringify([
-        'Custom cabinet design and installation',
-        'Countertop selection and installation',
-        'Appliance upgrades and installation',
-        'Lighting design and electrical work',
-        'Plumbing modifications and fixtures',
-        'Flooring installation',
-        'Backsplash design and installation',
-        'Paint and finishing touches'
+        'Custom cabinets and islands',
+        'Durable countertops',
+        'Modern lighting designs',
+        'Quality doors and drawers',
+        'Premium hardware',
+        'Fixtures',
+        'Soft closing doors',
+        'Soft closing drawers'
       ])
     },
     bath: {
-      title: 'Bathroom Remodeling',
-      description: 'Create your dream bathroom with our comprehensive remodeling solutions.',
+      title: 'Bath Remodel',
+      description: 'Elevate your bathroom functionality and style with our remodeling services.',
       details: JSON.stringify([
-        'Custom vanity design and installation',
-        'Shower and tub installation',
-        'Tile work and waterproofing',
-        'Plumbing fixtures and updates',
-        'Lighting and electrical updates',
-        'Storage solutions',
-        'Accessibility modifications',
-        'Ventilation improvements'
+        'High-quality materials',
+        'Fixtures',
+        'Tailored designs',
+        'Water-saving solutions',
+        'Restoration'
       ])
     },
     design: {
-      title: '3D Design Services',
-      description: 'Visualize your project before construction with our advanced 3D design services.',
+      title: '3D Design',
+      description: 'Visualize your new kitchen before any materials are ordered with our 3D design services.',
       details: JSON.stringify([
-        'Detailed 3D renderings',
-        'Virtual walkthroughs',
-        'Material and finish selection',
-        'Space planning and optimization',
-        'Lighting visualization',
-        'Design revisions and adjustments',
-        'Construction documentation',
-        'Cost estimation support'
+        'Precise measurements',
+        'Accurate 3D renderings',
+        'Design consultation',
+        'Realistic 3D visualization'
       ])
     },
     lighting: {
-      title: 'LED Lighting Installation',
-      description: 'Enhance your home\'s ambiance and efficiency with modern LED lighting solutions.',
+      title: 'LED Lighting',
+      description: 'Illuminate your home with energy-efficient, stylish LED lighting solutions.',
       details: JSON.stringify([
-        'Energy-efficient LED upgrades',
-        'Recessed lighting installation',
-        'Under-cabinet lighting',
-        'Smart lighting systems',
-        'Dimmer switch installation',
-        'Outdoor lighting design',
-        'Security lighting',
-        'Decorative fixture installation'
+        'Custom lighting design',
+        'Energy-efficient solutions',
+        'Smart lighting integration',
+        'Accent and task lighting',
+        'Outdoor LED lighting',
+        'Retrofit services'
       ])
     },
     painting: {
-      title: 'Interior & Exterior Painting',
-      description: 'Professional painting services to refresh and protect your home.',
+      title: 'Painting',
+      description: 'Enhance the beauty and ambiance of your home with our comprehensive interior painting services.',
       details: JSON.stringify([
-        'Interior wall painting',
-        'Exterior house painting',
-        'Cabinet refinishing',
-        'Trim and molding painting',
-        'Color consultation',
-        'Surface preparation',
-        'Wallpaper removal',
-        'Specialty finishes'
+        'Thorough surface prep',
+        'High-quality paint application',
+        'Hardware installation',
+        'Trim and molding painting'
       ])
     },
     wall: {
-      title: 'Wall Removal & Open Concepts',
-      description: 'Create open, flowing spaces by removing walls and updating floor plans.',
+      title: 'Wall Removal',
+      description: 'Transform your living spaces by removing unnecessary walls to create an open-concept design.',
       details: JSON.stringify([
-        'Load-bearing wall assessment',
-        'Structural engineering support',
-        'Permit acquisition',
-        'Demolition and removal',
-        'Electrical rerouting',
-        'Plumbing modifications',
-        'Floor and ceiling repair',
-        'Finishing and trim work'
+        'Non load-bearing walls',
+        'Design consultation',
+        'Efficient debris management'
       ])
     },
     flooring: {
-      title: 'Flooring Installation',
-      description: 'Expert installation of various flooring types to suit your style and needs.',
+      title: 'Flooring',
+      description: 'Choose from a wide range of flooring solutions to suit every room in your home.',
       details: JSON.stringify([
-        'Hardwood floor installation',
-        'Tile and stone installation',
-        'Luxury vinyl plank installation',
-        'Carpet installation',
-        'Subfloor preparation',
-        'Floor leveling',
-        'Moisture barrier installation',
-        'Trim and transition work'
+        'Porcelain tile',
+        'Ceramic tile',
+        'Solid wood',
+        'Laminate wood',
+        'Engineered wood',
+        'Luxury vinyl',
+        'Carpeting',
+        'Outdoor pavers'
       ])
     },
     drywall: {
-      title: 'Drywall Repair & Installation',
-      description: 'Professional drywall services for repairs, patches, and new installations.',
+      title: 'Drywall Repair',
+      description: 'Enhance your home interior with professional drywall repair.',
       details: JSON.stringify([
-        'Hole repair and patching',
-        'Water damage repair',
-        'New wall construction',
-        'Texture matching',
-        'Joint taping and finishing',
-        'Corner bead installation',
-        'Soundproofing',
-        'Paint preparation'
+        'Professional application',
+        'Seamless blending',
+        'Atmosphere enhancement'
       ])
     }
   },
