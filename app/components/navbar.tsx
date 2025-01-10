@@ -6,15 +6,19 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import Image from 'next/image'
 import { useTheme } from './theme-provider'
+import LanguageSwitcher from './language-switcher'
+import { useTranslations } from '@/app/lib/translations'
 
 const NavItem = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick?: () => void }) => {
   const pathname = usePathname()
-  const isActive = pathname === href
+  const currentLang = pathname.startsWith('/es') ? 'es' : 'en'
+  const langPrefixedHref = href === '/' ? `/${currentLang}` : `/${currentLang}${href}`
+  const isActive = pathname === langPrefixedHref
   const theme = useTheme()
 
   return (
     <Link
-      href={href}
+      href={langPrefixedHref}
       className={`block w-full px-3 py-2 rounded-md text-base font-medium ${
         isActive
           ? `bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}]`
@@ -27,9 +31,10 @@ const NavItem = ({ href, children, onClick }: { href: string; children: React.Re
   )
 }
 
-
 export default function Navbar() {
   const theme = useTheme()
+  const pathname = usePathname()
+  const { t } = useTranslations(pathname?.startsWith('/es') ? 'es' : 'en')
   const [isOpen, setIsOpen] = useState(false)
   const [menuHeight, setMenuHeight] = useState(0)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
@@ -56,7 +61,7 @@ export default function Navbar() {
               className={`inline-flex items-center justify-center p-2 rounded-md text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] hover:bg-[${theme.colors.surface}] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[${theme.colors.primary}] transition-colors duration-200`}
               aria-expanded={isOpen}
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">{t('navigation.openMenu')}</span>
               {isOpen ? (
                 <X className="block h-6 w-6" aria-hidden="true" />
               ) : (
@@ -69,7 +74,7 @@ export default function Navbar() {
             <div className="flex-shrink-0 flex items-center">
               <Image
                 src="/images/logo-gold.png"
-                alt="The Home Design Center Logo"
+                alt={t('navigation.logo')}
                 width={100}
                 height={100}
               />
@@ -77,17 +82,18 @@ export default function Navbar() {
                 href="/" 
                 className={`text-[${theme.colors.primary}] font-bold text-xl hidden md:block`}
               >
-                The Home Design Center
+                {t('navigation.title')}
               </Link>
             </div>
           </div>
 
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-4">
-              <NavItem href="/">Home</NavItem>
-              <NavItem href="/services">Services</NavItem>
-              <NavItem href="/projects">Projects</NavItem>
-              <NavItem href="/contact">Contact</NavItem>
+              <NavItem href="/">{t('navigation.home')}</NavItem>
+              <NavItem href="/services">{t('navigation.services')}</NavItem>
+              <NavItem href="/projects">{t('navigation.projects')}</NavItem>
+              <NavItem href="/contact">{t('navigation.contact')}</NavItem>
+              <LanguageSwitcher />
             </div>
           </div>
         </div>
@@ -99,10 +105,13 @@ export default function Navbar() {
         style={{ maxHeight: `${menuHeight}px` }}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <NavItem href="/" onClick={closeMobileMenu}>Home</NavItem>
-          <NavItem href="/services" onClick={closeMobileMenu}>Services</NavItem>
-          <NavItem href="/projects" onClick={closeMobileMenu}>Projects</NavItem>
-          <NavItem href="/contact" onClick={closeMobileMenu}>Contact</NavItem>
+          <NavItem href="/" onClick={closeMobileMenu}>{t('navigation.home')}</NavItem>
+          <NavItem href="/services" onClick={closeMobileMenu}>{t('navigation.services')}</NavItem>
+          <NavItem href="/projects" onClick={closeMobileMenu}>{t('navigation.projects')}</NavItem>
+          <NavItem href="/contact" onClick={closeMobileMenu}>{t('navigation.contact')}</NavItem>
+          <div className="px-3 py-2">
+            <LanguageSwitcher />
+          </div>
         </div>
       </div>
     </nav>

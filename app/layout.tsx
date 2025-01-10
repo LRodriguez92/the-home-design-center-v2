@@ -7,18 +7,34 @@ import { ThemeProvider } from './components/theme-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'The Home Design Center',
-  description: 'Transform your living space with expert remodeling services',
+export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
+  const lang = params?.lang || 'en'
+  
+  const metadata = {
+    en: {
+      title: 'The Home Design Center',
+      description: 'Transform your living space with expert remodeling services',
+    },
+    es: {
+      title: 'Centro de Diseño del Hogar',
+      description: 'Transforme su espacio vital con servicios expertos de remodelación',
+    },
+  }
+
+  return metadata[lang as keyof typeof metadata]
 }
 
 export default function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode
+  params: { lang: string }
 }) {
+  const lang = params?.lang || 'en'
+  
   return (
-    <html lang="en">
+    <html lang={lang}>
       <body className={inter.className}>
         <ThemeProvider>
           <Navbar />

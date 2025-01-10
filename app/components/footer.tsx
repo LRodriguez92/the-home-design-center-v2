@@ -4,9 +4,14 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Facebook, Instagram, Mail, Phone, MapPin } from 'lucide-react'
 import { useTheme } from './theme-provider'
+import { useTranslations } from '@/app/lib/translations'
+import { usePathname } from 'next/navigation'
 
 export default function Footer() {
   const theme = useTheme()
+  const pathname = usePathname()
+  const { t } = useTranslations(pathname?.startsWith('/es') ? 'es' : 'en')
+  const currentLang = pathname?.startsWith('/es') ? 'es' : 'en'
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -45,9 +50,9 @@ export default function Footer() {
           {/* Left Column */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-4xl font-bold text-white mb-4">We&apos;d love to hear from you!</h2>
+              <h2 className="text-4xl font-bold text-white mb-4">{t('contact.info.title')}</h2>
               <p className={`text-[${theme.colors.text}] text-lg`}>
-                Whether you have a question about our services, want to discuss a new project, or just want to say hello, our team is here to help.
+                {t('contact.info.description')}
               </p>
             </div>
 
@@ -55,34 +60,19 @@ export default function Footer() {
               <div className="flex items-center">
                 <Mail className={`mr-3 h-5 w-5 text-[${theme.colors.primary}]`} />
                 <a href="mailto:TheHomeDesignCenterOrlando@gmail.com" className={`hover:text-[${theme.colors.primary}] transition-colors`}>
-                  TheHomeDesignCenterOrlando@gmail.com
+                  {t('contact.info.email.value')}
                 </a>
               </div>
               <div className="flex items-center">
                 <Phone className={`mr-3 h-5 w-5 text-[${theme.colors.primary}]`} />
-                <span>+1 (407) 807-1328</span>
+                <span>{t('contact.info.phone.value')}</span>
               </div>
               <div className="flex items-start">
                 <MapPin className={`mr-3 h-5 w-5 text-[${theme.colors.primary}] flex-shrink-0`} />
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-2">
-                  <span>Orlando</span>
-                  <span>Casselberry</span>
-                  <span>Winter Park</span>
-                  <span>Oviedo</span>
-                  <span>Winter Garden</span>
-                  <span>Baldwin Park</span>
-                  <span>Windermere</span>
-                  <span>Lake Nona</span>
-                  <span>Altamonte Springs</span>
-                  <span>Maitland</span>
-                  <span>Dr. Phillips</span>
-                  <span>Lake Mary</span>
-                  <span>Longwood</span>
-                  <span>Winter Springs</span>
-                  <span>Sanford</span>
-                  <span>Apopka</span>
-                  <span>Clermont</span>
-                  <span>Kissimmee</span>
+                  {t('contact.info.areas.value').split(', ').map((area) => (
+                    <span key={area}>{area}</span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -90,12 +80,12 @@ export default function Footer() {
 
           {/* Right Column - Contact Form */}
           <div className={`border-2 border-[${theme.colors.surface}] p-6 rounded-lg`}>
-            <h3 className="text-2xl font-bold text-white mb-6">Contact Us</h3>
+            <h3 className="text-2xl font-bold text-white mb-6">{t('contact.title')}</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                    First Name <span className={`text-[${theme.colors.primary}]`}>*</span>
+                    {t('contact.form.firstName')} <span className={`text-[${theme.colors.primary}]`}>*</span>
                   </label>
                   <input
                     type="text"
@@ -109,7 +99,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <label htmlFor="lastName" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                    Last Name <span className={`text-[${theme.colors.primary}]`}>*</span>
+                    {t('contact.form.lastName')} <span className={`text-[${theme.colors.primary}]`}>*</span>
                   </label>
                   <input
                     type="text"
@@ -124,7 +114,7 @@ export default function Footer() {
               </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                  Email <span className={`text-[${theme.colors.primary}]`}>*</span>
+                  {t('contact.form.email')} <span className={`text-[${theme.colors.primary}]`}>*</span>
                 </label>
                 <input
                   type="email"
@@ -138,7 +128,7 @@ export default function Footer() {
               </div>
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                  Phone Number <span className={`text-[${theme.colors.primary}]`}>*</span>
+                  {t('contact.form.phone')} <span className={`text-[${theme.colors.primary}]`}>*</span>
                 </label>
                 <input
                   type="tel"
@@ -152,7 +142,7 @@ export default function Footer() {
               </div>
               <div>
                 <label htmlFor="company" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                  Company
+                  {t('contact.form.company')}
                 </label>
                 <input
                   type="text"
@@ -165,7 +155,7 @@ export default function Footer() {
               </div>
               <div>
                 <label htmlFor="message" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                  Message <span className={`text-[${theme.colors.primary}]`}>*</span>
+                  {t('contact.form.message')} <span className={`text-[${theme.colors.primary}]`}>*</span>
                 </label>
                 <textarea
                   id="message"
@@ -181,10 +171,10 @@ export default function Footer() {
                 type="submit"
                 className={`w-full px-4 py-3 bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] font-semibold rounded-md hover:bg-[${theme.colors.primary}]/90 transition-colors`}
               >
-                Submit Inquiry
+                {t('contact.form.submit')}
               </button>
               {submitStatus === 'success' && (
-                <p className="text-green-500">Message sent successfully!</p>
+                <p className="text-green-500">{t('contact.form.success')}</p>
               )}
             </form>
           </div>
@@ -194,11 +184,10 @@ export default function Footer() {
         <div className={`mt-12 pt-8 border-t border-[${theme.colors.surface}]`}>
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <nav className="flex space-x-6">
-              <Link href="/" className={`hover:text-[${theme.colors.primary}] transition-colors`}>Home</Link>
-              <Link href="/services" className={`hover:text-[${theme.colors.primary}] transition-colors`}>Services</Link>
-              <Link href="/projects" className={`hover:text-[${theme.colors.primary}] transition-colors`}>Projects</Link>
-              {/* <Link href="/about" className={`hover:text-[${theme.colors.primary}] transition-colors`}>About Us</Link> */}
-              <Link href="/contact" className={`hover:text-[${theme.colors.primary}] transition-colors`}>Contact Us</Link>
+              <Link href={`/${currentLang}`} className={`hover:text-[${theme.colors.primary}] transition-colors`}>{t('navigation.home')}</Link>
+              <Link href={`/${currentLang}/services`} className={`hover:text-[${theme.colors.primary}] transition-colors`}>{t('navigation.services')}</Link>
+              <Link href={`/${currentLang}/projects`} className={`hover:text-[${theme.colors.primary}] transition-colors`}>{t('navigation.projects')}</Link>
+              <Link href={`/${currentLang}/contact`} className={`hover:text-[${theme.colors.primary}] transition-colors`}>{t('navigation.contact')}</Link>
             </nav>
             <div className="flex space-x-4">
               <a href="#" className={`text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] transition-colors`}>
@@ -210,7 +199,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="mt-8 text-center text-sm">
-            <p>&copy; {new Date().getFullYear()} The Home Design Center. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} {t('navigation.title')}. {t('footer.copyright')}</p>
           </div>
         </div>
       </div>

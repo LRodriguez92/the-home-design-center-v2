@@ -6,32 +6,26 @@ import { Button } from '@/app/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from '@/app/components/ui/dialog'
 import ReviewSubmissionForm from '@/app/components/review-submission-form'
 import { useTheme } from './theme-provider'
+import { useTranslations, type Language } from '@/app/lib/translations'
+import { usePathname } from 'next/navigation'
 
-const testimonials = [
-  {
-    name: 'Sarah Johnson',
-    review: 'The Home Design Center transformed our outdated kitchen into a modern masterpiece. Their attention to detail and quality craftsmanship exceeded our expectations!',
-    rating: 5,
-  },
-  {
-    name: 'Michael Chen',
-    review: 'We couldn&apos;t be happier with our bathroom renovation. The team was professional, efficient, and delivered exactly what we envisioned. Highly recommended!',
-    rating: 5,
-  },
-  {
-    name: 'Emily Rodriguez',
-    review: 'The 3D design service was a game-changer for our home makeover. It helped us visualize the end result and make confident decisions. Thank you, Home Design Center!',
-    rating: 4,
-  },
-  {
-    name: 'David Thompson',
-    review: 'From start to finish, The Home Design Center team was fantastic. They guided us through the entire process and delivered a stunning living room remodel on time and within budget.',
-    rating: 5,
-  },
-]
+interface TestimonialCarouselProps {
+  lang?: Language
+}
 
-export default function TestimonialCarousel() {
+interface Testimonial {
+  name: string
+  review: string
+  rating: number
+}
+
+export default function TestimonialCarousel({ lang }: TestimonialCarouselProps) {
   const theme = useTheme()
+  const pathname = usePathname()
+  const currentLang = lang || (pathname.startsWith('/es') ? 'es' : 'en')
+  const { t } = useTranslations(currentLang)
+  const testimonials = (t('testimonials.items') as unknown) as Testimonial[]
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isReviewDialogOpen, setIsReviewDialogOpen] = useState(false)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
@@ -61,8 +55,8 @@ export default function TestimonialCarousel() {
     >
       {showSuccessMessage && (
         <div className="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-lg shadow-lg z-50" role="alert">
-          <span className="block font-medium">Success!</span>
-          <span className="block">Thank you for your review!</span>
+          <span className="block font-medium">{t('testimonials.successMessage.title')}</span>
+          <span className="block">{t('testimonials.successMessage.message')}</span>
         </div>
       )}
       <div className="container mx-auto px-4 md:px-6 max-w-4xl">
@@ -70,7 +64,7 @@ export default function TestimonialCarousel() {
           className="text-3xl md:text-4xl font-bold text-center mb-12"
           style={{ color: theme.colors.text }}
         >
-          What Our Clients Say
+          {t('testimonials.title')}
         </h2>
         <div className="relative">
           <div className="overflow-hidden">
@@ -119,12 +113,12 @@ export default function TestimonialCarousel() {
               <Button 
                 className={`bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] hover:bg-[${theme.colors.primary}]/90`}
               >
-                Submit Your Review
+                {t('testimonials.submitButton')}
               </Button>
             </DialogTrigger>
             <DialogContent className={`bg-[${theme.colors.background}] text-[${theme.colors.text}]`}>
               <DialogHeader>
-                <DialogTitle>Submit Your Review</DialogTitle>
+                <DialogTitle>{t('testimonials.submitDialog.title')}</DialogTitle>
               </DialogHeader>
               <ReviewSubmissionForm onSubmit={handleReviewSubmit} />
             </DialogContent>

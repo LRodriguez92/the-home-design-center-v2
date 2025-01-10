@@ -3,15 +3,29 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTheme } from './theme-provider'
+import { useTranslations } from '@/app/lib/translations'
+import { usePathname } from 'next/navigation'
 
-export default function Hero() {
+interface HeroProps {
+  title?: string
+  subtitle?: string
+}
+
+export default function Hero({ 
+  title = 'Elevate Your Living Space',
+  subtitle = 'Experience unparalleled luxury with our bespoke home design and remodeling services.'
+}: HeroProps) {
   const theme = useTheme()
+  const pathname = usePathname()
+  const { t } = useTranslations(pathname?.startsWith('/es') ? 'es' : 'en')
+  const currentLang = pathname?.startsWith('/es') ? 'es' : 'en'
+
   return (
     <div className="relative h-screen flex items-center justify-center">
       {/* Background Image */}
       <Image
         src="/images/heroes/kitchen-service-2.jpg"
-        alt="Luxurious home interior"
+        alt={t('home.hero.image')}
         layout="fill"
         objectFit="cover"
         quality={100}
@@ -26,23 +40,23 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-8">
           <h1 className={`text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[${theme.colors.text}]`}>
-            Elevate Your Living Space
+            {title}
           </h1>
           <p className={`mx-auto max-w-2xl text-xl sm:text-2xl text-[${theme.colors.textMuted}]`}>
-            Experience unparalleled luxury with our bespoke home design and remodeling services.
+            {subtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link 
-              href="/contact"
+              href={`/${currentLang}/contact`}
               className={`inline-flex items-center px-8 py-3 rounded-md bg-[${theme.colors.primary}] text-[${theme.colors.text}] text-lg font-semibold hover:bg-[${theme.colors.primary}]/90 transition duration-300`}
             >
-              Begin Your Transformation
+              {t('home.hero.buttons.contact')}
             </Link>
             <Link 
-              href="/projects"
+              href={`/${currentLang}/projects`}
               className={`inline-flex items-center px-8 py-3 rounded-md border-2 border-[${theme.colors.secondary}] bg-transparent text-[${theme.colors.text}] text-lg font-semibold hover:bg-[${theme.colors.secondary}] hover:text-[${theme.colors.text}] transition duration-300`}
             >
-              Explore Our Portfolio
+              {t('home.hero.buttons.portfolio')}
             </Link>
           </div>
         </div>

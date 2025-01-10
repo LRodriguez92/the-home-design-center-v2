@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useTheme } from './theme-provider'
 import { Dialog, DialogContent } from '@/app/components/ui/dialog'
 import { Badge } from '@/app/components/ui/badge'
+import { useTranslations, type Language } from '@/app/lib/translations'
 
 interface Project {
   id: number
@@ -15,10 +16,12 @@ interface Project {
 interface ProjectGalleryProps {
   projects: Project[]
   allTags: string[]
+  lang?: Language
 }
 
-export default function ProjectGallery({ projects, allTags }: ProjectGalleryProps) {
+export default function ProjectGallery({ projects, allTags, lang }: ProjectGalleryProps) {
   const theme = useTheme()
+  const { t } = useTranslations(lang || 'en')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
@@ -29,8 +32,8 @@ export default function ProjectGallery({ projects, allTags }: ProjectGalleryProp
   }
 
   const filteredProjects = selectedTags.length > 0
-  ? projects.filter(project => project.tags.some(tag => selectedTags.includes(tag)))
-  : projects
+    ? projects.filter(project => project.tags.some(tag => selectedTags.includes(tag)))
+    : projects
 
   return (
     <>
@@ -61,7 +64,7 @@ export default function ProjectGallery({ projects, allTags }: ProjectGalleryProp
           >
             <Image
               src={project.image}
-              alt={`Project ${project.id}`}
+              alt={`${t('projects.gallery.project')} ${project.id}`}
               width={1200}
               height={800}
               className="object-cover w-full h-full"
@@ -85,7 +88,7 @@ export default function ProjectGallery({ projects, allTags }: ProjectGalleryProp
             <div className="relative aspect-video">
               <Image
                 src={selectedProject.image}
-                alt={`Project ${selectedProject.id}`}
+                alt={`${t('projects.gallery.project')} ${selectedProject.id}`}
                 layout="fill"
                 objectFit="cover"
                 className="rounded-t-lg"

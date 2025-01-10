@@ -1,8 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations, type Language } from '@/app/lib/translations'
 
-export default function ContactForm() {
+interface ContactFormProps {
+  lang?: Language
+}
+
+export default function ContactForm({ lang }: ContactFormProps) {
+  const { t } = useTranslations(lang || 'en')
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -37,7 +43,7 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="firstName" className="block text-sm font-medium text-[#B0B0B0] mb-1">
-            First Name
+            {t('contact.form.firstName')} <span className="text-[#C9A227]">*</span>
           </label>
           <input
             type="text"
@@ -51,7 +57,7 @@ export default function ContactForm() {
         </div>
         <div>
           <label htmlFor="lastName" className="block text-sm font-medium text-[#B0B0B0] mb-1">
-            Last Name
+            {t('contact.form.lastName')} <span className="text-[#C9A227]">*</span>
           </label>
           <input
             type="text"
@@ -66,7 +72,7 @@ export default function ContactForm() {
       </div>
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-[#B0B0B0] mb-1">
-          Email
+          {t('contact.form.email')} <span className="text-[#C9A227]">*</span>
         </label>
         <input
           type="email"
@@ -80,7 +86,7 @@ export default function ContactForm() {
       </div>
       <div>
         <label htmlFor="phone" className="block text-sm font-medium text-[#B0B0B0] mb-1">
-          Phone
+          {t('contact.form.phone')} <span className="text-[#C9A227]">*</span>
         </label>
         <input
           type="tel"
@@ -88,12 +94,13 @@ export default function ContactForm() {
           name="phone"
           value={formData.phone}
           onChange={handleChange}
+          required
           className={`w-full px-3 py-2 bg-transparent text-[#F5F5F5] border-b-2 border-[#C9A227] focus:outline-none focus:border-[#8C7853] transition-colors`}
         />
       </div>
       <div>
         <label htmlFor="company" className="block text-sm font-medium text-[#B0B0B0] mb-1">
-          Company
+          {t('contact.form.company')}
         </label>
         <input
           type="text"
@@ -106,7 +113,7 @@ export default function ContactForm() {
       </div>
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-[#B0B0B0] mb-1">
-          Message
+          {t('contact.form.message')} <span className="text-[#C9A227]">*</span>
         </label>
         <textarea
           id="message"
@@ -123,10 +130,10 @@ export default function ContactForm() {
         disabled={isSubmitting}
         className={`w-full px-6 py-3 bg-[#C9A227] text-[#0F0F0F] font-semibold rounded-md hover:bg-[#8C7853] transition-colors duration-300 disabled:opacity-50`}
       >
-        {isSubmitting ? 'Sending...' : 'Send Message'}
+        {isSubmitting ? t('contact.form.sending') : t('contact.form.submit')}
       </button>
       {submitStatus === 'success' && (
-        <p className="text-green-500 text-center">Message sent successfully!</p>
+        <p className="text-green-500 text-center">{t('contact.form.success')}</p>
       )}
     </form>
   )

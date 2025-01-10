@@ -2,24 +2,39 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const adminToken = request.cookies.get('admin_token')
-  const isAdminPage = request.nextUrl.pathname.startsWith('/admin')
-  const isLoginPage = request.nextUrl.pathname === '/admin/login'
-
-  // If trying to access admin pages without token, redirect to login
-  if (isAdminPage && !isLoginPage && !adminToken) {
-    return NextResponse.redirect(new URL('/admin/login', request.url))
+  const pathname = request.nextUrl.pathname
+  
+  // If the pathname already has a language prefix, do nothing
+  if (pathname.startsWith('/en') || pathname.startsWith('/es')) {
+    return NextResponse.next()
   }
-
-  // If trying to access login page with valid token, redirect to admin
-  if (isLoginPage && adminToken?.value === 'authenticated') {
-    return NextResponse.redirect(new URL('/admin', request.url))
+  
+  // Get the preferred language from the Accept-Language header
+  const acceptLanguage = request.headers.get('accept-language')
+  let lang = 'en' // Default to English
+  
+  if (acceptLanguage) {
+    // Check if Spanish is preferred
+    if (acceptLanguage.startsWith('es')) {
+      lang = 'es'
+    }
   }
-
-  return NextResponse.next()
+  
+  // Special case for the root path
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL(`/${lang}`, request.url))
+  }
+  
+  // Redirect to the same path with language prefix
+  return NextResponse.redirect(new URL(`/${lang}${pathname}`, request.url))
 }
 
 export const config = {
-  matcher: ['/admin/:path*']
+  matcher: [
+    // Skip all internal paths (_next)
+    // Skip all API routes
+    // Skip all static files
+    '/((?!_next|api|static|.*\\..*).*)',
+  ],
 }
 
