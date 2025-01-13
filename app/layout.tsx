@@ -36,11 +36,11 @@ export default function RootLayout({
   
   return (
     <html lang={lang}>
-      <body className={inter.className}>
+      <body className={`${inter.className} min-h-screen flex flex-col`}>
         <ThemeProvider>
           <Navbar />
           <FloatingLanguageSwitcher />
-          <main>{children}</main>
+          <main className="flex-grow pt-16">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

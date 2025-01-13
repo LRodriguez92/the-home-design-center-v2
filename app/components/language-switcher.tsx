@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 import { Button } from './ui/button'
+import Image from 'next/image'
 
 export default function LanguageSwitcher() {
   const pathname = usePathname()
@@ -17,15 +18,22 @@ export default function LanguageSwitcher() {
   }
 
   const currentLang = pathname.startsWith('/es') ? 'es' : 'en'
+  const nextLang = currentLang === 'en' ? 'es' : 'en'
+  const flagSrc = `/images/flags/${nextLang}.svg`
 
   return (
     <Button
       variant="ghost"
       size="sm"
       onClick={switchLanguage}
-      className="px-2"
+      className="px-2 h-8 w-8"
     >
-      {currentLang.toUpperCase()}
+      <Image
+        src={flagSrc}
+        alt={`Switch to ${nextLang.toUpperCase()}`}
+        width={20}
+        height={20}
+      />
     </Button>
   )
 } 

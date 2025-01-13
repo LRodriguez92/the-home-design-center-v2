@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import Image from 'next/image'
 import { useTheme } from './theme-provider'
-import LanguageSwitcher from './language-switcher'
 import { useTranslations } from '@/app/lib/translations'
 
 const NavItem = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick?: () => void }) => {
@@ -52,7 +51,7 @@ export default function Navbar() {
   }, [isOpen])
 
   return (
-    <nav className={`bg-[${theme.colors.background}] sticky top-0 z-50`}>
+    <nav className={`bg-[${theme.colors.background}] fixed top-0 left-0 right-0 z-50`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute right-0 md:hidden">
@@ -94,7 +93,6 @@ export default function Navbar() {
               <NavItem href="/services">{t('navigation.services')}</NavItem>
               <NavItem href="/projects">{t('navigation.projects')}</NavItem>
               <NavItem href="/contact">{t('navigation.contact')}</NavItem>
-              <LanguageSwitcher />
             </div>
           </div>
         </div>
@@ -110,9 +108,6 @@ export default function Navbar() {
           <NavItem href="/services" onClick={closeMobileMenu}>{t('navigation.services')}</NavItem>
           <NavItem href="/projects" onClick={closeMobileMenu}>{t('navigation.projects')}</NavItem>
           <NavItem href="/contact" onClick={closeMobileMenu}>{t('navigation.contact')}</NavItem>
-          <div className="px-3 py-2">
-            <LanguageSwitcher />
-          </div>
         </div>
       </div>
     </nav>
