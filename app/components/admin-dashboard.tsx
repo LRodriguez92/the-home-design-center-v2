@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useTheme } from './theme-provider'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/components/ui/tabs'
 import PhotoUpload from './photo-upload'
+import PhotoManager from './photo-manager'
 import ReviewApproval from './review-approval'
 
 interface AdminDashboardProps {
@@ -13,10 +14,15 @@ interface AdminDashboardProps {
 export default function AdminDashboard({ className }: AdminDashboardProps) {
   const theme = useTheme()
   const [activeTab, setActiveTab] = useState('photos')
+  const [refreshTrigger, setRefreshTrigger] = useState(0)
+
+  const handleRefresh = useCallback(() => {
+    setRefreshTrigger(prev => prev + 1)
+  }, [])
 
   return (
     <div className={`min-h-screen bg-[#0F0F0F] p-6 ${className || ''}`}>
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <h1 className={`text-3xl font-bold text-[${theme.colors.text}] mb-6`}>Admin Dashboard</h1>
         <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 bg-[#1C1F33] p-1 rounded-lg relative h-12">
@@ -39,9 +45,12 @@ export default function AdminDashboard({ className }: AdminDashboardProps) {
               Review Approval
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="photos" className="mt-6">
+          <TabsContent value="photos" className="mt-6 space-y-6">
             <div className={`rounded-md border border-[${theme.colors.surface}] bg-transparent p-6 text-[${theme.colors.textMuted}]`}>
-              <PhotoUpload />
+              <PhotoUpload refreshPhotos={handleRefresh} />
+            </div>
+            <div className={`rounded-md border border-[${theme.colors.surface}] bg-transparent p-6 text-[${theme.colors.textMuted}]`}>
+              <PhotoManager refreshTrigger={refreshTrigger} />
             </div>
           </TabsContent>
           <TabsContent value="reviews" className="mt-6">

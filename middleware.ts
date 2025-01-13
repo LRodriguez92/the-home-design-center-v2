@@ -4,6 +4,11 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   
+  // Skip admin routes
+  if (pathname.startsWith('/admin')) {
+    return NextResponse.next()
+  }
+
   // If the pathname already has a language prefix, do nothing
   if (pathname.startsWith('/en') || pathname.startsWith('/es')) {
     return NextResponse.next()
@@ -34,7 +39,8 @@ export const config = {
     // Skip all internal paths (_next)
     // Skip all API routes
     // Skip all static files
-    '/((?!_next|api|static|.*\\..*).*)',
+    // Skip admin routes
+    '/((?!_next|api|static|admin|.*\\..*).*)',
   ],
 }
 

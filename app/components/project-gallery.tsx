@@ -7,6 +7,21 @@ import { Dialog, DialogContent } from '@/app/components/ui/dialog'
 import { Badge } from '@/app/components/ui/badge'
 import { useTranslations, type Language } from '@/app/lib/translations'
 
+export const projectTags = [
+  'Flooring',
+  'Walls',
+  'LED Lighting',
+  'Painting',
+  'Kitchen',
+  'Bathroom',
+  'Living Room',
+  'Bedroom',
+  'Whole House',
+  'Office',
+  'Outdoor',
+  'Dining Room'
+] as const
+
 interface Project {
   id: number
   image: string
@@ -15,11 +30,11 @@ interface Project {
 
 interface ProjectGalleryProps {
   projects: Project[]
-  allTags: string[]
+  allTags?: typeof projectTags
   lang?: Language
 }
 
-export default function ProjectGallery({ projects, allTags, lang }: ProjectGalleryProps) {
+export default function ProjectGallery({ projects, allTags = projectTags, lang }: ProjectGalleryProps) {
   const theme = useTheme()
   const { t } = useTranslations(lang || 'en')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)

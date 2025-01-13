@@ -9,7 +9,21 @@ import { Checkbox } from '@/app/components/ui/checkbox'
 import { X, Upload } from 'lucide-react'
 import Image from 'next/image'
 
-const tags = ['Kitchen', 'Bathroom', 'Living Room', 'Bedroom', 'Whole House', 'Office', 'Outdoor', 'Dining Room']
+const tags = [
+  'Flooring',
+  'Walls',
+  'LED Lighting',
+  'Painting',
+  'Cabinets',
+  'Kitchen',
+  'Bathroom',
+  'Living Room',
+  'Bedroom',
+  'Whole House',
+  'Office',
+  'Outdoor',
+  'Dining Room'
+]
 
 interface SelectedPhoto {
   file: File
@@ -17,10 +31,15 @@ interface SelectedPhoto {
   tags: string[]
 }
 
-export default function PhotoUpload() {
+interface PhotoUploadProps {
+  refreshPhotos: () => void
+}
+
+export default function PhotoUpload({ refreshPhotos }: PhotoUploadProps) {
   const theme = useTheme()
   const [selectedPhotos, setSelectedPhotos] = useState<SelectedPhoto[]>([])
   const [uploadSuccess, setUploadSuccess] = useState(false)
+  const [uploadError, setUploadError] = useState<string | null>(null)
   const [uploadedDetails, setUploadedDetails] = useState<{name: string, tags: string[]}[]>([])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,26 +76,94 @@ export default function PhotoUpload() {
   }
 
   const handleUpload = useCallback(async () => {
-    // Here you would typically upload the files to your server
-    const details = selectedPhotos.map(photo => ({
-      name: photo.file.name,
-      tags: photo.tags
-    }))
-    console.log('Uploading files:', details)
+    setUploadError(null)
+    try {
+      const timestamp = Math.round(new Date().getTime() / 1000);
+      const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!;
 
-    // Save the details before resetting
-    setUploadedDetails(details)
-    setUploadSuccess(true)
+      const uploadPromises = selectedPhotos.map(async (photo) => {
+        // Get signature for this specific photo with its tags
+        const signatureResponse = await fetch('/api/cloudinary/signature', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            timestamp,
+            uploadPreset,
+            tags: ['hdc_project', ...photo.tags].join(','),
+          }),
+        });
 
-    // Reset form after upload
-    setSelectedPhotos([])
+        if (!signatureResponse.ok) {
+          throw new Error('Failed to get upload signature');
+        }
 
-    // Hide success message after 5 seconds
-    setTimeout(() => {
-      setUploadSuccess(false)
-      setUploadedDetails([])
-    }, 5000)
-  }, [selectedPhotos])
+        const { signature, apiKey } = await signatureResponse.json();
+
+        const formData = new FormData();
+        formData.append('file', photo.file);
+        formData.append('upload_preset', uploadPreset);
+        formData.append('timestamp', timestamp.toString());
+        formData.append('signature', signature);
+        formData.append('api_key', apiKey);
+        if (photo.tags.length > 0) {
+          formData.append('tags', ['hdc_project', ...photo.tags].join(','));
+        } else {
+          formData.append('tags', 'hdc_project');
+        }
+
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error?.message || `Upload failed for ${photo.file.name}`);
+        }
+
+        return {
+          name: photo.file.name,
+          tags: photo.tags,
+          url: data.secure_url
+        };
+      });
+
+      const uploadedFiles = await Promise.all(uploadPromises);
+      
+      setUploadedDetails(uploadedFiles.map(file => ({
+        name: file.name,
+        tags: file.tags.filter(tag => tag !== 'hdc_project')
+      })));
+      setUploadSuccess(true);
+      setSelectedPhotos([]);
+
+      // Wait for Cloudinary to process the uploads
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Force revalidation of the images API route
+      await fetch('/api/cloudinary/images', { 
+        method: 'HEAD',
+        headers: { 'x-force-revalidate': '1' }
+      });
+      
+      refreshPhotos();
+
+      setTimeout(() => {
+        setUploadSuccess(false);
+        setUploadedDetails([]);
+      }, 5000);
+    } catch (error) {
+      console.error('Upload error:', error);
+      setUploadError(error instanceof Error ? error.message : 'Failed to upload photos. Please try again.');
+      
+      setTimeout(() => {
+        setUploadError(null);
+      }, 5000);
+    }
+  }, [selectedPhotos, refreshPhotos]);
 
   return (
     <div className="space-y-6">
@@ -93,6 +180,12 @@ export default function PhotoUpload() {
               </div>
             ))}
           </div>
+        </div>
+      )}
+      {uploadError && (
+        <div className="bg-red-500/20 border border-red-500 text-red-500 p-4 rounded-lg">
+          <h4 className="font-semibold mb-2">Upload Error</h4>
+          <p className="text-sm">{uploadError}</p>
         </div>
       )}
       <div>
