@@ -10,10 +10,13 @@ import { Dialog, DialogContent, DialogTitle } from '@/app/components/ui/dialog'
 import { X } from 'lucide-react'
 
 interface ProjectGalleryProps {
-  initialTag?: string
+  initialTag?: string;
+  projects?: { id: number; image: string; tags: string[] }[];
+  allTags?: string[];
+  lang?: string;
 }
 
-export default function ProjectGallery({ initialTag }: ProjectGalleryProps) {
+export default function ProjectGallery({ initialTag, projects = [], allTags = [], lang = 'en' }: ProjectGalleryProps) {
   const theme = useTheme()
   const [selectedTag, setSelectedTag] = useState<string | undefined>(initialTag)
   const [images, setImages] = useState<CloudinaryResource[]>([])
