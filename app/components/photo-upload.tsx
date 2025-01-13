@@ -6,7 +6,7 @@ import { Button } from '@/app/components/ui/button'
 import { Input } from '@/app/components/ui/input'
 import { Label } from '@/app/components/ui/label'
 import { Checkbox } from '@/app/components/ui/checkbox'
-import { X, Upload } from 'lucide-react'
+import { X, Upload, Loader2 } from 'lucide-react'
 import Image from 'next/image'
 
 const tags = [
@@ -41,6 +41,7 @@ export default function PhotoUpload({ refreshPhotos }: PhotoUploadProps) {
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [uploadError, setUploadError] = useState<string | null>(null)
   const [uploadedDetails, setUploadedDetails] = useState<{name: string, tags: string[]}[]>([])
+  const [isUploading, setIsUploading] = useState(false)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -77,6 +78,7 @@ export default function PhotoUpload({ refreshPhotos }: PhotoUploadProps) {
 
   const handleUpload = useCallback(async () => {
     setUploadError(null)
+    setIsUploading(true)
     try {
       const timestamp = Math.round(new Date().getTime() / 1000);
       const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!;
@@ -135,7 +137,7 @@ export default function PhotoUpload({ refreshPhotos }: PhotoUploadProps) {
       
       setUploadedDetails(uploadedFiles.map(file => ({
         name: file.name,
-        tags: file.tags.filter(tag => tag !== 'hdc_project')
+        tags: [...new Set(file.tags)].filter(tag => tag !== 'hdc_project')
       })));
       setUploadSuccess(true);
       setSelectedPhotos([]);
@@ -162,6 +164,8 @@ export default function PhotoUpload({ refreshPhotos }: PhotoUploadProps) {
       setTimeout(() => {
         setUploadError(null);
       }, 5000);
+    } finally {
+      setIsUploading(false)
     }
   }, [selectedPhotos, refreshPhotos]);
 
@@ -259,10 +263,20 @@ export default function PhotoUpload({ refreshPhotos }: PhotoUploadProps) {
         {selectedPhotos.length > 0 && (
           <Button
             onClick={handleUpload}
-            className={`w-full bg-[${theme.colors.primary}] text-[#0F0F0F] hover:bg-[${theme.colors.primary}]/90 flex items-center justify-center font-medium`}
+            disabled={isUploading}
+            className={`w-full bg-[${theme.colors.primary}] text-[#0F0F0F] hover:bg-[${theme.colors.primary}]/90 flex items-center justify-center font-medium ${isUploading ? 'opacity-70 cursor-not-allowed' : ''}`}
           >
-            <Upload className="mr-2" size={20} />
-            Upload {selectedPhotos.length} Photo{selectedPhotos.length > 1 ? 's' : ''}
+            {isUploading ? (
+              <>
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                Uploading...
+              </>
+            ) : (
+              <>
+                <Upload className="mr-2" size={20} />
+                Upload {selectedPhotos.length} Photo{selectedPhotos.length > 1 ? 's' : ''}
+              </>
+            )}
           </Button>
         )}
       </div>
