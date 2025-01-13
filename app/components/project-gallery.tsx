@@ -1,64 +1,64 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Badge } from '@/app/components/ui/badge'
+import { projectTags, type CloudinaryImage } from '@/app/lib/cloudinary'
 import Image from 'next/image'
 import { useTheme } from './theme-provider'
-import { Dialog, DialogContent } from '@/app/components/ui/dialog'
-import { Badge } from '@/app/components/ui/badge'
-import { useTranslations, type Language } from '@/app/lib/translations'
-
-export const projectTags = [
-  'Flooring',
-  'Walls',
-  'LED Lighting',
-  'Painting',
-  'Kitchen',
-  'Bathroom',
-  'Living Room',
-  'Bedroom',
-  'Whole House',
-  'Office',
-  'Outdoor',
-  'Dining Room'
-] as const
-
-interface Project {
-  id: number
-  image: string
-  tags: string[]
-}
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface ProjectGalleryProps {
-  projects: Project[]
-  allTags?: typeof projectTags
-  lang?: Language
+  initialTag?: string
 }
 
-export default function ProjectGallery({ projects, allTags = projectTags, lang }: ProjectGalleryProps) {
+export default function ProjectGallery({ initialTag }: ProjectGalleryProps) {
   const theme = useTheme()
-  const { t } = useTranslations(lang || 'en')
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const [selectedTag, setSelectedTag] = useState<string | undefined>(initialTag)
+  const [images, setImages] = useState<CloudinaryImage[]>([])
+  const [isInitialLoad, setIsInitialLoad] = useState(true)
 
-  const toggleTag = (tag: string) => {
-    setSelectedTags(prev => 
-      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
-    )
-  }
+  useEffect(() => {
+    const loadImages = async () => {
+      try {
+        const url = selectedTag 
+          ? `/api/cloudinary/projects?tag=${encodeURIComponent(selectedTag)}`
+          : '/api/cloudinary/projects'
+        
+        const response = await fetch(url)
+        if (!response.ok) {
+          throw new Error('Failed to fetch images')
+        }
+        const data = await response.json()
+        setImages(data.images)
+      } catch (error) {
+        console.error('Error loading images:', error)
+      } finally {
+        setIsInitialLoad(false)
+      }
+    }
 
-  const filteredProjects = selectedTags.length > 0
-    ? projects.filter(project => project.tags.some(tag => selectedTags.includes(tag)))
-    : projects
+    loadImages()
+  }, [selectedTag])
 
   return (
-    <>
+    <div className="space-y-6">
       <div className="mb-8 flex flex-wrap justify-center gap-2">
-        {allTags.map(tag => (
+        <button
+          onClick={() => setSelectedTag(undefined)}
+          className={`px-4 py-2 text-sm font-medium rounded-md transition-colors duration-300 ${
+            !selectedTag
+              ? `bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}]`
+              : `border border-[${theme.colors.primary}] text-[${theme.colors.primary}] hover:bg-[${theme.colors.primary}] hover:text-[${theme.colors.onPrimary}]`
+          }`}
+        >
+          All
+        </button>
+        {projectTags.map(tag => (
           <button
             key={tag}
-            onClick={() => toggleTag(tag)}
+            onClick={() => setSelectedTag(tag)}
             className={`px-4 py-2 text-sm font-medium rounded-md transition-colors duration-300 ${
-              selectedTags.includes(tag)
+              selectedTag === tag
                 ? `bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}]`
                 : `border border-[${theme.colors.primary}] text-[${theme.colors.primary}] hover:bg-[${theme.colors.primary}] hover:text-[${theme.colors.onPrimary}]`
             }`}
@@ -68,51 +68,47 @@ export default function ProjectGallery({ projects, allTags = projectTags, lang }
         ))}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {filteredProjects.map((project, index) => (
-          <div
-            key={project.id}
-            className={`relative overflow-hidden rounded-lg cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105 ${
-              index % 7 === 0 || index % 7 === 6 ? 'sm:col-span-2 lg:col-span-4' : ''
-            }`}
-            onClick={() => setSelectedProject(project)}
-          >
-            <Image
-              src={project.image}
-              alt={`${t('projects.gallery.project')} ${project.id}`}
-              width={1200}
-              height={800}
-              className="object-cover w-full h-full"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <div className="text-white text-center">
-                {project.tags.map(tag => (
-                  <Badge key={tag} variant="secondary" className="m-1">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-        <DialogContent className="max-w-4xl w-full bg-[#1C1F33] border-[#C9A227] p-0">
-          {selectedProject && (
-            <div className="relative aspect-video">
-              <Image
-                src={selectedProject.image}
-                alt={`${t('projects.gallery.project')} ${selectedProject.id}`}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-t-lg"
-              />
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
-    </>
+      {isInitialLoad ? (
+        <div className="text-center py-12">Loading...</div>
+      ) : (
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          layout
+        >
+          <AnimatePresence>
+            {images.map((image) => (
+              <motion.div 
+                key={image.public_id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
+                className="group relative aspect-square overflow-hidden rounded-lg bg-gray-900"
+              >
+                <Image
+                  src={image.secure_url}
+                  alt="Project photo"
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="flex flex-wrap gap-1">
+                      {image.tags.map(tag => (
+                        <Badge key={tag} variant="secondary" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      )}
+    </div>
   )
 }
 
