@@ -13,12 +13,13 @@ export const projectTags = [
   'Office',
   'Outdoor',
   'Dining Room'
-] as const;
+] as const
 
-export type ProjectTag = typeof projectTags[number];
+export type ProjectTag = typeof projectTags[number]
 
-export interface CloudinaryImage {
-  public_id: string;
-  secure_url: string;
-  tags: string[];
+export interface CloudinaryResource {
+  public_id: string
+  secure_url: string
+  tags: string[]
+  created_at: string
 } 
