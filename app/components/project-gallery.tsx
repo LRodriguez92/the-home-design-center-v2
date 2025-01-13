@@ -17,12 +17,32 @@ interface ProjectGalleryProps {
   lang?: string;
 }
 
+const spanishTranslations: Record<string, string> = {
+  'Flooring': 'Piso',
+  'Walls': 'Paredes',
+  'LED Lighting': 'Iluminación LED',
+  'Painting': 'Pintura',
+  'Cabinets': 'Gabinetes',
+  'Kitchen': 'Cocina',
+  'Bathroom': 'Baño',
+  'Living Room': 'Sala de Estar',
+  'Bedroom': 'Dormitorio',
+  'Whole House': 'Casa Completa',
+  'Office': 'Oficina',
+  'Outdoor': 'Exterior',
+  'Dining Room': 'Comedor'
+}
+
 export default function ProjectGallery({ initialTag, projects = [], allTags = [], lang = 'en' }: ProjectGalleryProps) {
   const theme = useTheme()
   const [selectedTag, setSelectedTag] = useState<string | undefined>(initialTag)
   const [images, setImages] = useState<CloudinaryResource[]>([])
   const [isInitialLoad, setIsInitialLoad] = useState(true)
   const [selectedImage, setSelectedImage] = useState<CloudinaryResource | null>(null)
+
+  const translateTag = (tag: string) => {
+    return lang === 'es' ? spanishTranslations[tag] || tag : tag
+  }
 
   useEffect(() => {
     const loadImages = async () => {
@@ -84,21 +104,25 @@ export default function ProjectGallery({ initialTag, projects = [], allTags = []
               : `border border-[${theme.colors.primary}] text-[${theme.colors.primary}] hover:bg-[${theme.colors.primary}] hover:text-[${theme.colors.onPrimary}]`
           }`}
         >
-          All
+          {lang === 'es' ? 'Todos' : 'All'}
         </button>
-        {projectTags.map(tag => (
-          <button
-            key={tag}
-            onClick={() => setSelectedTag(tag)}
-            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors duration-300 ${
-              selectedTag === tag
-                ? `bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}]`
-                : `border border-[${theme.colors.primary}] text-[${theme.colors.primary}] hover:bg-[${theme.colors.primary}] hover:text-[${theme.colors.onPrimary}]`
-            }`}
-          >
-            {tag}
-          </button>
-        ))}
+        {projectTags.map(tag => {
+          const translatedTag = translateTag(tag);
+
+          return (
+            <button
+              key={tag}
+              onClick={() => setSelectedTag(tag)}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors duration-300 ${
+                selectedTag === tag
+                  ? `bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}]`
+                  : `border border-[${theme.colors.primary}] text-[${theme.colors.primary}] hover:bg-[${theme.colors.primary}] hover:text-[${theme.colors.onPrimary}]`
+              }`}
+            >
+              {translatedTag}
+            </button>
+          );
+        })}
       </div>
 
       {isInitialLoad ? (
@@ -131,7 +155,7 @@ export default function ProjectGallery({ initialTag, projects = [], allTags = []
                     <div className="flex flex-wrap gap-1">
                       {image.tags.map(tag => (
                         <Badge key={tag} variant="secondary" className="text-xs">
-                          {tag}
+                          {translateTag(tag)}
                         </Badge>
                       ))}
                     </div>

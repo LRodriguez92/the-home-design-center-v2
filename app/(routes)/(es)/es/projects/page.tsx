@@ -7,7 +7,7 @@ import { useTranslations } from '@/app/lib/translations'
 const projects = [
   { id: 1, image: '/placeholder.svg?height=800&width=1200', tags: ['Cocina', 'Moderno'] },
   { id: 2, image: '/placeholder.svg?height=800&width=1200', tags: ['Baño', 'Lujo'] },
-  { id: 3, image: '/placeholder.svg?height=800&width=1200', tags: ['Sala', 'Acogedor'] },
+  { id: 3, image: '/placeholder.svg?height=800&width=1200', tags: ['Sala de Estar', 'Acogedor'] },
   { id: 4, image: '/placeholder.svg?height=800&width=1200', tags: ['Dormitorio', 'Elegante'] },
   { id: 5, image: '/placeholder.svg?height=800&width=1200', tags: ['Casa Completa', 'Concepto Abierto'] },
   { id: 6, image: '/placeholder.svg?height=800&width=1200', tags: ['Oficina', 'Minimalista'] },
