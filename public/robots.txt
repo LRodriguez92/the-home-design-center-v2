@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://homedesigncenter.com
+
+# Sitemaps
+Sitemap: https://homedesigncenter.com/sitemap.xml
+Sitemap: https://homedesigncenter.com/server-sitemap.xml

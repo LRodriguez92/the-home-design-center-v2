@@ -62,7 +62,7 @@ export default function Footer() {
       } else {
         setSubmitStatus('error')
       }
-    } catch (error) {
+    } catch {
       setSubmitStatus('error')
     }
     
