@@ -228,7 +228,7 @@ export default function Footer() {
               <Link href={`/${currentLang}/contact`} className={`hover:text-[${theme.colors.primary}] transition-colors`}>{t('navigation.contact')}</Link>
             </nav>
             <div className="flex space-x-4">
-              <a href="#" className={`text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] transition-colors`}>
+              <a href="https://www.facebook.com/homedesigncenterorlando/" className={`text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] transition-colors`}>
                 <Facebook className="h-6 w-6" />
               </a>
               <a href="https://www.instagram.com/the_homedesigncenter/" className={`text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] transition-colors`}>
