@@ -131,25 +131,60 @@ export const en = {
     },
     items: [
       {
-        name: 'Sarah Johnson',
-        review: 'The Home Design Center transformed our outdated kitchen into a modern masterpiece. Their attention to detail and quality craftsmanship exceeded our expectations!',
+        name: 'Jayson Olivo',
+        review: 'Great service and quick response on my concerns. Leo kept me informed during and after the work was done . I\'ll definitely will use him in future house upgrades.',
         rating: 5,
       },
       {
-        name: 'Michael Chen',
-        review: "We couldn't be happier with our bathroom renovation. The team was professional, efficient, and delivered exactly what we envisioned. Highly recommended!",
+        name: 'NoLimit Khris',
+        review: 'Extremely pleased with the work that was done in my home. My experience was very professional. I would 100% recommend to anybody looking for some remodeling work done to their home.',
         rating: 5,
       },
       {
-        name: 'Emily Rodriguez',
-        review: 'The 3D design service was a game-changer for our home makeover. It helped us visualize the end result and make confident decisions. Thank you, Home Design Center!',
-        rating: 4,
-      },
-      {
-        name: 'David Thompson',
-        review: 'From start to finish, The Home Design Center team was fantastic. They guided us through the entire process and delivered a stunning living room remodel on time and within budget.',
+        name: 'Yung Wisoy vs The World',
+        review: 'Amazing designs with amazing prices! Would recommend to anyone (:',
         rating: 5,
       },
+      {
+        name: 'Fidel Medina',
+        review: 'Very good quality services, professional, I recommend the services of this company.',
+        rating: 5,
+      },
+      {
+        name: 'Ynez Brito',
+        review: 'Such professional and clean work! And an amazing team.',
+        rating: 5,
+      },
+      {
+        name: 'Andy r',
+        review: 'Thank you for your service, I highly recommend this business. They are reliable, trustworthy and I can\'t forget there prices are affordable!',
+        rating: 5,
+      },
+      {
+        name: 'Sami Djahankhah',
+        review: 'Very Clean Work!',
+        rating: 5,
+      },
+      {
+        name: 'Jose Rivera',
+        review: 'Excellent job!',
+        rating: 5,
+      },
+      {
+        name: 'Eryck Sanchez Figuereo',
+        review: 'Responsibility, good attention and excellent service. 5 stars',
+        rating: 5,
+      },
+      {
+        name: 'KARINA REYES',
+        review: 'Excellent service ✨',
+        rating: 5,
+      },
+      {
+        name: 'Maria Martinez',
+        review: 'Excellent work!!',
+        rating: 5,
+      }
     ],
   },
   projects: {
