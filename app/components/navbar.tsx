@@ -72,10 +72,10 @@ export default function Navbar() {
           <div className="flex items-center justify-start w-full md:w-auto md:flex-none">
             <div className="flex-shrink-0 flex items-center">
               <Image
-                src="/images/logo-gold.png"
+                src="/favicon/favicon.svg"
                 alt={t('navigation.logo')}
-                width={100}
-                height={100}
+                width={80}
+                height={80}
                 className="hidden min-[410px]:block"
               />
               <Link 
