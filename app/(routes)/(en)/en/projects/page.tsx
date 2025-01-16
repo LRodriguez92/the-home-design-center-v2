@@ -1,8 +1,8 @@
 'use client'
 
 import ProjectGallery from '@/app/components/project-gallery'
-import Image from 'next/image'
 import { useTranslations } from '@/app/lib/translations'
+import { OptimizedImage } from '@/app/components/optimized-image'
 
 const projects = [
   { id: 1, image: '/placeholder.svg?height=800&width=1200', tags: ['Kitchen', 'Modern'] },
@@ -24,14 +24,16 @@ export default function EnglishProjectsPage() {
     <div className="min-h-screen bg-[#0F0F0F] text-[#F5F5F5]">
       {/* Hero Section */}
       <div className="relative h-[50vh] md:h-[60vh] lg:h-[70vh]">
-        <Image
+        <OptimizedImage
           src="/images/heroes/projects.jpg"
           alt="Showcase of our best projects"
-          layout="fill"
-          objectFit="cover"
-          quality={100}
-          priority
+          width={1920}
+          height={1080}
+          priority={true}
+          quality={90}
           className="brightness-50"
+          objectFit="cover"
+          sizes="100vw"
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-4">

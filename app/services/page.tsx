@@ -144,7 +144,7 @@ function ServicesContent() {
             alt="Home Design Services"
             layout="fill"
             objectFit="cover"
-            quality={100}
+            priority
             className="brightness-50"
           />
         </div>
@@ -200,6 +200,7 @@ function ServicesContent() {
                     width={600}
                     height={400}
                     className="h-48 w-full object-cover md:h-full"
+                    loading={index <= 1 ? "eager" : "lazy"}
                   />
                 </div>
                 <div className="p-8 md:w-2/3">

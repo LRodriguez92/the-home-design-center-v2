@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react'
 import { Badge } from '@/app/components/ui/badge'
 import { projectTags } from '@/app/lib/cloudinary'
 import type { CloudinaryResource } from '@/app/lib/cloudinary'
-import Image from 'next/image'
 import { Dialog, DialogContent, DialogTitle } from '@/app/components/ui/dialog'
 import { Trash2, Pencil } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { OptimizedImage } from './optimized-image'
 
 interface PhotoManagerProps {
   refreshTrigger?: number
@@ -124,11 +124,14 @@ export default function PhotoManager({ refreshTrigger }: PhotoManagerProps) {
                 transition={{ duration: 0.3 }}
                 className="relative aspect-square rounded-lg overflow-hidden bg-gray-900"
               >
-                <Image
+                <OptimizedImage
                   src={image.secure_url}
                   alt="Uploaded photo"
-                  fill
-                  className="object-cover"
+                  width={600}
+                  height={600}
+                  className="w-full h-full"
+                  objectFit="cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-black/50 opacity-100">
                   <div className="absolute top-2 right-2 flex gap-2">

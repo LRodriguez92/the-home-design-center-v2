@@ -4,11 +4,11 @@
 import { useState, useEffect } from 'react'
 import { Badge } from '@/app/components/ui/badge'
 import { projectTags, type CloudinaryResource } from '@/app/lib/cloudinary'
-import Image from 'next/image'
 import { useTheme } from './theme-provider'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Dialog, DialogContent, DialogTitle } from '@/app/components/ui/dialog'
 import { X } from 'lucide-react'
+import { OptimizedImage } from './optimized-image'
 
 interface ProjectGalleryProps {
   initialTag?: string;
@@ -94,7 +94,7 @@ export default function ProjectGallery({ initialTag, projects = [], allTags = []
   }, [selectedTag])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="mb-8 flex flex-wrap justify-center gap-2">
         <button
           onClick={() => setSelectedTag(undefined)}
@@ -129,7 +129,7 @@ export default function ProjectGallery({ initialTag, projects = [], allTags = []
         <div className="text-center py-12">Loading...</div>
       ) : (
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4"
           layout
         >
           <AnimatePresence>
@@ -141,14 +141,17 @@ export default function ProjectGallery({ initialTag, projects = [], allTags = []
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
-                className="group relative aspect-square overflow-hidden rounded-lg bg-gray-900 cursor-pointer"
+                className="group relative h-64 md:h-72 overflow-hidden rounded-lg bg-gray-900 cursor-pointer"
                 onClick={() => setSelectedImage(image)}
               >
-                <Image
+                <OptimizedImage
                   src={image.secure_url}
                   alt="Project photo"
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-110"
+                  width={800}
+                  height={800}
+                  className="w-full h-full object-cover"
+                  objectFit="cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-4 left-4 right-4">
@@ -179,13 +182,15 @@ export default function ProjectGallery({ initialTag, projects = [], allTags = []
           </button>
           {selectedImage && (
             <div className="relative w-full h-full">
-              <Image
+              <OptimizedImage
                 src={selectedImage.secure_url}
                 alt="Project photo"
-                width={1200}
-                height={800}
+                width={1920}
+                height={1080}
                 className="object-contain w-auto h-auto max-w-[95vw] max-h-[95vh]"
-                unoptimized
+                objectFit="contain"
+                quality={90}
+                blur={false}
               />
             </div>
           )}
