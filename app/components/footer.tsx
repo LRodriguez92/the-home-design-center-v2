@@ -31,15 +31,41 @@ export default function Footer() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitStatus('success')
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      company: '',
-      message: ''
-    })
+    
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: '3733e3a3-283c-4c1f-b332-0dfa2bdaa616',
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          message: formData.message,
+          subject: 'New Footer Contact Form Submission - The Home Design Center',
+        }),
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          company: '',
+          message: ''
+        })
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+    }
+    
     setTimeout(() => setSubmitStatus('idle'), 3000)
   }
 
@@ -183,6 +209,9 @@ export default function Footer() {
                 </button>
                 {submitStatus === 'success' && (
                   <p className="text-green-500">{t('contact.form.success')}</p>
+                )}
+                {submitStatus === 'error' && (
+                  <p className={`text-red-500`}>{t('contact.form.error')}</p>
                 )}
               </form>
             </div>

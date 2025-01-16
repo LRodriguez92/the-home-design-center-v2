@@ -219,6 +219,7 @@ export const en = {
       submit: 'Send Message',
       sending: 'Sending...',
       success: 'Message sent successfully!',
+      error: 'Failed to send message. Please try again.',
     },
     info: {
       title: 'Get in Touch',

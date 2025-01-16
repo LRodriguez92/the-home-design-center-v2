@@ -219,6 +219,7 @@ export const es = {
       submit: 'Enviar Mensaje',
       sending: 'Enviando...',
       success: '¡Mensaje enviado con éxito!',
+      error: 'Error al enviar el mensaje. Por favor, inténtalo de nuevo.',
     },
     info: {
       title: 'Ponte en Contacto',
