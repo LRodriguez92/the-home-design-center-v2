@@ -6,7 +6,6 @@ import Footer from './components/footer'
 import { ThemeProvider } from './components/theme-provider'
 import FloatingLanguageSwitcher from './components/floating-language-switcher'
 import StructuredData from './components/structured-data'
-import { WebVitals } from './components/web-vitals'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -144,7 +143,6 @@ export default function RootLayout({
     <html lang={params.lang || 'en'}>
       <body className={`${inter.className} min-h-screen flex flex-col`}>
         <ThemeProvider>
-          <WebVitals />
           <StructuredData lang={params.lang || 'en'} />
           <Navbar />
           <main className="flex-grow pt-16">{children}</main>

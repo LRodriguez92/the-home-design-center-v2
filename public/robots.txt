@@ -3,8 +3,9 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://homedesigncenter.com
+Host: https://hdckitchenandbath.com
 
 # Sitemaps
+Sitemap: https://hdckitchenandbath.com/sitemap.xml
 Sitemap: https://homedesigncenter.com/sitemap.xml
 Sitemap: https://homedesigncenter.com/server-sitemap.xml

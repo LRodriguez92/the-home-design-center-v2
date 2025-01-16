@@ -115,11 +115,17 @@ export default function Footer() {
             {/* Right Column - Contact Form */}
             <div className={`border-2 border-[${theme.colors.surface}] p-6 rounded-lg`}>
               <h3 className="text-2xl font-bold text-white mb-6">{t('contact.title')}</h3>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form 
+                onSubmit={handleSubmit} 
+                className="space-y-4"
+                role="form"
+                aria-label={t('contact.title')}
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="firstName" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                      {t('contact.form.firstName')} <span className={`text-[${theme.colors.primary}]`}>*</span>
+                      {t('contact.form.firstName')} <span className={`text-[${theme.colors.primary}]`} aria-hidden="true">*</span>
+                      <span className="sr-only">(Required)</span>
                     </label>
                     <input
                       type="text"
@@ -128,12 +134,15 @@ export default function Footer() {
                       value={formData.firstName}
                       onChange={handleChange}
                       required
-                      className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
+                      aria-required="true"
+                      aria-invalid={formData.firstName === ''}
+                      className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}] focus:ring-2 focus:ring-primary focus:ring-offset-2`}
                     />
                   </div>
                   <div>
                     <label htmlFor="lastName" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                      {t('contact.form.lastName')} <span className={`text-[${theme.colors.primary}]`}>*</span>
+                      {t('contact.form.lastName')} <span className={`text-[${theme.colors.primary}]`} aria-hidden="true">*</span>
+                      <span className="sr-only">(Required)</span>
                     </label>
                     <input
                       type="text"
@@ -142,13 +151,16 @@ export default function Footer() {
                       value={formData.lastName}
                       onChange={handleChange}
                       required
-                      className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
+                      aria-required="true"
+                      aria-invalid={formData.lastName === ''}
+                      className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}] focus:ring-2 focus:ring-primary focus:ring-offset-2`}
                     />
                   </div>
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                    {t('contact.form.email')} <span className={`text-[${theme.colors.primary}]`}>*</span>
+                    {t('contact.form.email')} <span className={`text-[${theme.colors.primary}]`} aria-hidden="true">*</span>
+                    <span className="sr-only">(Required)</span>
                   </label>
                   <input
                     type="email"
@@ -157,12 +169,15 @@ export default function Footer() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
+                    aria-required="true"
+                    aria-invalid={formData.email === ''}
+                    className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}] focus:ring-2 focus:ring-primary focus:ring-offset-2`}
                   />
                 </div>
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                    {t('contact.form.phone')} <span className={`text-[${theme.colors.primary}]`}>*</span>
+                    {t('contact.form.phone')} <span className={`text-[${theme.colors.primary}]`} aria-hidden="true">*</span>
+                    <span className="sr-only">(Required)</span>
                   </label>
                   <input
                     type="tel"
@@ -171,7 +186,10 @@ export default function Footer() {
                     value={formData.phone}
                     onChange={handleChange}
                     required
-                    className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
+                    aria-required="true"
+                    aria-invalid={formData.phone === ''}
+                    pattern="[0-9]{3}[-. ]?[0-9]{3}[-. ]?[0-9]{4}"
+                    className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}] focus:ring-2 focus:ring-primary focus:ring-offset-2`}
                   />
                 </div>
                 <div>
@@ -184,12 +202,14 @@ export default function Footer() {
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
+                    aria-required="false"
+                    className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}] focus:ring-2 focus:ring-primary focus:ring-offset-2`}
                   />
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                    {t('contact.form.message')} <span className={`text-[${theme.colors.primary}]`}>*</span>
+                    {t('contact.form.message')} <span className={`text-[${theme.colors.primary}]`} aria-hidden="true">*</span>
+                    <span className="sr-only">(Required)</span>
                   </label>
                   <textarea
                     id="message"
@@ -197,21 +217,24 @@ export default function Footer() {
                     value={formData.message}
                     onChange={handleChange}
                     required
+                    aria-required="true"
+                    aria-invalid={formData.message === ''}
                     rows={4}
-                    className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent resize-none focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
+                    className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent resize-none focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}] focus:ring-2 focus:ring-primary focus:ring-offset-2`}
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className={`w-full px-4 py-3 bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] font-semibold rounded-md hover:bg-[${theme.colors.primary}]/90 transition-colors`}
+                  className={`w-full px-4 py-3 bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] font-semibold rounded-md hover:bg-[${theme.colors.primary}]/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2`}
+                  aria-label={t('contact.form.submit')}
                 >
                   {t('contact.form.submit')}
                 </button>
                 {submitStatus === 'success' && (
-                  <p className="text-green-500">{t('contact.form.success')}</p>
+                  <p className="text-green-500" role="alert" aria-live="polite">{t('contact.form.success')}</p>
                 )}
                 {submitStatus === 'error' && (
-                  <p className={`text-red-500`}>{t('contact.form.error')}</p>
+                  <p className={`text-red-500`} role="alert" aria-live="polite">{t('contact.form.error')}</p>
                 )}
               </form>
             </div>
@@ -221,23 +244,67 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className={`mt-12 pt-8 border-t border-[${theme.colors.surface}]`}>
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <nav className="flex space-x-6">
-              <Link href={`/${currentLang}`} className={`hover:text-[${theme.colors.primary}] transition-colors`}>{t('navigation.home')}</Link>
-              <Link href={`/${currentLang}/services`} className={`hover:text-[${theme.colors.primary}] transition-colors`}>{t('navigation.services')}</Link>
-              <Link href={`/${currentLang}/projects`} className={`hover:text-[${theme.colors.primary}] transition-colors`}>{t('navigation.projects')}</Link>
-              <Link href={`/${currentLang}/contact`} className={`hover:text-[${theme.colors.primary}] transition-colors`}>{t('navigation.contact')}</Link>
+            <nav 
+              className="flex space-x-6" 
+              role="navigation" 
+              aria-label="Footer navigation"
+            >
+              <Link 
+                href={`/${currentLang}`} 
+                className={`hover:text-[${theme.colors.primary}] transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 py-1`}
+                aria-current={pathname === `/${currentLang}` ? 'page' : undefined}
+              >
+                {t('navigation.home')}
+              </Link>
+              <Link 
+                href={`/${currentLang}/services`} 
+                className={`hover:text-[${theme.colors.primary}] transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 py-1`}
+                aria-current={pathname === `/${currentLang}/services` ? 'page' : undefined}
+              >
+                {t('navigation.services')}
+              </Link>
+              <Link 
+                href={`/${currentLang}/projects`} 
+                className={`hover:text-[${theme.colors.primary}] transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 py-1`}
+                aria-current={pathname === `/${currentLang}/projects` ? 'page' : undefined}
+              >
+                {t('navigation.projects')}
+              </Link>
+              <Link 
+                href={`/${currentLang}/contact`} 
+                className={`hover:text-[${theme.colors.primary}] transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 py-1`}
+                aria-current={pathname === `/${currentLang}/contact` ? 'page' : undefined}
+              >
+                {t('navigation.contact')}
+              </Link>
             </nav>
-            <div className="flex space-x-4">
-              <a href="https://www.facebook.com/homedesigncenterorlando/" className={`text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] transition-colors`}>
-                <Facebook className="h-6 w-6" />
+            <div 
+              className="flex space-x-4"
+              role="navigation" 
+              aria-label="Social media links"
+            >
+              <a 
+                href="https://www.facebook.com/homedesigncenterorlando/" 
+                className={`text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] transition-colors p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2`}
+                aria-label="Visit our Facebook page"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Facebook className="h-6 w-6" aria-hidden="true" />
               </a>
-              <a href="https://www.instagram.com/the_homedesigncenter/" className={`text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] transition-colors`}>
-                <Instagram className="h-6 w-6" />
+              <a 
+                href="https://www.instagram.com/the_homedesigncenter/" 
+                className={`text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] transition-colors p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2`}
+                aria-label="Visit our Instagram page"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Instagram className="h-6 w-6" aria-hidden="true" />
               </a>
             </div>
           </div>
           <div className="mt-8 text-center text-sm">
-            <p>&copy; {new Date().getFullYear()} {t('navigation.title')}. {t('footer.copyright')}</p>
+            <p role="contentinfo">&copy; {new Date().getFullYear()} {t('navigation.title')}. {t('footer.copyright')}</p>
           </div>
         </div>
       </div>
