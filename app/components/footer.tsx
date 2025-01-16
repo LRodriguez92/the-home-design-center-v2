@@ -22,6 +22,13 @@ export default function Footer() {
   })
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
+  const isContactPage = pathname?.endsWith('/contact') || 
+    pathname?.endsWith('/es/contact') || 
+    pathname?.endsWith('/admin') ||
+    pathname?.endsWith('/es/admin') ||
+    pathname?.endsWith('/admin/login') ||
+    pathname?.endsWith('/es/admin/login')
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitStatus('success')
@@ -46,139 +53,141 @@ export default function Footer() {
   return (
     <footer className={`bg-[${theme.colors.background}] text-[${theme.colors.text}]`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Left Column */}
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-4xl font-bold text-white mb-4">{t('contact.info.title')}</h2>
-              <p className={`text-[${theme.colors.text}] text-lg`}>
-                {t('contact.info.description')}
-              </p>
-            </div>
+        {!isContactPage && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            {/* Left Column */}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-4xl font-bold text-white mb-4">{t('contact.info.title')}</h2>
+                <p className={`text-[${theme.colors.text}] text-lg`}>
+                  {t('contact.info.description')}
+                </p>
+              </div>
 
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <Mail className={`mr-3 h-5 w-5 text-[${theme.colors.primary}]`} />
-                <a href="mailto:TheHomeDesignCenterOrlando@gmail.com" className={`hover:text-[${theme.colors.primary}] transition-colors`}>
-                  {t('contact.info.email.value')}
-                </a>
-              </div>
-              <div className="flex items-center">
-                <Phone className={`mr-3 h-5 w-5 text-[${theme.colors.primary}]`} />
-                <span>{t('contact.info.phone.value')}</span>
-              </div>
-              <div className="flex items-start">
-                <MapPin className={`mr-3 h-5 w-5 text-[${theme.colors.primary}] flex-shrink-0`} />
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-2">
-                  {t('contact.info.areas.value').split(', ').map((area) => (
-                    <span key={area}>{area}</span>
-                  ))}
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <Mail className={`mr-3 h-5 w-5 text-[${theme.colors.primary}]`} />
+                  <a href="mailto:TheHomeDesignCenterOrlando@gmail.com" className={`hover:text-[${theme.colors.primary}] transition-colors`}>
+                    {t('contact.info.email.value')}
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <Phone className={`mr-3 h-5 w-5 text-[${theme.colors.primary}]`} />
+                  <span>{t('contact.info.phone.value')}</span>
+                </div>
+                <div className="flex items-start">
+                  <MapPin className={`mr-3 h-5 w-5 text-[${theme.colors.primary}] flex-shrink-0`} />
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-2">
+                    {t('contact.info.areas.value').split(', ').map((area) => (
+                      <span key={area}>{area}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Right Column - Contact Form */}
-          <div className={`border-2 border-[${theme.colors.surface}] p-6 rounded-lg`}>
-            <h3 className="text-2xl font-bold text-white mb-6">{t('contact.title')}</h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Right Column - Contact Form */}
+            <div className={`border-2 border-[${theme.colors.surface}] p-6 rounded-lg`}>
+              <h3 className="text-2xl font-bold text-white mb-6">{t('contact.title')}</h3>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="firstName" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
+                      {t('contact.form.firstName')} <span className={`text-[${theme.colors.primary}]`}>*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      required
+                      className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="lastName" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
+                      {t('contact.form.lastName')} <span className={`text-[${theme.colors.primary}]`}>*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      required
+                      className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
+                    />
+                  </div>
+                </div>
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                    {t('contact.form.firstName')} <span className={`text-[${theme.colors.primary}]`}>*</span>
+                  <label htmlFor="email" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
+                    {t('contact.form.email')} <span className={`text-[${theme.colors.primary}]`}>*</span>
                   </label>
                   <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    value={formData.firstName}
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
                     onChange={handleChange}
                     required
                     className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
                   />
                 </div>
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                    {t('contact.form.lastName')} <span className={`text-[${theme.colors.primary}]`}>*</span>
+                  <label htmlFor="phone" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
+                    {t('contact.form.phone')} <span className={`text-[${theme.colors.primary}]`}>*</span>
                   </label>
                   <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    value={formData.lastName}
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
                     onChange={handleChange}
                     required
                     className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
                   />
                 </div>
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                  {t('contact.form.email')} <span className={`text-[${theme.colors.primary}]`}>*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
-                />
-              </div>
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                  {t('contact.form.phone')} <span className={`text-[${theme.colors.primary}]`}>*</span>
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
-                />
-              </div>
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                  {t('contact.form.company')}
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
-                  {t('contact.form.message')} <span className={`text-[${theme.colors.primary}]`}>*</span>
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={4}
-                  className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent resize-none focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                className={`w-full px-4 py-3 bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] font-semibold rounded-md hover:bg-[${theme.colors.primary}]/90 transition-colors`}
-              >
-                {t('contact.form.submit')}
-              </button>
-              {submitStatus === 'success' && (
-                <p className="text-green-500">{t('contact.form.success')}</p>
-              )}
-            </form>
+                <div>
+                  <label htmlFor="company" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
+                    {t('contact.form.company')}
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium mb-1 text-[${theme.colors.textMuted}]">
+                    {t('contact.form.message')} <span className={`text-[${theme.colors.primary}]`}>*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={4}
+                    className={`w-full px-3 py-2 text-[${theme.colors.onBackground}] border-b-2 border-[${theme.colors.textMuted}] bg-transparent resize-none focus:outline-none focus:border-b-2 focus:border-[${theme.colors.primary}]`}
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  className={`w-full px-4 py-3 bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] font-semibold rounded-md hover:bg-[${theme.colors.primary}]/90 transition-colors`}
+                >
+                  {t('contact.form.submit')}
+                </button>
+                {submitStatus === 'success' && (
+                  <p className="text-green-500">{t('contact.form.success')}</p>
+                )}
+              </form>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Bottom Section */}
         <div className={`mt-12 pt-8 border-t border-[${theme.colors.surface}]`}>
