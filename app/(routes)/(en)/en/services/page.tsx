@@ -145,42 +145,46 @@ function ServicesContent() {
       </section>
 
       {/* Services List */}
-      <main className="container mx-auto px-4 py-6 md:py-12">
-        <div className="grid gap-8 md:gap-16">
-          {services.map((service, index) => (
-            <section key={service.id} id={service.id} className="border-2 border-[#C9A227] rounded-lg overflow-hidden shadow-lg mb-4 md:mb-8 scroll-mt-24">
-              <div className={`flex flex-col h-full ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                <div className="w-full md:w-1/3 relative h-32 md:h-auto">
+      <main className="bg-[#0F0F0F] py-16 px-4 scroll-mt-16 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6 lg:gap-8">
+            {services.map((service, index) => (
+              <div
+                key={service.id}
+                id={service.id}
+                className="bg-[#0F0F0F] border-2 border-[#F5F5F5] rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:-translate-y-1 scroll-mt-24 w-full max-w-[400px] mx-auto"
+              >
+                <div className="relative h-48 w-full">
                   <OptimizedImage
                     src={service.image}
                     alt={service.title}
-                    width={600}
-                    height={400}
-                    className="h-full w-full"
+                    width={400}
+                    height={300}
+                    className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
                     objectFit="cover"
-                    quality={75}
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    quality={85}
+                    sizes="400px"
+                    priority={index <= 1}
                   />
                 </div>
-                <div className="p-8 w-full md:w-2/3">
-                  <div className="uppercase tracking-wide text-sm text-[#C9A227] font-semibold">{service.title}</div>
-                  <p className="mt-2 text-[#F5F5F5]">{service.description}</p>
+                <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
+                  <h3 className="text-[#F5F5F5] text-xl font-semibold mb-2">{service.title}</h3>
+                  <p className="text-[#B0B0B0] text-sm mb-4">{service.description}</p>
                   {service.details && (
-                    <>
-                      <h3 className="mt-4 text-lg font-semibold text-[#F5F5F5]">
-                        {t('services.detailsTitle')}
-                      </h3>
-                      <ul className={`mt-2 list-disc list-inside text-[#B0B0B0] ${(service.id === 'kitchen-remodel' || service.id === 'flooring') ? 'columns-2 gap-x-8' : ''}`}>
-                        {service.details.map((detail: string, index: number) => (
-                          <li key={index}>{detail}</li>
-                        ))}
-                      </ul>
-                    </>
+                    <ul className={`text-[#B0B0B0] text-sm space-y-2 flex-grow ${
+                      service.details.length > 4 ? 'xl:columns-2 xl:gap-x-8' : ''
+                    }`}>
+                      {service.details.map((detail: string, index: number) => (
+                        <li key={index} className="relative pl-6 before:content-['•'] before:text-[#C9A227] before:absolute before:left-0">
+                          {detail}
+                        </li>
+                      ))}
+                    </ul>
                   )}
                 </div>
               </div>
-            </section>
-          ))}
+            ))}
+          </div>
         </div>
       </main>
     </div>
