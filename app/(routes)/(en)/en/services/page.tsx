@@ -1,13 +1,12 @@
 'use client'
 
-import { useEffect, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 import { CookingPot, Bath, Grid3X3, Lightbulb, PaintBucket, BrickWall, Palette, Hammer } from 'lucide-react'
 import { useTranslations } from '@/app/lib/translations'
 import { OptimizedImage } from '@/app/components/optimized-image'
+import ServiceButtons from './components/service-buttons'
 
 function ServicesContent() {
-  const searchParams = useSearchParams()
   const { t } = useTranslations('en')
 
   const services = [
@@ -77,18 +76,6 @@ function ServicesContent() {
     }
   ]
 
-  useEffect(() => {
-    const scrollToService = searchParams.get('scrollTo')
-    if (scrollToService) {
-      const element = document.getElementById(scrollToService)
-      if (element) {
-        const yOffset = -80
-        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
-        window.scrollTo({ top: y, behavior: 'smooth' })
-      }
-    }
-  }, [searchParams])
-
   return (
     <div className="bg-[#0F0F0F] min-h-screen">
       {/* Hero Section */}
@@ -116,33 +103,8 @@ function ServicesContent() {
         </div>
       </section>
 
-      {/* Service Buttons Section */}
-      <section className="bg-[#0F0F0F] py-2 md:py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-4">
-            {services.map((service) => (
-              <a
-                key={service.id}
-                href={`#${service.id}`}
-                className="inline-flex items-center px-4 py-2 border border-[#C9A227] rounded-md text-[#C9A227] hover:bg-[#C9A227] hover:text-[#0F0F0F] transition-colors duration-300"
-                onClick={(e) => {
-                  e.preventDefault()
-                  const element = document.getElementById(service.id)
-                  if (element) {
-                    const yOffset = -80
-                    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
-                    window.scrollTo({ top: y, behavior: 'smooth' })
-                    window.history.pushState(null, '', `#${service.id}`)
-                  }
-                }}
-              >
-                <service.icon className="w-5 h-5 mr-2" />
-                {service.title}
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Service Buttons Section - Client Component */}
+      <ServiceButtons services={services} />
 
       {/* Services List */}
       <main className="bg-[#0F0F0F] py-16 px-4 scroll-mt-16 overflow-hidden">
@@ -168,10 +130,10 @@ function ServicesContent() {
                   />
                 </div>
                 <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
-                  <h3 className="text-[#F5F5F5] text-xl font-semibold mb-2">{service.title}</h3>
-                  <p className="text-[#B0B0B0] text-sm mb-4">{service.description}</p>
+                  <h3 className="uppercase tracking-wide text-base sm:text-lg text-[#C9A227] font-semibold mb-2">{service.title}</h3>
+                  <p className="text-[#F5F5F5] text-sm sm:text-base mb-4">{service.description}</p>
                   {service.details && (
-                    <ul className={`text-[#B0B0B0] text-sm space-y-2 flex-grow ${
+                    <ul className={`text-[#B0B0B0] text-sm sm:text-base space-y-2 flex-grow ${
                       service.details.length > 4 ? 'xl:columns-2 xl:gap-x-8' : ''
                     }`}>
                       {service.details.map((detail: string, index: number) => (
