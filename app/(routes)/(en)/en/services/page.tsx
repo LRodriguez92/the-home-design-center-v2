@@ -114,26 +114,26 @@ function ServicesContent() {
               <div
                 key={service.id}
                 id={service.id}
-                className="bg-[#0F0F0F] border-2 border-[#F5F5F5] rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:-translate-y-1 scroll-mt-24 w-full max-w-[400px] mx-auto"
+                className="bg-[#0F0F0F] border-2 border-[#F5F5F5] rounded-lg overflow-hidden shadow-md scroll-mt-24 w-full max-w-[400px] mx-auto"
               >
-                <div className="relative h-48 w-full">
+                <div className="relative aspect-[4/3] w-full">
                   <OptimizedImage
                     src={service.image}
                     alt={service.title}
                     width={400}
                     height={300}
-                    className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
+                    className="object-cover w-full h-full"
                     objectFit="cover"
                     quality={85}
                     sizes="400px"
                     priority={index <= 1}
                   />
                 </div>
-                <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
+                <div className="p-6">
                   <h3 className="uppercase tracking-wide text-base sm:text-lg text-[#C9A227] font-semibold mb-2">{service.title}</h3>
                   <p className="text-[#F5F5F5] text-sm sm:text-base mb-4">{service.description}</p>
                   {service.details && (
-                    <ul className={`text-[#B0B0B0] text-sm sm:text-base space-y-2 flex-grow ${
+                    <ul className={`text-[#B0B0B0] text-sm sm:text-base space-y-2 ${
                       service.details.length > 4 ? 'xl:columns-2 xl:gap-x-8' : ''
                     }`}>
                       {service.details.map((detail: string, index: number) => (
