@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import type { Service } from './service-buttons'
+import type { Service } from '../services/data'
 
 interface ServiceCardProps {
   service: Service
@@ -11,7 +11,7 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
     <section 
       key={service.id} 
       id={service.id} 
-      className="border-2 border-[#C9A227] rounded-lg overflow-hidden shadow-lg scroll-mt-24 bg-[#0F0F0F] flex flex-col"
+      className="border-2 border-[#C9A227] rounded-lg overflow-hidden shadow-lg scroll-mt-24 bg-[#0F0F0F] flex flex-col scroll-smooth"
     >
       <div className="relative aspect-[3/2] w-full bg-[#0F0F0F]">
         <Image
@@ -30,8 +30,8 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
         <p className="text-[#F5F5F5] mb-4">{service.description}</p>
         {service.details.length > 0 && (
           <ul className="text-[#B0B0B0] list-disc list-inside space-y-1">
-            {service.details.map((detail, index) => (
-              <li key={index}>{detail}</li>
+            {service.details.map((detail: string, detailIndex: number) => (
+              <li key={detailIndex}>{detail}</li>
             ))}
           </ul>
         )}

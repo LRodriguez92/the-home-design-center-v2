@@ -15,57 +15,49 @@ const getServices = (t: (key: TranslationKey) => string) => [
     title: t('services.kitchen.title'),
     description: t('services.kitchen.description'),
     icon: CookingPot,
-    image: '/images/services/kitchen-hero.jpg',
-    href: '/services#kitchen-remodel'
+    image: '/images/services/kitchen-hero.jpg'
   },
   {
     title: t('services.bath.title'),
     description: t('services.bath.description'),
     icon: Bath,
-    image: '/images/services/bathroom.jpg',
-    href: '/services#bath-remodel'
+    image: '/images/services/bathroom.jpg'
   },
   {
     title: t('services.design.title'),
     description: t('services.design.description'),
     icon: Grid3X3,
-    image: '/images/services/3D.png',
-    href: '/services#3d-design'
+    image: '/images/services/3D.png'
   },
   {
     title: t('services.lighting.title'),
     description: t('services.lighting.description'),
     icon: Lightbulb,
-    image: '/images/services/LED.jpg',
-    href: '/services#led-lighting'
+    image: '/images/services/LED.jpg'
   },
   {
     title: t('services.painting.title'),
     description: t('services.painting.description'),
     icon: PaintBucket,
-    image: '/images/services/painting.jpg',
-    href: '/services#painting'
+    image: '/images/services/painting.jpg'
   },
   {
     title: t('services.wall.title'),
     description: t('services.wall.description'),
     icon: BrickWall,
-    image: '/images/services/open-floor.jpg',
-    href: '/services#wall-removal'
+    image: '/images/services/open-floor.jpg'
   },
   {
     title: t('services.flooring.title'),
     description: t('services.flooring.description'),
     icon: Palette,
-    image: '/images/services/flooring-tiles.jpg',
-    href: '/services#flooring'
+    image: '/images/services/flooring-tiles.jpg'
   },
   {
     title: t('services.drywall.title'),
     description: t('services.drywall.description'),
     icon: Hammer,
-    image: '/images/services/drywall-repair.jpg',
-    href: '/services#drywall-texture'
+    image: '/images/services/drywall-repair.jpg'
   }
 ]
 
@@ -77,9 +69,8 @@ export default function ServicesSection({ lang }: ServicesSectionProps) {
   const { t } = useTranslations(currentLang)
   const services = getServices(t)
 
-  const handleServiceClick = (href: string) => {
-    const [path, hash] = href.split('#')
-    router.push(`/${currentLang}${path}?scrollTo=${hash}`)
+  const handleServiceClick = () => {
+    router.push(`/${currentLang}/services`)
   }
 
   return (
@@ -107,14 +98,14 @@ export default function ServicesSection({ lang }: ServicesSectionProps) {
             return (
               <div
                 key={service.title}
-                onClick={() => handleServiceClick(service.href)}
+                onClick={handleServiceClick}
                 className={`group rounded-lg overflow-hidden border-2 border-[${theme.colors.surface}] transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:border-[${theme.colors.primary}] cursor-pointer min-h-[48px] p-2 focus-within:ring-2 focus-within:ring-[${theme.colors.primary}] focus-within:ring-offset-2`}
                 role="listitem"
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
-                    handleServiceClick(service.href)
+                    handleServiceClick()
                   }
                 }}
                 aria-label={`${service.title} - ${service.description}`}
