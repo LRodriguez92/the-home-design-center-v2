@@ -152,7 +152,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className={`w-full px-6 py-3 bg-[#C9A227] text-[#0F0F0F] font-semibold rounded-md hover:bg-[#8C7853] transition-colors duration-300 disabled:opacity-50`}
+        className={`w-full px-6 py-3 bg-[#C9A227] text-black font-semibold rounded-md hover:bg-[#8C7853] hover:text-black transition-colors duration-300 disabled:opacity-50`}
       >
         {isSubmitting ? t('contact.form.sending') : t('contact.form.submit')}
       </button>

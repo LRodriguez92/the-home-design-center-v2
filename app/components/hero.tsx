@@ -48,7 +48,7 @@ export default function Hero({
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link 
               href={`/${currentLang}/contact`}
-              className={`inline-flex items-center px-8 py-3 rounded-md bg-[${theme.colors.primary}] text-[${theme.colors.text}] text-lg font-semibold hover:bg-[${theme.colors.primary}]/90 transition duration-300`}
+              className={`inline-flex items-center px-8 py-3 rounded-md bg-[${theme.colors.primary}] text-[#0F0F0F] text-lg font-semibold hover:bg-[${theme.colors.primary}]/90 transition duration-300`}
             >
               {t('home.hero.buttons.contact')}
             </Link>

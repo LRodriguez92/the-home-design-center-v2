@@ -50,7 +50,7 @@ export default function ServiceButtons({ services }: ServiceButtonsProps) {
               <button
                 key={service.id}
                 onClick={() => scrollToService(service.id)}
-                className="inline-flex items-center px-4 py-2 border border-[#C9A227] rounded-md text-[#C9A227] hover:bg-[#C9A227] hover:text-[#0F0F0F] transition-colors duration-300"
+                className="inline-flex items-center px-4 py-2 border border-[#C9A227] rounded-md text-[#C9A227] hover:bg-[#C9A227] hover:text-black transition-colors duration-300"
               >
                 <Icon className="w-5 h-5 mr-2" />
                 {service.title}

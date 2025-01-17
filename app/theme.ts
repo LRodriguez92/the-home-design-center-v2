@@ -6,7 +6,7 @@ export const theme = {
     surface: '#1C1F33',  // Deep navy
     text: '#F5F5F5',  // Off-white
     textMuted: '#B0B0B0',  // Light gray
-    onPrimary: '#0F0F0F',  // Rich black (for text on gold)
+    onPrimary: '#000000',  // Pure black (for better contrast on gold)
     onSecondary: '#F5F5F5',  // Off-white (for text on bronze)
     onBackground: '#F5F5F5',  // Off-white
     onSurface: '#F5F5F5',  // Off-white
