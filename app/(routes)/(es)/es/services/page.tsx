@@ -1,190 +1,204 @@
-'use client'
-
-import { useEffect, Suspense } from 'react'
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
-import { CookingPot, Bath, Grid3X3, Lightbulb, PaintBucket, BrickWall, Palette, Hammer } from 'lucide-react'
-import { useTranslations } from '@/app/lib/translations'
+import { Metadata } from 'next'
+import ServiceButtons from '../components/service-buttons'
+import type { Service } from '../components/service-buttons'
 
-function ServicesContent() {
-  const searchParams = useSearchParams()
-  const { t } = useTranslations('es')
+// Import static images
+import heroImage from '@/public/images/heroes/workers.jpg'
+import kitchenImage from '@/public/images/services/kitchen-hero.jpg'
+import bathroomImage from '@/public/images/services/bathroom.jpg'
+import designImage from '@/public/images/services/3D.png'
+import ledImage from '@/public/images/services/LED.jpg'
+import paintingImage from '@/public/images/services/painting.jpg'
+import wallImage from '@/public/images/services/open-floor.jpg'
+import flooringImage from '@/public/images/services/flooring-tiles.jpg'
+import drywallImage from '@/public/images/services/drywall-repair.jpg'
 
-  const services = [
-    {
-      id: 'kitchen-remodel',
-      title: t('services.kitchen.title'),
-      description: t('services.kitchen.description'),
-      icon: CookingPot,
-      image: '/images/services/kitchen-hero.jpg',
-      details: JSON.parse(t('services.kitchen.details')),
-    },
-    {
-      id: 'bath-remodel',
-      title: t('services.bath.title'),
-      description: t('services.bath.description'),
-      icon: Bath,
-      image: '/images/services/bathroom.jpg',
-      details: JSON.parse(t('services.bath.details')),
-    },
-    {
-      id: '3d-design',
-      title: t('services.design.title'),
-      description: t('services.design.description'),
-      icon: Grid3X3,
-      image: '/images/services/3D.png',
-      details: JSON.parse(t('services.design.details')),
-    },
-    {
-      id: 'led-lighting',
-      title: t('services.lighting.title'),
-      description: t('services.lighting.description'),
-      icon: Lightbulb,
-      image: '/images/services/LED.jpg',
-      details: JSON.parse(t('services.lighting.details')),
-    },
-    {
-      id: 'painting',
-      title: t('services.painting.title'),
-      description: t('services.painting.description'),
-      icon: PaintBucket,
-      image: '/images/services/painting.jpg',
-      details: JSON.parse(t('services.painting.details')),
-    },
-    {
-      id: 'wall-removal',
-      title: t('services.wall.title'),
-      description: t('services.wall.description'),
-      icon: BrickWall,
-      image: '/images/services/open-floor.jpg',
-      details: JSON.parse(t('services.wall.details')),
-    },
-    {
-      id: 'flooring',
-      title: t('services.flooring.title'),
-      description: t('services.flooring.description'),
-      icon: Palette,
-      image: '/images/services/flooring-tiles.jpg',
-      details: JSON.parse(t('services.flooring.details')),
-    },
-    {
-      id: 'drywall-repair',
-      title: t('services.drywall.title'),
-      description: t('services.drywall.description'),
-      icon: Hammer,
-      image: '/images/services/drywall-repair.jpg',
-      details: JSON.parse(t('services.drywall.details')),
-    }
-  ]
+export const metadata: Metadata = {
+  title: 'Nuestros Servicios - HDC',
+  description: 'Descubra nuestra amplia gama de servicios de mejoras y diseño para el hogar. Desde remodelaciones de cocinas hasta soluciones de iluminación personalizadas.',
+}
 
-  useEffect(() => {
-    const scrollToService = searchParams.get('scrollTo')
-    if (scrollToService) {
-      const element = document.getElementById(scrollToService)
-      if (element) {
-        const yOffset = -80
-        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
-        window.scrollTo({ top: y, behavior: 'smooth' })
-      }
-    }
-  }, [searchParams])
+const services: Service[] = [
+  {
+    id: 'kitchen-remodel',
+    title: 'Remodelación de Cocina',
+    description: 'Transforme su cocina en un espacio funcional y elegante.',
+    iconName: 'CookingPot',
+    image: kitchenImage,
+    details: [
+      'Gabinetes e islas personalizados',
+      'Encimeras duraderas',
+      'Diseños de iluminación modernos',
+      'Puertas y cajones de calidad',
+      'Hardware premium',
+      'Accesorios'
+    ]
+  },
+  {
+    id: 'bath-remodel',
+    title: 'Remodelación de Baño',
+    description: 'Eleve la funcionalidad y el estilo de su baño con nuestros servicios de remodelación.',
+    iconName: 'Bath',
+    image: bathroomImage,
+    details: [
+      'Materiales de alta calidad',
+      'Accesorios',
+      'Diseños personalizados',
+      'Soluciones de ahorro de agua',
+      'Restauración'
+    ]
+  },
+  {
+    id: '3d-design',
+    title: 'Diseño 3D',
+    description: 'Visualice su nueva cocina antes de ordenar cualquier material con nuestros servicios de diseño 3D.',
+    iconName: 'Grid3X3',
+    image: designImage,
+    details: [
+      'Mediciones precisas',
+      'Renderizados 3D precisos',
+      'Consulta de diseño',
+      'Visualización 3D realista'
+    ]
+  },
+  {
+    id: 'led-lighting',
+    title: 'Iluminación LED',
+    description: 'Ilumine su hogar con soluciones de iluminación LED elegantes y eficientes en energía.',
+    iconName: 'Lightbulb',
+    image: ledImage,
+    details: [
+      'Diseño de iluminación personalizado',
+      'Soluciones eficientes en energía',
+      'Integración de iluminación inteligente',
+      'Iluminación de acento y tarea',
+      'Iluminación LED exterior',
+      'Servicios de actualización'
+    ]
+  },
+  {
+    id: 'painting',
+    title: 'Pintura',
+    description: 'Mejore la belleza y el ambiente de su hogar con nuestros servicios integrales de pintura interior.',
+    iconName: 'PaintBucket',
+    image: paintingImage,
+    details: [
+      'Preparación minuciosa de superficies',
+      'Aplicación de pintura de alta calidad',
+      'Instalación de hardware',
+      'Pintura de molduras y acabados'
+    ]
+  },
+  {
+    id: 'wall-removal',
+    title: 'Eliminación de Paredes',
+    description: 'Transforme sus espacios eliminando paredes innecesarias para crear un diseño de concepto abierto.',
+    iconName: 'BrickWall',
+    image: wallImage,
+    details: [
+      'Paredes no estructurales',
+      'Consulta de diseño',
+      'Gestión eficiente de escombros'
+    ]
+  },
+  {
+    id: 'flooring',
+    title: 'Pisos',
+    description: 'Elija entre una amplia gama de soluciones de pisos para cada habitación de su hogar.',
+    iconName: 'Palette',
+    image: flooringImage,
+    details: [
+      'Baldosas de porcelana',
+      'Baldosas cerámicas',
+      'Madera sólida',
+      'Madera laminada',
+      'Madera de ingeniería',
+      'Vinilo de lujo',
+      'Alfombras',
+      'Adoquines exteriores'
+    ]
+  },
+  {
+    id: 'drywall-repair',
+    title: 'Reparación de Drywall',
+    description: 'Mejore el interior de su hogar con reparación profesional de drywall.',
+    iconName: 'Hammer',
+    image: drywallImage,
+    details: [
+      'Aplicación profesional',
+      'Mezcla perfecta',
+      'Mejora de la atmósfera'
+    ]
+  }
+]
 
+export default function SpanishServicesPage() {
   return (
     <div className="bg-[#0F0F0F] min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-[#1C1F33] py-24 md:py-32">
-        <div className="absolute inset-0 overflow-hidden">
+      {/* Hero Section - Fixed height */}
+      <div className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] bg-[#1C1F33]">
+        <div className="absolute inset-0">
           <Image
-            src="/images/heroes/workers.jpg"
-            alt={t('services.hero.image')}
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-            className="brightness-50"
+            src={heroImage}
+            alt="Servicios de Diseño del Hogar"
+            priority
+            placeholder="blur"
+            className="brightness-50 object-cover"
+            fill
+            sizes="100vw"
+            quality={85}
           />
         </div>
-        <div className="relative container mx-auto px-4 z-10 flex flex-col items-center justify-center text-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6">
-            {t('services.title')}
+            Nuestros Servicios
           </h1>
-          <p className="text-xl md:text-2xl text-[#B0B0B0] mb-8 max-w-3xl">
-            {t('services.subtitle')}
+          <p className="text-xl md:text-2xl text-[#B0B0B0] max-w-3xl mx-auto">
+            Descubra nuestra amplia gama de servicios de mejoras y diseño para el hogar. Desde remodelaciones de cocinas hasta soluciones de iluminación personalizadas, estamos aquí para transformar su visión en realidad.
           </p>
         </div>
-      </section>
+      </div>
 
       {/* Service Buttons Section */}
-      <section className="bg-[#0F0F0F] py-16">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-4">
-            {services.map((service) => (
-              <a
-                key={service.id}
-                href={`#${service.id}`}
-                className="inline-flex items-center px-4 py-2 border border-[#C9A227] rounded-md text-[#C9A227] hover:bg-[#C9A227] hover:text-[#0F0F0F] transition-colors duration-300"
-                onClick={(e) => {
-                  e.preventDefault()
-                  const element = document.getElementById(service.id)
-                  if (element) {
-                    const yOffset = -80
-                    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
-                    window.scrollTo({ top: y, behavior: 'smooth' })
-                    window.history.pushState(null, '', `#${service.id}`)
-                  }
-                }}
-              >
-                <service.icon className="w-5 h-5 mr-2" />
-                {service.title}
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServiceButtons services={services} />
 
       {/* Services List */}
       <main className="container mx-auto px-4 py-12">
-        <div className="grid gap-16">
-          {services.map((service, index) => (
-            <section key={service.id} id={service.id} className="border-2 border-[#C9A227] rounded-lg overflow-hidden shadow-lg mb-8 scroll-mt-24">
-              <div className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                <div className="md:w-1/3 flex-shrink-0">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    width={600}
-                    height={400}
-                    className="h-48 w-full object-cover md:h-full"
-                  />
-                </div>
-                <div className="p-8 md:w-2/3">
-                  <div className="uppercase tracking-wide text-sm text-[#C9A227] font-semibold">{service.title}</div>
-                  <p className="mt-2 text-[#F5F5F5]">{service.description}</p>
-                  {service.details && (
-                    <>
-                      <h3 className="mt-4 text-lg font-semibold text-[#F5F5F5]">
-                        {t('services.detailsTitle')}
-                      </h3>
-                      <ul className="mt-2 list-disc list-inside text-[#B0B0B0]">
-                        {service.details.map((detail: string, index: number) => (
-                          <li key={index}>{detail}</li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service) => (
+            <section 
+              key={service.id} 
+              id={service.id} 
+              className="border-2 border-[#C9A227] rounded-lg overflow-hidden shadow-lg scroll-mt-24 bg-[#0F0F0F] flex flex-col"
+            >
+              <div className="relative aspect-[3/2] w-full bg-[#0F0F0F]">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  loading="lazy"
+                  placeholder="blur"
+                  quality={85}
+                />
+              </div>
+              <div className="p-6 flex-1 flex flex-col">
+                <div className="uppercase tracking-wide text-sm text-[#C9A227] font-semibold mb-3">{service.title}</div>
+                <p className="text-[#F5F5F5] mb-4">{service.description}</p>
+                {service.details.length > 0 && (
+                  <ul className="text-[#B0B0B0] list-disc list-inside space-y-1">
+                    {service.details.map((detail, index) => (
+                      <li key={index}>{detail}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </section>
           ))}
         </div>
       </main>
     </div>
-  )
-}
-
-export default function SpanishServicesPage() {
-  return (
-    <Suspense fallback={<div>Cargando...</div>}>
-      <ServicesContent />
-    </Suspense>
   )
 } 
