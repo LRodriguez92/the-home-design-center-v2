@@ -83,31 +83,54 @@ export default function ServicesSection({ lang }: ServicesSectionProps) {
   }
 
   return (
-    <section className={`py-16 md:py-24 bg-[${theme.colors.background}]`}>
+    <section 
+      className={`py-16 md:py-24 bg-[${theme.colors.background}]`}
+      aria-labelledby="services-title"
+    >
       <div className="container px-4 md:px-6 mx-auto max-w-7xl">
-        <h2 className={`text-3xl md:text-4xl font-bold text-[${theme.colors.text}] mb-4 text-center`}>
+        <h2 
+          id="services-title"
+          className={`text-3xl md:text-4xl font-bold text-[${theme.colors.text}] mb-4 text-center`}
+        >
           {t('services.title')}
         </h2>
         <p className={`text-[${theme.colors.primary}] text-lg max-w-3xl mx-auto text-center mb-12`}>
           {t('services.subtitle')}
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10"
+          role="list"
+          aria-label={t('services.title')}
+        >
           {services.map((service) => {
             const Icon = service.icon
             return (
               <div
                 key={service.title}
                 onClick={() => handleServiceClick(service.href)}
-                className={`group rounded-lg overflow-hidden border-2 border-[${theme.colors.surface}] transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:border-[${theme.colors.primary}] cursor-pointer`}
+                className={`group rounded-lg overflow-hidden border-2 border-[${theme.colors.surface}] transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:border-[${theme.colors.primary}] cursor-pointer min-h-[48px] p-2 focus-within:ring-2 focus-within:ring-[${theme.colors.primary}] focus-within:ring-offset-2`}
+                role="listitem"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    handleServiceClick(service.href)
+                  }
+                }}
+                aria-label={`${service.title} - ${service.description}`}
               >
                 <div className="relative h-48 w-full">
                   <Image
                     src={service.image}
-                    alt={service.title}
+                    alt=""
                     layout="fill"
                     objectFit="cover"
+                    aria-hidden="true"
                   />
-                  <div className={`absolute top-4 left-4 p-3 bg-[${theme.colors.primary}] rounded-full transform transition-transform duration-300 group-hover:scale-110`}>
+                  <div 
+                    className={`absolute top-4 left-4 p-4 bg-[${theme.colors.primary}] rounded-full transform transition-transform duration-300 group-hover:scale-110 min-h-[48px] min-w-[48px] flex items-center justify-center`}
+                    aria-hidden="true"
+                  >
                     <Icon className={`h-8 w-8 text-[${theme.colors.onPrimary}]`} />
                   </div>
                 </div>

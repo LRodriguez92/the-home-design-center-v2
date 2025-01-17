@@ -52,28 +52,44 @@ export default function TestimonialCarousel({ lang }: TestimonialCarouselProps) 
     <section 
       className="py-16 md:py-24"
       style={{ backgroundColor: theme.colors.background }}
+      aria-labelledby="testimonials-title"
     >
       {showSuccessMessage && (
-        <div className="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-lg shadow-lg z-50" role="alert">
+        <div 
+          className="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-lg shadow-lg z-50" 
+          role="alert"
+          aria-live="polite"
+        >
           <span className="block font-medium">{t('testimonials.successMessage.title')}</span>
           <span className="block">{t('testimonials.successMessage.message')}</span>
         </div>
       )}
       <div className="container mx-auto px-4 md:px-6 max-w-4xl">
         <h2 
+          id="testimonials-title"
           className="text-3xl md:text-4xl font-bold text-center mb-12"
           style={{ color: theme.colors.text }}
         >
           {t('testimonials.title')}
         </h2>
-        <div className="relative">
+        <div 
+          className="relative"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label={t('testimonials.title')}
+        >
           <div className="overflow-hidden">
             <div
               className="flex transition-transform duration-300 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
               {testimonials.map((testimonial, index) => (
-                <div key={index} className="w-full flex-shrink-0">
+                <div 
+                  key={index} 
+                  className="w-full flex-shrink-0"
+                  role="group"
+                  aria-hidden={currentIndex !== index}
+                >
                   <div className="bg-[#0F0F0F] p-8 rounded-lg shadow-lg">
                     <div className="flex items-center mb-4">
                       {[...Array(5)].map((_, i) => (
@@ -82,6 +98,7 @@ export default function TestimonialCarousel({ lang }: TestimonialCarouselProps) 
                           className={`w-5 h-5 ${
                             i < testimonial.rating ? 'text-[#C9A227] fill-[#C9A227]' : 'text-[#C9A227]'
                           }`}
+                          aria-hidden="true"
                         />
                       ))}
                     </div>
@@ -94,45 +111,53 @@ export default function TestimonialCarousel({ lang }: TestimonialCarouselProps) 
           </div>
           <button
             onClick={prevTestimonial}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-[#BCABAE] text-[#0F0F0F] p-2 rounded-full hover:bg-[#716969] transition-colors duration-300"
-            aria-label="Previous testimonial"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-[#BCABAE] text-[#0F0F0F] p-2 rounded-full hover:bg-[#716969] transition-colors duration-300 focus:ring-2 focus:ring-offset-2 focus:ring-[#BCABAE] focus:outline-none min-h-[48px] min-w-[48px]"
+            aria-label={t('testimonials.submitButton')}
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-6 h-6" aria-hidden="true" />
           </button>
           <button
             onClick={nextTestimonial}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 bg-[#BCABAE] text-[#0F0F0F] p-2 rounded-full hover:bg-[#716969] transition-colors duration-300"
-            aria-label="Next testimonial"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 bg-[#BCABAE] text-[#0F0F0F] p-2 rounded-full hover:bg-[#716969] transition-colors duration-300 focus:ring-2 focus:ring-offset-2 focus:ring-[#BCABAE] focus:outline-none min-h-[48px] min-w-[48px]"
+            aria-label={t('testimonials.submitButton')}
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-6 h-6" aria-hidden="true" />
           </button>
         </div>
         <div className="flex justify-center mt-8">
-          <Dialog open={isReviewDialogOpen} onOpenChange={setIsReviewDialogOpen}>
+          <Dialog 
+            open={isReviewDialogOpen} 
+            onOpenChange={setIsReviewDialogOpen}
+          >
             <DialogTrigger asChild>
               <Button 
-                className={`bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] hover:bg-[${theme.colors.primary}]/90`}
+                className={`bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] hover:bg-[${theme.colors.primary}]/90 focus:ring-2 focus:ring-offset-2 focus:ring-[${theme.colors.primary}] focus:outline-none min-h-[48px]`}
+                aria-label={t('testimonials.submitButton')}
               >
                 {t('testimonials.submitButton')}
               </Button>
             </DialogTrigger>
-            <DialogContent className={`bg-[${theme.colors.background}] text-[${theme.colors.text}]`}>
+            <DialogContent 
+              className={`bg-[${theme.colors.background}] text-[${theme.colors.text}]`}
+              aria-labelledby="review-dialog-title"
+            >
               <DialogHeader>
-                <DialogTitle>{t('testimonials.submitDialog.title')}</DialogTitle>
+                <DialogTitle id="review-dialog-title">{t('testimonials.submitDialog.title')}</DialogTitle>
               </DialogHeader>
               <ReviewSubmissionForm onSubmit={handleReviewSubmit} />
             </DialogContent>
           </Dialog>
         </div>
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center mt-6 gap-2">
           {testimonials.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-3 h-3 rounded-full mx-1 ${
+              className={`w-3 h-3 rounded-full ${
                 index === currentIndex ? 'bg-[#BCABAE]' : 'bg-[#716969]'
-              }`}
-              aria-label={`Go to testimonial ${index + 1}`}
+              } focus:ring-2 focus:ring-offset-2 focus:ring-[#BCABAE] focus:outline-none min-h-[24px] min-w-[24px]`}
+              aria-label={`${t('testimonials.submitButton')} ${index + 1}`}
+              aria-pressed={index === currentIndex}
             />
           ))}
         </div>
@@ -140,4 +165,3 @@ export default function TestimonialCarousel({ lang }: TestimonialCarouselProps) 
     </section>
   )
 }
-
