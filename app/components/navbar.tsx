@@ -9,21 +9,35 @@ import { useTheme } from './theme-provider'
 import { useTranslations } from '@/app/lib/translations'
 import LanguageSwitcher from './language-switcher'
 
-const NavItem = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick?: () => void }) => {
+const NavItem = ({ href, children, onClick, isCTA = false }: { href: string; children: React.ReactNode; onClick?: () => void; isCTA?: boolean }) => {
   const pathname = usePathname()
   const currentLang = pathname.startsWith('/es') ? 'es' : 'en'
   const langPrefixedHref = href === '/' ? `/${currentLang}` : `/${currentLang}${href}`
-  const isActive = pathname === langPrefixedHref
+  const isActive = href === '/' 
+    ? pathname === `/${currentLang}` 
+    : pathname.endsWith(href)
   const theme = useTheme()
+
+  if (isCTA) {
+    return (
+      <Link
+        href={langPrefixedHref}
+        className={`block px-4 py-2 rounded-md text-base font-medium bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] hover:opacity-90 transition-all duration-200`}
+        onClick={onClick}
+      >
+        {children}
+      </Link>
+    )
+  }
 
   return (
     <Link
       href={langPrefixedHref}
-      className={`block w-full px-3 py-2 rounded-md text-base font-medium ${
-        isActive
-          ? `bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}]`
-          : `text-[${theme.colors.text}] hover:bg-[${theme.colors.surface}] hover:text-[${theme.colors.primary}]`
-      } transition-colors duration-200`}
+      className={`block px-3 py-2 text-base font-medium relative group
+        ${isActive 
+          ? `text-[${theme.colors.primary}] border-b-2 border-[${theme.colors.primary}]` 
+          : `text-[${theme.colors.text}] hover:text-[${theme.colors.primary}]`
+        } transition-colors duration-200`}
       onClick={onClick}
     >
       {children}
@@ -93,7 +107,7 @@ export default function Navbar() {
               <NavItem href="/">{t('navigation.home')}</NavItem>
               <NavItem href="/services">{t('navigation.services')}</NavItem>
               <NavItem href="/projects">{t('navigation.projects')}</NavItem>
-              <NavItem href="/contact">{t('navigation.contact')}</NavItem>
+              <NavItem href="/contact" isCTA={true}>{t('navigation.contact')}</NavItem>
               <LanguageSwitcher />
             </div>
           </div>
@@ -109,7 +123,7 @@ export default function Navbar() {
           <NavItem href="/" onClick={closeMobileMenu}>{t('navigation.home')}</NavItem>
           <NavItem href="/services" onClick={closeMobileMenu}>{t('navigation.services')}</NavItem>
           <NavItem href="/projects" onClick={closeMobileMenu}>{t('navigation.projects')}</NavItem>
-          <NavItem href="/contact" onClick={closeMobileMenu}>{t('navigation.contact')}</NavItem>
+          <NavItem href="/contact" onClick={closeMobileMenu} isCTA={true}>{t('navigation.contact')}</NavItem>
           <div className="px-3 py-2">
             <LanguageSwitcher />
           </div>
