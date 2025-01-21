@@ -18,8 +18,8 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
           src={service.image}
           alt={service.title}
           fill
-          className="object-cover"
-          sizes="(max-width: 640px) 640px, (max-width: 1024px) 384px, 320px"
+          style={{ objectFit: 'cover' }}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           loading={index <= 2 ? "eager" : "lazy"}
           placeholder="blur"
           quality={service.id === '3d-design' ? 80 : 65}

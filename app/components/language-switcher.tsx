@@ -39,6 +39,7 @@ export default function LanguageSwitcher() {
           src={flagSrc}
           alt={`Current language: ${currentLang.toUpperCase()}`}
           fill
+          sizes="24px"
           className="object-fill"
         />
       </div>

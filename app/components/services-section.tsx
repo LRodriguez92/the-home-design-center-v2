@@ -114,8 +114,9 @@ export default function ServicesSection({ lang }: ServicesSectionProps) {
                   <Image
                     src={service.image}
                     alt=""
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     aria-hidden="true"
                   />
                   <div 

@@ -20,6 +20,7 @@ export const metadata: Metadata = {
       {
         url: '/favicon/favicon.svg',
         type: 'image/svg+xml',
+        sizes: 'any',
       },
     ],
     shortcut: [
