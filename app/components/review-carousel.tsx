@@ -78,7 +78,7 @@ export default function ReviewCarousel({ lang }: ReviewCarouselProps) {
           aria-roledescription="carousel"
           aria-label={t('reviews.title')}
         >
-          <div className="overflow-hidden">
+          <div className="overflow-hidden px-8">
             <div
               className="flex transition-transform duration-300 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -111,14 +111,14 @@ export default function ReviewCarousel({ lang }: ReviewCarouselProps) {
           </div>
           <button
             onClick={prevReview}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-[#BCABAE] text-[#0F0F0F] p-2 rounded-full hover:bg-[#716969] transition-colors duration-300 focus:ring-2 focus:ring-offset-2 focus:ring-[#BCABAE] focus:outline-none min-h-[48px] min-w-[48px]"
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#BCABAE] text-[#0F0F0F] p-2 rounded-full hover:bg-[#716969] transition-colors duration-300 select-none focus:outline-none min-h-[48px] min-w-[48px] flex items-center justify-center"
             aria-label={t('reviews.submitButton')}
           >
             <ChevronLeft className="w-6 h-6" aria-hidden="true" />
           </button>
           <button
             onClick={nextReview}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 bg-[#BCABAE] text-[#0F0F0F] p-2 rounded-full hover:bg-[#716969] transition-colors duration-300 focus:ring-2 focus:ring-offset-2 focus:ring-[#BCABAE] focus:outline-none min-h-[48px] min-w-[48px]"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#BCABAE] text-[#0F0F0F] p-2 rounded-full hover:bg-[#716969] transition-colors duration-300 select-none focus:outline-none min-h-[48px] min-w-[48px] flex items-center justify-center"
             aria-label={t('reviews.submitButton')}
           >
             <ChevronRight className="w-6 h-6" aria-hidden="true" />
