@@ -14,8 +14,8 @@ const ServicesGrid = dynamic(() => import('@/app/components/services-grid'), {
 })
 
 export const metadata: Metadata = {
-  title: 'Nuestros Servicios - HDC',
-  description: 'Descubra nuestra amplia gama de servicios de mejoras y diseño para el hogar. Desde remodelaciones de cocinas hasta soluciones de iluminación personalizadas.',
+  title: 'Nuestros Servicios - The HDC',
+  description: 'Descubre nuestra amplia gama de servicios de mejoras y diseño para el hogar. Desde remodelaciones de cocina hasta soluciones de iluminación personalizadas.',
 }
 
 export default function SpanishServicesPage() {

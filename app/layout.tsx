@@ -8,7 +8,7 @@ import Footer from './components/footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'HDC - Home Design & Construction',
+  title: 'The HDC - The Home Design Center',
   description: 'Transform your living space with our expert home design and construction services.',
 }
 

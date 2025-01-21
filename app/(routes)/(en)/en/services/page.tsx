@@ -14,7 +14,7 @@ const ServicesGrid = dynamic(() => import('@/app/components/services-grid'), {
 })
 
 export const metadata: Metadata = {
-  title: 'Our Services - HDC',
+  title: 'Our Services - The HDC',
   description: 'Discover our comprehensive range of home improvement and design services. From kitchen remodels to custom lighting solutions.',
 }
 
