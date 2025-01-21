@@ -1,6 +1,6 @@
 import Hero from '@/app/components/hero'
 import ServicesSection from '@/app/components/services-section'
-import TestimonialCarousel from '@/app/components/testimonial-carousel'
+import ReviewCarousel from '@/app/components/review-carousel'
 import { useTranslations } from '@/app/lib/translations'
 
 export default function EnglishHome() {
@@ -13,7 +13,7 @@ export default function EnglishHome() {
         subtitle={t('home.hero.subtitle')}
       />
       <ServicesSection lang="en" />
-      <TestimonialCarousel lang="en" />
+      <ReviewCarousel lang="en" />
     </main>
   )
 } 

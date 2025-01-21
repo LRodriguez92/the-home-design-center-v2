@@ -119,7 +119,7 @@ export const es = {
       ])
     }
   },
-  testimonials: {
+  reviews: {
     title: 'Lo que Dicen Nuestros Clientes',
     submitButton: 'Enviar tu Reseña',
     submitDialog: {

@@ -9,33 +9,33 @@ import { useTheme } from './theme-provider'
 import { useTranslations, type Language } from '@/app/lib/translations'
 import { usePathname } from 'next/navigation'
 
-interface TestimonialCarouselProps {
+interface ReviewCarouselProps {
   lang?: Language
 }
 
-interface Testimonial {
+interface Review {
   name: string
   review: string
   rating: number
 }
 
-export default function TestimonialCarousel({ lang }: TestimonialCarouselProps) {
+export default function ReviewCarousel({ lang }: ReviewCarouselProps) {
   const theme = useTheme()
   const pathname = usePathname()
   const currentLang = lang || (pathname.startsWith('/es') ? 'es' : 'en')
   const { t } = useTranslations(currentLang)
-  const testimonials = (t('testimonials.items') as unknown) as Testimonial[]
+  const reviews = (t('reviews.items') as unknown) as Review[]
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isReviewDialogOpen, setIsReviewDialogOpen] = useState(false)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
-  const nextTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)
+  const nextReview = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length)
   }
 
-  const prevTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length)
+  const prevReview = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + reviews.length) % reviews.length)
   }
 
   const handleReviewSubmit = () => {
@@ -52,7 +52,7 @@ export default function TestimonialCarousel({ lang }: TestimonialCarouselProps) 
     <section 
       className="py-16 md:py-24"
       style={{ backgroundColor: theme.colors.background }}
-      aria-labelledby="testimonials-title"
+      aria-labelledby="reviews-title"
     >
       {showSuccessMessage && (
         <div 
@@ -60,30 +60,30 @@ export default function TestimonialCarousel({ lang }: TestimonialCarouselProps) 
           role="alert"
           aria-live="polite"
         >
-          <span className="block font-medium">{t('testimonials.successMessage.title')}</span>
-          <span className="block">{t('testimonials.successMessage.message')}</span>
+          <span className="block font-medium">{t('reviews.successMessage.title')}</span>
+          <span className="block">{t('reviews.successMessage.message')}</span>
         </div>
       )}
       <div className="container mx-auto px-4 md:px-6 max-w-4xl">
         <h2 
-          id="testimonials-title"
+          id="reviews-title"
           className="text-3xl md:text-4xl font-bold text-center mb-12"
           style={{ color: theme.colors.text }}
         >
-          {t('testimonials.title')}
+          {t('reviews.title')}
         </h2>
         <div 
           className="relative"
           role="region"
           aria-roledescription="carousel"
-          aria-label={t('testimonials.title')}
+          aria-label={t('reviews.title')}
         >
           <div className="overflow-hidden">
             <div
               className="flex transition-transform duration-300 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
-              {testimonials.map((testimonial, index) => (
+              {reviews.map((review, index) => (
                 <div 
                   key={index} 
                   className="w-full flex-shrink-0"
@@ -96,30 +96,30 @@ export default function TestimonialCarousel({ lang }: TestimonialCarouselProps) 
                         <Star
                           key={i}
                           className={`w-5 h-5 ${
-                            i < testimonial.rating ? 'text-[#C9A227] fill-[#C9A227]' : 'text-[#C9A227]'
+                            i < review.rating ? 'text-[#C9A227] fill-[#C9A227]' : 'text-[#C9A227]'
                           }`}
                           aria-hidden="true"
                         />
                       ))}
                     </div>
-                    <p className="text-[#FBFBFB] mb-4">{testimonial.review}</p>
-                    <p className="text-[#BCABAE] font-semibold">{testimonial.name}</p>
+                    <p className="text-[#FBFBFB] mb-4">{review.review}</p>
+                    <p className="text-[#BCABAE] font-semibold">{review.name}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
           <button
-            onClick={prevTestimonial}
+            onClick={prevReview}
             className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-[#BCABAE] text-[#0F0F0F] p-2 rounded-full hover:bg-[#716969] transition-colors duration-300 focus:ring-2 focus:ring-offset-2 focus:ring-[#BCABAE] focus:outline-none min-h-[48px] min-w-[48px]"
-            aria-label={t('testimonials.submitButton')}
+            aria-label={t('reviews.submitButton')}
           >
             <ChevronLeft className="w-6 h-6" aria-hidden="true" />
           </button>
           <button
-            onClick={nextTestimonial}
+            onClick={nextReview}
             className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 bg-[#BCABAE] text-[#0F0F0F] p-2 rounded-full hover:bg-[#716969] transition-colors duration-300 focus:ring-2 focus:ring-offset-2 focus:ring-[#BCABAE] focus:outline-none min-h-[48px] min-w-[48px]"
-            aria-label={t('testimonials.submitButton')}
+            aria-label={t('reviews.submitButton')}
           >
             <ChevronRight className="w-6 h-6" aria-hidden="true" />
           </button>
@@ -132,9 +132,9 @@ export default function TestimonialCarousel({ lang }: TestimonialCarouselProps) 
             <DialogTrigger asChild>
               <Button 
                 className={`bg-[${theme.colors.primary}] text-[${theme.colors.onPrimary}] hover:bg-[${theme.colors.primary}]/90 focus:ring-2 focus:ring-offset-2 focus:ring-[${theme.colors.primary}] focus:outline-none min-h-[48px]`}
-                aria-label={t('testimonials.submitButton')}
+                aria-label={t('reviews.submitButton')}
               >
-                {t('testimonials.submitButton')}
+                {t('reviews.submitButton')}
               </Button>
             </DialogTrigger>
             <DialogContent 
@@ -142,21 +142,21 @@ export default function TestimonialCarousel({ lang }: TestimonialCarouselProps) 
               aria-labelledby="review-dialog-title"
             >
               <DialogHeader>
-                <DialogTitle id="review-dialog-title">{t('testimonials.submitDialog.title')}</DialogTitle>
+                <DialogTitle id="review-dialog-title">{t('reviews.submitDialog.title')}</DialogTitle>
               </DialogHeader>
               <ReviewSubmissionForm onSubmit={handleReviewSubmit} />
             </DialogContent>
           </Dialog>
         </div>
         <div className="flex justify-center mt-6 gap-2">
-          {testimonials.map((_, index) => (
+          {reviews.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-3 h-3 rounded-full ${
                 index === currentIndex ? 'bg-[#BCABAE]' : 'bg-[#716969]'
               } focus:ring-2 focus:ring-offset-2 focus:ring-[#BCABAE] focus:outline-none min-h-[24px] min-w-[24px]`}
-              aria-label={`${t('testimonials.submitButton')} ${index + 1}`}
+              aria-label={`${t('reviews.submitButton')} ${index + 1}`}
               aria-pressed={index === currentIndex}
             />
           ))}
@@ -164,4 +164,4 @@ export default function TestimonialCarousel({ lang }: TestimonialCarouselProps) 
       </div>
     </section>
   )
-}
+} 
