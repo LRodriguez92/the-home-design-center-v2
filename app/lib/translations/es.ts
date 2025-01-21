@@ -3,7 +3,7 @@ export const es = {
     home: 'Inicio',
     services: 'Servicios',
     projects: 'Proyectos',
-    contact: 'Contacto',
+    contact: 'Contáctanos',
     openMenu: 'Abrir menú principal',
     logo: 'Logo de The Home Design Center',
     title: 'The Home Design Center'
