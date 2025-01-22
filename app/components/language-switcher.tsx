@@ -1,7 +1,6 @@
 'use client'
 
 import { usePathname, useRouter } from 'next/navigation'
-import { Button } from './ui/button'
 import Image from 'next/image'
 import { useRef } from 'react'
 
@@ -9,40 +8,50 @@ export default function LanguageSwitcher() {
   const pathname = usePathname()
   const router = useRouter()
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const currentLang = pathname.startsWith('/es') ? 'es' : 'en'
 
   const switchLanguage = () => {
-    const currentLang = pathname.startsWith('/es') ? 'es' : 'en'
     const newLang = currentLang === 'en' ? 'es' : 'en'
-    
-    // Remove current language prefix and add new one
-    const newPath = pathname.replace(/^\/(?:en|es)/, '')
-    router.push(`/${newLang}${newPath}`)
-    
-    // Remove focus
+    const newPath = pathname.replace(/^\/(?:en|es)/, `/${newLang}`)
+    router.push(newPath)
     buttonRef.current?.blur()
   }
 
-  const currentLang = pathname.startsWith('/es') ? 'es' : 'en'
-  const flagCode = currentLang === 'en' ? 'us' : 'es'
-  const flagSrc = `/images/flags/${flagCode}.svg`
-
   return (
-    <Button
+    <button
       ref={buttonRef}
-      variant="ghost"
-      size="sm"
       onClick={switchLanguage}
-      className="px-2 h-8 w-8 flex items-center justify-center hover:bg-transparent focus:bg-transparent active:bg-transparent"
+      className="relative flex items-center w-[72px] h-8 bg-black/60 rounded-full p-1 cursor-pointer border border-amber-400/50 hover:border-amber-400 transition-colors duration-300"
+      title={currentLang === 'en' ? 'Cambiar a Español' : 'Switch to English'}
     >
-      <div className="w-[24px] h-[16px] relative">
-        <Image
-          src={flagSrc}
-          alt={`Current language: ${currentLang.toUpperCase()}`}
-          fill
-          sizes="24px"
-          className="object-fill"
-        />
+      {/* Sliding circle with flag */}
+      <div
+        className={`absolute flex items-center justify-center w-6 h-6 bg-black/80 rounded-full shadow-sm transition-transform duration-300 ${
+          currentLang === 'en' ? 'translate-x-0' : 'translate-x-9'
+        }`}
+      >
+        <div className="relative w-4 h-3">
+          <Image
+            src={`/images/flags/${currentLang === 'en' ? 'us' : 'es'}.svg`}
+            alt={currentLang === 'en' ? 'English' : 'Español'}
+            fill
+            sizes="16px"
+            className="object-cover rounded-[1px]"
+          />
+        </div>
       </div>
-    </Button>
+      
+      {/* Language text */}
+      <span className={`absolute left-8 text-xs font-medium text-amber-400 transition-opacity duration-300 ${
+        currentLang === 'en' ? 'opacity-100' : 'opacity-0'
+      }`}>
+        EN
+      </span>
+      <span className={`absolute right-8 text-xs font-medium text-amber-400 transition-opacity duration-300 ${
+        currentLang === 'es' ? 'opacity-100' : 'opacity-0'
+      }`}>
+        ES
+      </span>
+    </button>
   )
 } 
