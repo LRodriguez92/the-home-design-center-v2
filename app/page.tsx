@@ -1,13 +1,13 @@
 import Hero from './components/hero'
 import ServicesSection from './components/services-section'
-import TestimonialCarousel from './components/testimonial-carousel'
+import ReviewCarousel from './components/review-carousel'
 
 export default function Home() {
   return (
     <main>
       <Hero />
       <ServicesSection />
-      <TestimonialCarousel />
+      <ReviewCarousel />
     </main>
   )
 }
