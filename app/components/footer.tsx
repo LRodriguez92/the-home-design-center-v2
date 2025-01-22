@@ -75,10 +75,11 @@ export default function Footer() {
   }
 
   return (
-    <footer className={`w-full transition-colors duration-300 ${
-      colors.background === '#0F0F0F' ? 'bg-[#0F0F0F]' : 'bg-[#F5F5F5]'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className={'w-full transition-colors duration-300 ' + 
+      (colors.background === '#0F0F0F' ? 'bg-[#0F0F0F]' : 'bg-[#F5F5F5]')
+    }>
+      <div className="h-1 bg-gradient-to-r from-primary to-secondary" />
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isContactPage ? 'py-6' : 'py-12'}`}>
         {!isContactPage && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Left Column */}
@@ -231,7 +232,7 @@ export default function Footer() {
         )}
         
         {/* Bottom Section */}
-        <div className={`mt-12 pt-8 border-t border-[${colors.surface}]`}>
+        <div className={`${isContactPage ? '' : 'mt-12 pt-8 border-t border-[' + colors.surface + ']'}`}>
           <div className="flex justify-center space-x-4">
             <a 
               href="https://www.facebook.com/homedesigncenterorlando/" 
@@ -260,4 +261,3 @@ export default function Footer() {
     </footer>
   )
 }
-

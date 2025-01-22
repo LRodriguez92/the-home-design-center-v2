@@ -27,6 +27,8 @@ export default function SpanishContactPage() {
             {t('contact.subtitle')}
           </p>
         </div>
+        {/* Bottom Accent */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary" />
       </div>
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto">
