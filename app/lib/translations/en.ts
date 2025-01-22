@@ -1,6 +1,7 @@
 export const en = {
   navigation: {
     home: 'Home',
+    about: 'About',
     services: 'Services',
     projects: 'Projects',
     contact: 'Contact Us',

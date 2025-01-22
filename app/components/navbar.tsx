@@ -106,6 +106,7 @@ export default function Navbar() {
             <div className="hidden md:block">
               <div className="ml-10 flex items-center space-x-4">
                 <NavItem href="/">{t('navigation.home')}</NavItem>
+                <NavItem href="/about">{t('navigation.about')}</NavItem>
                 <NavItem href="/services">{t('navigation.services')}</NavItem>
                 <NavItem href="/projects">{t('navigation.projects')}</NavItem>
                 <NavItem href="/contact" isCTA={true}>{t('navigation.contact')}</NavItem>
@@ -121,6 +122,7 @@ export default function Navbar() {
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <NavItem href="/" onClick={closeMobileMenu}>{t('navigation.home')}</NavItem>
+            <NavItem href="/about" onClick={closeMobileMenu}>{t('navigation.about')}</NavItem>
             <NavItem href="/services" onClick={closeMobileMenu}>{t('navigation.services')}</NavItem>
             <NavItem href="/projects" onClick={closeMobileMenu}>{t('navigation.projects')}</NavItem>
             <NavItem href="/contact" onClick={closeMobileMenu} isCTA={true}>{t('navigation.contact')}</NavItem>

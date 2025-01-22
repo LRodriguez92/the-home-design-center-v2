@@ -1,6 +1,7 @@
 export const es = {
   navigation: {
     home: 'Inicio',
+    about: 'Nosotros',
     services: 'Servicios',
     projects: 'Proyectos',
     contact: 'Contáctanos',
