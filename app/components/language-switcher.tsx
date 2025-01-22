@@ -4,7 +4,11 @@ import { usePathname, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { useRef } from 'react'
 
-export default function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  isMobileMenuOpen?: boolean
+}
+
+export default function LanguageSwitcher({ isMobileMenuOpen }: LanguageSwitcherProps) {
   const pathname = usePathname()
   const router = useRouter()
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -21,7 +25,9 @@ export default function LanguageSwitcher() {
     <button
       ref={buttonRef}
       onClick={switchLanguage}
-      className="relative flex items-center w-[72px] h-8 bg-black/60 rounded-full p-1 cursor-pointer border border-amber-400/50 hover:border-amber-400 transition-colors duration-300"
+      className={`relative flex items-center w-[72px] h-8 bg-black/60 rounded-full p-1 cursor-pointer border border-amber-400/50 hover:border-amber-400 transition-all duration-300 ${
+        isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
+      }`}
       title={currentLang === 'en' ? 'Cambiar a Español' : 'Switch to English'}
     >
       {/* Sliding circle with flag */}

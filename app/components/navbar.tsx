@@ -128,7 +128,7 @@ export default function Navbar() {
         </div>
       </nav>
       <div className="fixed top-20 right-4 z-50">
-        <LanguageSwitcher />
+        <LanguageSwitcher isMobileMenuOpen={isOpen} />
       </div>
     </>
   )
