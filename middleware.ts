@@ -4,8 +4,18 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   
-  // Skip admin routes
+  // Handle admin routes
   if (pathname.startsWith('/admin')) {
+    // Skip login page
+    if (pathname === '/admin/login') {
+      return NextResponse.next()
+    }
+
+    // Check for admin authentication
+    const adminToken = request.cookies.get('admin_token')
+    if (!adminToken || adminToken.value !== 'authenticated') {
+      return NextResponse.redirect(new URL('/admin/login', request.url))
+    }
     return NextResponse.next()
   }
 
@@ -39,8 +49,7 @@ export const config = {
     // Skip all internal paths (_next)
     // Skip all API routes
     // Skip all static files
-    // Skip admin routes
-    '/((?!_next|api|static|admin|.*\\..*).*)',
+    '/((?!_next|api|static|.*\\..*).*)',
   ],
 }
 
