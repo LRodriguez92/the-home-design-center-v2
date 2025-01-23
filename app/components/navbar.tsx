@@ -88,7 +88,7 @@ export default function Navbar() {
             <div className="flex items-center justify-start w-full lg:w-auto lg:flex-none">
               <div className="flex-shrink-0 flex items-center">
                 <Image
-                  src="/favicon/favicon.svg"
+                  src="/favicon/favicon-96x96.png"
                   alt={t('navigation.logo')}
                   width={80}
                   height={80}
