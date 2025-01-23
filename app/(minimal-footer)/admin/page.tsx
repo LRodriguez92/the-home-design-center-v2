@@ -1,23 +1,23 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/app/contexts/auth-context'
 import AdminDashboard from '@/app/components/admin-dashboard'
 
 export default function AdminPage() {
   const router = useRouter()
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const { user, loading } = useAuth()
 
   useEffect(() => {
-    const adminToken = document.cookie.includes('admin_token=authenticated')
-    if (!adminToken) {
-      router.replace('/admin/login')
-    } else {
-      setIsAuthenticated(true)
+    if (!loading) {
+      if (!user) {
+        router.replace('/admin/login')
+      }
     }
-  }, [router])
+  }, [loading, user, router])
 
-  if (!isAuthenticated) {
+  if (loading || !user) {
     return null
   }
 

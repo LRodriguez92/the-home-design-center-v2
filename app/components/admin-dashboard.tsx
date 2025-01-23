@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import { useTheme } from './theme-provider'
+import { useAuth } from '@/app/contexts/auth-context'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/components/ui/tabs'
 import { Button } from '@/app/components/ui/button'
 import { useToast } from '@/app/components/ui/use-toast'
@@ -18,6 +19,7 @@ export default function AdminDashboard({ className }: AdminDashboardProps) {
   const theme = useTheme()
   const router = useRouter()
   const { toast } = useToast()
+  const { logOut } = useAuth()
   const [activeTab, setActiveTab] = useState('photos')
   const [refreshTrigger, setRefreshTrigger] = useState(0)
 
@@ -25,17 +27,24 @@ export default function AdminDashboard({ className }: AdminDashboardProps) {
     setRefreshTrigger(prev => prev + 1)
   }, [])
 
-  const handleLogout = useCallback(() => {
-    // Remove the admin token cookie
-    document.cookie = 'admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-    
-    toast({
-      title: "Logged out successfully",
-      description: "You have been logged out of the admin dashboard",
-      variant: "default",
-    })
-    router.push('/admin/login') // Redirect to admin login page
-  }, [router, toast])
+  const handleLogout = useCallback(async () => {
+    try {
+      await logOut()
+      toast({
+        title: "Logged out successfully",
+        description: "You have been logged out of the admin dashboard",
+        variant: "default",
+      })
+      router.push('/admin/login')
+    } catch (error) {
+      console.error('Logout error:', error)
+      toast({
+        title: "Error",
+        description: "Failed to log out",
+        variant: "destructive",
+      })
+    }
+  }, [logOut, router, toast])
 
   return (
     <div className={`min-h-screen bg-[#0F0F0F] p-6 ${className || ''}`}>
