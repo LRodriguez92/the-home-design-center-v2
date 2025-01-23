@@ -33,7 +33,7 @@ export function OptimizedImage({
 
   return (
     <div className={cn(
-      'overflow-hidden',
+      'relative w-full h-full overflow-hidden',
       isLoading && 'animate-pulse bg-gray-200 dark:bg-gray-800',
       className
     )}>
@@ -46,7 +46,7 @@ export function OptimizedImage({
         quality={quality}
         sizes={sizes}
         className={cn(
-          'duration-700 ease-in-out',
+          'duration-700 ease-in-out w-full h-full',
           isLoading ? 'scale-110 blur-2xl grayscale' : 'scale-100 blur-0 grayscale-0',
           objectFit === 'contain' && 'object-contain',
           objectFit === 'cover' && 'object-cover',

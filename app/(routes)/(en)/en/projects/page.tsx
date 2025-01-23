@@ -23,18 +23,22 @@ export default function EnglishProjectsPage() {
   return (
     <div className="min-h-screen bg-[#0F0F0F] text-[#F5F5F5]">
       {/* Hero Section */}
-      <div className="relative h-[50vh] md:h-[60vh] lg:h-[70vh]">
-        <OptimizedImage
-          src="/images/heroes/projects.jpg"
-          alt="Showcase of our best projects"
-          width={1920}
-          height={1080}
-          priority={true}
-          quality={90}
-          className="brightness-50"
-          objectFit="cover"
-          sizes="100vw"
-        />
+      <section className="w-full h-[600px] md:h-[400px] relative border-b-4 border-[#C4A36C]">
+        <div className="absolute inset-0">
+          <div className="relative w-full h-full">
+            <OptimizedImage
+              src="/images/heroes/projects.jpg"
+              alt="Showcase of our best projects"
+              width={1920}
+              height={1080}
+              priority={true}
+              quality={90}
+              className="brightness-50"
+              objectFit="cover"
+              sizes="100vw"
+            />
+          </div>
+        </div>
         <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-4">
             {t('projects.title')}
@@ -43,12 +47,14 @@ export default function EnglishProjectsPage() {
             {t('projects.subtitle')}
           </p>
         </div>
-      </div>
+      </section>
 
       {/* Projects Gallery Section */}
-      <div className="container mx-auto px-4 py-16">
-        <ProjectGallery projects={projects} allTags={allTags} lang="en" />
-      </div>
+      <section className="w-full bg-[#0F0F0F]">
+        <div className="container mx-auto px-4 py-6 md:py-16">
+          <ProjectGallery projects={projects} allTags={allTags} lang="en" />
+        </div>
+      </section>
     </div>
   )
 } 
