@@ -3,6 +3,9 @@
 import { useState, useCallback } from 'react'
 import { useTheme } from './theme-provider'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/components/ui/tabs'
+import { Button } from '@/app/components/ui/button'
+import { useToast } from '@/app/components/ui/use-toast'
+import { useRouter } from 'next/navigation'
 import PhotoUpload from './photo-upload'
 import PhotoManager from './photo-manager'
 import ReviewApproval from './review-approval'
@@ -13,6 +16,8 @@ interface AdminDashboardProps {
 
 export default function AdminDashboard({ className }: AdminDashboardProps) {
   const theme = useTheme()
+  const router = useRouter()
+  const { toast } = useToast()
   const [activeTab, setActiveTab] = useState('photos')
   const [refreshTrigger, setRefreshTrigger] = useState(0)
 
@@ -20,10 +25,31 @@ export default function AdminDashboard({ className }: AdminDashboardProps) {
     setRefreshTrigger(prev => prev + 1)
   }, [])
 
+  const handleLogout = useCallback(() => {
+    // Remove the admin token cookie
+    document.cookie = 'admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+    
+    toast({
+      title: "Logged out successfully",
+      description: "You have been logged out of the admin dashboard",
+      variant: "default",
+    })
+    router.push('/admin/login') // Redirect to admin login page
+  }, [router, toast])
+
   return (
     <div className={`min-h-screen bg-[#0F0F0F] p-6 ${className || ''}`}>
       <div className="max-w-6xl mx-auto">
-        <h1 className={`text-3xl font-bold text-[${theme.colors.text}] mb-6`}>Admin Dashboard</h1>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className={`text-3xl font-bold text-[${theme.colors.text}]`}>Admin Dashboard</h1>
+          <Button 
+            onClick={handleLogout}
+            variant="destructive"
+            className="bg-red-600 hover:bg-red-700"
+          >
+            Logout
+          </Button>
+        </div>
         <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 bg-[#1C1F33] p-1 rounded-lg relative h-12">
             <span 
