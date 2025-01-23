@@ -52,7 +52,7 @@ export function OptimizedImage({
           objectFit === 'cover' && 'object-cover',
           objectFit === 'fill' && 'object-fill'
         )}
-        onLoadingComplete={() => setIsLoading(false)}
+        onLoad={() => setIsLoading(false)}
         placeholder={blur ? 'blur' : undefined}
         blurDataURL={blur ? `data:image/svg+xml;base64,${toBase64(shimmer(width, height))}` : undefined}
       />
