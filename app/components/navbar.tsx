@@ -67,10 +67,10 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`bg-[${theme.colors.background}] fixed top-0 left-0 right-0 z-50`}>
+      <nav className={`bg-[${theme.colors.background}] fixed top-0 left-0 right-0 z-50 shadow-md`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">
-            <div className="absolute right-0 md:hidden">
+            <div className="absolute right-0 lg:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`inline-flex items-center justify-center p-2 rounded-md text-[${theme.colors.text}] hover:text-[${theme.colors.primary}] hover:bg-[${theme.colors.surface}] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[${theme.colors.primary}] transition-colors duration-200`}
@@ -85,7 +85,7 @@ export default function Navbar() {
               </button>
             </div>
             
-            <div className="flex items-center justify-start w-full md:w-auto md:flex-none">
+            <div className="flex items-center justify-start w-full lg:w-auto lg:flex-none">
               <div className="flex-shrink-0 flex items-center">
                 <Image
                   src="/favicon/favicon.svg"
@@ -103,7 +103,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <div className="ml-10 flex items-center space-x-4">
                 <NavItem href="/">{t('navigation.home')}</NavItem>
                 <NavItem href="/about">{t('navigation.about')}</NavItem>
@@ -117,7 +117,7 @@ export default function Navbar() {
 
         <div 
           ref={mobileMenuRef}
-          className={`md:hidden absolute top-16 left-0 right-0 bg-[${theme.colors.background}] overflow-hidden transition-all duration-300 ease-in-out`}
+          className={`lg:hidden absolute top-16 left-0 right-0 bg-[${theme.colors.background}] overflow-hidden transition-all duration-300 ease-in-out`}
           style={{ maxHeight: `${menuHeight}px` }}
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
