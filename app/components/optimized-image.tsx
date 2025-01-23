@@ -13,7 +13,7 @@ interface OptimizedImageProps {
   className?: string
   sizes?: string
   quality?: number
-  objectFit?: 'contain' | 'cover' | 'fill'
+  style?: React.CSSProperties
   blur?: boolean
 }
 
@@ -26,7 +26,7 @@ export function OptimizedImage({
   className,
   sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
   quality = 75,
-  objectFit = 'cover',
+  style,
   blur = true,
 }: OptimizedImageProps) {
   const [isLoading, setIsLoading] = useState(true)
@@ -45,12 +45,10 @@ export function OptimizedImage({
         priority={priority}
         quality={quality}
         sizes={sizes}
+        style={style}
         className={cn(
           'duration-700 ease-in-out w-full h-full',
-          isLoading ? 'scale-110 blur-2xl grayscale' : 'scale-100 blur-0 grayscale-0',
-          objectFit === 'contain' && 'object-contain',
-          objectFit === 'cover' && 'object-cover',
-          objectFit === 'fill' && 'object-fill'
+          isLoading ? 'scale-110 blur-2xl grayscale' : 'scale-100 blur-0 grayscale-0'
         )}
         onLoad={() => setIsLoading(false)}
         placeholder={blur ? 'blur' : undefined}

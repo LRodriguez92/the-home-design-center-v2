@@ -149,8 +149,8 @@ export default function ProjectGallery({ initialTag, projects = [], allTags = []
                   alt="Project photo"
                   width={800}
                   height={800}
-                  className="w-full h-full object-cover"
-                  objectFit="cover"
+                  className="w-full h-full"
+                  style={{ objectFit: 'cover' }}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -188,7 +188,7 @@ export default function ProjectGallery({ initialTag, projects = [], allTags = []
                 width={1920}
                 height={1080}
                 className="object-contain w-auto h-auto max-w-[95vw] max-h-[95vh]"
-                objectFit="contain"
+                style={{ objectFit: 'contain' }}
                 quality={90}
                 blur={false}
               />

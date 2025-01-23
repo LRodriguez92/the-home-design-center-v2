@@ -228,8 +228,8 @@ export default function PhotoUpload({ refreshPhotos }: PhotoUploadProps) {
                     <Image
                       src={photo.preview}
                       alt={`Selected photo ${index + 1}`}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      style={{ objectFit: 'cover' }}
                       className="rounded-md"
                     />
                     <button

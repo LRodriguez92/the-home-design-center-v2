@@ -14,8 +14,8 @@ export default function EnglishContactPage() {
         <Image
           src="/images/heroes/contact.jpg"
           alt="Elegant interior design"
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: 'cover' }}
           quality={100}
           className="brightness-50"
         />

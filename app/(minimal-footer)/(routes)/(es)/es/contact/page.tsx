@@ -14,8 +14,8 @@ export default function SpanishContactPage() {
         <Image
           src="/images/heroes/contact.jpg"
           alt="Diseño interior elegante"
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: 'cover' }}
           quality={100}
           className="brightness-50"
         />

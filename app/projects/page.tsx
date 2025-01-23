@@ -28,8 +28,8 @@ export default function ProjectsPage() {
         <Image
           src="/images/heroes/projects.jpg"
           alt="Showcase of our best projects"
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: 'cover' }}
           quality={100}
           priority
           className="brightness-50"
