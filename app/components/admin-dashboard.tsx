@@ -50,8 +50,7 @@ export default function AdminDashboard({ className }: AdminDashboardProps) {
           <h1 className={`text-3xl font-bold text-[${theme.colors.text}]`}>Admin Dashboard</h1>
           <Button 
             onClick={handleLogout}
-            variant="destructive"
-            className="bg-red-600 hover:bg-red-700"
+            className="border-2 border-[#C9A227] bg-transparent text-[#C9A227] hover:bg-red-600 hover:text-white hover:border-red-600 transition-colors duration-300"
           >
             Logout
           </Button>
