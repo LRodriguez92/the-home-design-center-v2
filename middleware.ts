@@ -11,15 +11,9 @@ export function middleware(request: NextRequest) {
       return NextResponse.next()
     }
 
-<<<<<<< HEAD
-    // Check for admin authentication
-    const adminToken = request.cookies.get('admin_token')
-    if (!adminToken || adminToken.value !== 'authenticated') {
-=======
     // Check for session token
     const sessionToken = request.cookies.get('session')
     if (!sessionToken) {
->>>>>>> add-login
       return NextResponse.redirect(new URL('/admin/login', request.url))
     }
     return NextResponse.next()
