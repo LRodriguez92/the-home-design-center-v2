@@ -253,6 +253,18 @@ export default function Footer() {
               <Instagram className="h-6 w-6" aria-hidden="true" />
             </a>
           </div>
+          <div className="mt-4 text-center">
+            <p className={`text-sm text-[${colors.textMuted}]`}>
+              {pathname?.startsWith('/es') ? 'Sitio web construido por' : 'Website developed by'} <a 
+                href="https://www.codedbyleo.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className={`text-[${colors.primary}] hover:text-[${colors.primary}]/80 transition-colors font-medium`}
+              >
+                CodedByLeo
+              </a>
+            </p>
+          </div>
           <div className="mt-4 text-center text-sm">
             <p role="contentinfo" className={`text-[${colors.text}]`}>&copy; {new Date().getFullYear()} {t('navigation.title')}. {t('footer.copyright')}</p>
           </div>
