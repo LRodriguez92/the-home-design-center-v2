@@ -130,7 +130,7 @@ export default function PhotoManager({ refreshTrigger }: PhotoManagerProps) {
                   width={600}
                   height={600}
                   className="w-full h-full"
-                  objectFit="cover"
+                  style={{ objectFit: 'cover' }}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-black/50 opacity-100">

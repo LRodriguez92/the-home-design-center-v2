@@ -34,7 +34,7 @@ export default function EnglishProjectsPage() {
               priority={true}
               quality={90}
               className="brightness-50"
-              objectFit="cover"
+              style={{ objectFit: "cover" }}
               sizes="100vw"
             />
           </div>

@@ -11,9 +11,15 @@ export function middleware(request: NextRequest) {
       return NextResponse.next()
     }
 
+<<<<<<< HEAD
     // Check for admin authentication
     const adminToken = request.cookies.get('admin_token')
     if (!adminToken || adminToken.value !== 'authenticated') {
+=======
+    // Check for session token
+    const sessionToken = request.cookies.get('session')
+    if (!sessionToken) {
+>>>>>>> add-login
       return NextResponse.redirect(new URL('/admin/login', request.url))
     }
     return NextResponse.next()
@@ -46,10 +52,8 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Skip all internal paths (_next)
-    // Skip all API routes
-    // Skip all static files
-    '/((?!_next|api|static|.*\\..*).*)',
+    // Match all paths except static files and api routes
+    '/((?!api|_next/static|_next/image|favicon|images|.*\\..*).*)',
   ],
 }
 

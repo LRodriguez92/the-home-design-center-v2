@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/app/contexts/auth-context'
 import AdminDashboard from '@/app/components/admin-dashboard'
 
 export default function AdminPage() {
   const router = useRouter()
+<<<<<<< HEAD
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
@@ -14,8 +16,21 @@ export default function AdminPage() {
       router.replace('/admin/login')
     } else {
       setIsAuthenticated(true)
+=======
+  const { user, loading } = useAuth()
+
+  useEffect(() => {
+    if (!loading) {
+      if (!user) {
+        router.replace('/admin/login')
+      }
+>>>>>>> add-login
     }
-  }, [router])
+  }, [loading, user, router])
+
+  if (loading || !user) {
+    return null
+  }
 
   if (!isAuthenticated) {
     return null
