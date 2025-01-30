@@ -23,7 +23,7 @@ export default function Hero({
       {/* Background Image */}
       <div className="absolute inset-0 bg-black/70">
         <Image
-          src="/images/heroes/kitchen-service-2.jpg"
+          src="/images/heroes/kitchen-service-2.webp"
           alt={t('home.hero.image')}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"

@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import heroImage from '@/public/images/heroes/workers.jpg'
+import heroImage from '@/public/images/heroes/workers.webp'
 
 interface ServicesHeroProps {
   title: string

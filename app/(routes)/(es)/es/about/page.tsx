@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Metadata } from 'next'
-import heroImage from '@/public/images/heroes/about-hero.jpg'
+import heroImage from '@/public/images/heroes/about-hero.webp'
 
 export const metadata: Metadata = {
   title: 'Sobre Nosotros - The Home Design Center',

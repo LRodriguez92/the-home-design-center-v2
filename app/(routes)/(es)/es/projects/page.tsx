@@ -27,7 +27,7 @@ export default function SpanishProjectsPage() {
         <div className="absolute inset-0">
           <div className="relative w-full h-full">
             <OptimizedImage
-              src="/images/heroes/projects.jpg"
+              src="/images/heroes/projects.webp"
               alt="Muestra de nuestros mejores proyectos"
               width={1920}
               height={1080}

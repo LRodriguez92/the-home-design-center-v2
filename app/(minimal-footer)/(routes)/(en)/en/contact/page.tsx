@@ -12,7 +12,7 @@ export default function EnglishContactPage() {
     <div className="min-h-screen bg-[#0F0F0F] text-[#F5F5F5]">
       <div className="relative h-[40vh] md:h-[50vh] lg:h-[60vh]">
         <Image
-          src="/images/heroes/contact.jpg"
+          src="/images/heroes/contact.webp"
           alt="Elegant interior design"
           fill
           style={{ objectFit: 'cover' }}
