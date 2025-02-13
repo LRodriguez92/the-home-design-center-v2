@@ -3,8 +3,9 @@ import { adminAuth } from '@/app/lib/firebase-admin';
 
 // List of authorized email addresses - kept secure on the server
 const AUTHORIZED_EMAILS = [
-  'hdckitchenandbath@gmail.com',
-  'codedbyleo@gmail.com'
+  'thehomedesigncenterorlando@gmail.com',
+  'codedbyleo@gmail.com',
+  'leonardo.rodriguez92@gmail.com'
 ];
 
 export async function POST(request: Request) {
