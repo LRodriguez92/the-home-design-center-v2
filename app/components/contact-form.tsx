@@ -38,7 +38,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          access_key: '3733e3a3-283c-4c1f-b332-0dfa2bdaa616',
+          access_key: process.env.WEB3FORMS_ACCESS_KEY,
           name: `${formData.firstName} ${formData.lastName}`,
           email: formData.email,
           phone: formData.phone,
