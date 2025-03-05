@@ -12,7 +12,12 @@ export const projectTags = [
   'Whole House',
   'Office',
   'Outdoor',
-  'Dining Room'
+  'Dining Room',
+  'Counter Tops',
+  'Backsplash',
+  'Laundry',
+  'Efficiency Units',
+  '3D Design'
 ] as const
 
 export type ProjectTag = typeof projectTags[number]

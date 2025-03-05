@@ -30,7 +30,12 @@ const spanishTranslations: Record<string, string> = {
   'Whole House': 'Casa Completa',
   'Office': 'Oficina',
   'Outdoor': 'Exterior',
-  'Dining Room': 'Comedor'
+  'Dining Room': 'Comedor',
+  'Counter Tops': 'Encimeras',
+  'Backsplash': 'Salpicadero',
+  'Laundry': 'Lavandería',
+  'Efficiency Units': 'Unidades de Eficiencia',
+  '3D Design': 'Diseño 3D'
 }
 
 export default function ProjectGallery({ initialTag, projects = [], allTags = [], lang = 'en' }: ProjectGalleryProps) {
