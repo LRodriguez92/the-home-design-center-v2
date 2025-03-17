@@ -19,7 +19,11 @@ export default function Hero({
   const currentLang = pathname?.startsWith('/es') ? 'es' : 'en'
 
   return (
-    <div className="relative h-[calc(100vh-4rem)] flex items-center justify-center" role="region" aria-label={t('home.hero.title')}>
+    <div 
+      className="relative h-screen flex items-center justify-center" 
+      role="region" 
+      aria-label={t('home.hero.title')}
+    >
       {/* Background Image */}
       <div className="absolute inset-0 bg-black/70">
         <Image
