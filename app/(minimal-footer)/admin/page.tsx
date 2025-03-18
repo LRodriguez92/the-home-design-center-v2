@@ -4,8 +4,9 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/app/contexts/auth-context'
 import AdminDashboard from '@/app/components/admin-dashboard'
+import { Suspense } from 'react'
 
-export default function AdminPage() {
+function AdminPageContent() {
   const router = useRouter()
   const { user, loading } = useAuth()
 
@@ -25,6 +26,14 @@ export default function AdminPage() {
     <div className="min-h-screen bg-[#0F0F0F] flex flex-col p-4 pt-16">
       <AdminDashboard className="mt-8" />
     </div>
+  )
+}
+
+export default function AdminPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0F0F0F]" />}>
+      <AdminPageContent />
+    </Suspense>
   )
 }
 
