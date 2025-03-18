@@ -1,5 +1,6 @@
 'use client'
 
+import { Suspense } from 'react'
 import ProjectGallery from '@/app/components/project-gallery'
 import { useTranslations } from '@/app/lib/translations'
 import { OptimizedImage } from '@/app/components/optimized-image'
@@ -52,7 +53,9 @@ export default function EnglishProjectsPage() {
       {/* Projects Gallery Section */}
       <section className="w-full bg-[#0F0F0F]">
         <div className="container mx-auto px-4 py-6 md:py-16">
-          <ProjectGallery projects={projects} allTags={allTags} lang="en" />
+          <Suspense fallback={<div>Loading...</div>}>
+            <ProjectGallery projects={projects} allTags={allTags} lang="en" />
+          </Suspense>
         </div>
       </section>
     </div>
