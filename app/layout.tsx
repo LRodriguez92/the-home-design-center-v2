@@ -49,6 +49,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <GoogleAnalytics gaId="G-QCWP41T929" />
       <body className={inter.className}>
         <ThemeProvider>
           <AuthProvider>
@@ -58,7 +59,6 @@ export default function RootLayout({
             <Toaster />
           </AuthProvider>
         </ThemeProvider>
-        <GoogleAnalytics gaId="G-QCWP41T929" />
       </body>
     </html>
   )
