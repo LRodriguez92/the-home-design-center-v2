@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import Script from 'next/script'
 
@@ -20,21 +20,23 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 export function GoogleAnalytics() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [isGAInitialized, setGAInitialized] = useState(false);
 
   useEffect(() => {
-    if (isGAInitialized && pathname && typeof window.gtag === 'function') {
-      if (isDevelopment) {
-        console.log("📊 [DEV] Would track pageview:", pathname + searchParams.toString());
-        return;
-      }
-      
-      console.log("📊 GA Tracking Pageview:", pathname + searchParams.toString());
-      window.gtag('config', GA_MEASUREMENT_ID, {
-        page_path: pathname + searchParams.toString()
-      });
+    if (!window.gtag) return;
+    
+    const pageUrl = pathname + searchParams.toString();
+
+    if (isDevelopment) {
+      console.log("📊 [DEV] Would track pageview:", pageUrl);
+      return;
     }
-  }, [pathname, searchParams, isGAInitialized]);
+    
+    console.log("📊 GA Tracking Pageview:", pageUrl);
+    window.gtag('config', GA_MEASUREMENT_ID, {
+      page_path: pageUrl,
+      send_page_view: true
+    });
+  }, [pathname, searchParams]);
 
   if (isDevelopment) {
     return null;
@@ -54,9 +56,9 @@ export function GoogleAnalytics() {
           };
 
           window.gtag('js', new Date());
-          window.gtag('config', GA_MEASUREMENT_ID);
-
-          setGAInitialized(true);
+          window.gtag('config', GA_MEASUREMENT_ID, {
+            send_page_view: true
+          });
         }}
       />
     </>
