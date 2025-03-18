@@ -30,11 +30,22 @@ function GoogleAnalyticsInner() {
     if (pathname) {
       const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '')
       
-      console.log('[GA] Sending pageview:', url)
+      // Debug logging for navigation tracking
+      console.group('[GA] Navigation Tracking')
+      console.log('Current pathname:', pathname)
+      console.log('Search params:', searchParams?.toString() || 'none')
+      console.log('Full URL being tracked:', url)
       
-      window.gtag('config', GA_MEASUREMENT_ID, {
-        page_path: url,
-      })
+      try {
+        window.gtag('config', GA_MEASUREMENT_ID, {
+          page_path: url,
+        })
+        console.log('✅ Successfully sent pageview to GA')
+      } catch (error) {
+        console.error('❌ Failed to send pageview to GA:', error)
+      }
+      
+      console.groupEnd()
     }
   }, [pathname, searchParams])
 
