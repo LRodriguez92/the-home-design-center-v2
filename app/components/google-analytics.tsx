@@ -2,7 +2,7 @@
 
 import Script from 'next/script'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 
 // Declare global gtag function
 declare global {
@@ -22,16 +22,14 @@ declare global {
 // GA Measurement ID
 const GA_MEASUREMENT_ID = 'G-QCWP41T929'
 
-export function GoogleAnalytics() {
+function GoogleAnalyticsInner() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  // Log initial page view and subsequent route changes
   useEffect(() => {
     if (pathname) {
       const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '')
       
-      // Debug logging
       console.log('[GA] Sending pageview:', url)
       
       window.gtag('config', GA_MEASUREMENT_ID, {
@@ -40,6 +38,10 @@ export function GoogleAnalytics() {
     }
   }, [pathname, searchParams])
 
+  return null
+}
+
+export function GoogleAnalytics() {
   return (
     <>
       <Script
@@ -68,6 +70,9 @@ export function GoogleAnalytics() {
           `,
         }}
       />
+      <Suspense fallback={null}>
+        <GoogleAnalyticsInner />
+      </Suspense>
     </>
   )
 } 
