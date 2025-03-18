@@ -6,7 +6,7 @@ import { AuthProvider } from './contexts/auth-context'
 import Navbar from './components/navbar'
 import Footer from './components/footer'
 import { Toaster } from "@/app/components/ui/toaster"
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics } from './components/google-analytics'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -49,7 +49,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <GoogleAnalytics gaId="G-QCWP41T929" />
       <body className={inter.className}>
         <ThemeProvider>
           <AuthProvider>
@@ -57,6 +56,7 @@ export default function RootLayout({
             <Navbar />
             <Footer />
             <Toaster />
+            <GoogleAnalytics />
           </AuthProvider>
         </ThemeProvider>
       </body>
