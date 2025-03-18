@@ -7,6 +7,7 @@ import Navbar from './components/navbar'
 import Footer from './components/footer'
 import { Toaster } from "@/app/components/ui/toaster"
 import { GoogleAnalytics } from './components/google-analytics'
+import { Suspense } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -52,7 +53,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
           <AuthProvider>
-            <GoogleAnalytics />
+            <Suspense fallback={null}>
+              <GoogleAnalytics />
+            </Suspense>
             <Navbar />
             {children}
             <Footer />
