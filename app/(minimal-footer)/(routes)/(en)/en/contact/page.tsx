@@ -4,6 +4,7 @@ import ContactForm from '@/app/components/contact-form'
 import ContactInfo from '@/app/components/contact-info'
 import Image from 'next/image'
 import { useTranslations } from '@/app/lib/translations'
+import { Suspense } from 'react'
 
 export default function EnglishContactPage() {
   const { t } = useTranslations('en')
@@ -33,7 +34,9 @@ export default function EnglishContactPage() {
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12">
-            <ContactForm lang="en" />
+            <Suspense fallback={<div>Loading...</div>}>
+              <ContactForm lang="en" />
+            </Suspense>
             <ContactInfo lang="en" />
           </div>
         </div>
