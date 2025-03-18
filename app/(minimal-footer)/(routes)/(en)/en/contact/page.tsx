@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useTranslations } from '@/app/lib/translations'
 import { Suspense } from 'react'
 
-export default function EnglishContactPage() {
+function ContactPageContent() {
   const { t } = useTranslations('en')
   
   return (
@@ -42,5 +42,13 @@ export default function EnglishContactPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function EnglishContactPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ContactPageContent />
+    </Suspense>
   )
 } 
