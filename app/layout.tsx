@@ -7,6 +7,7 @@ import Navbar from './components/navbar'
 import Footer from './components/footer'
 import { Toaster } from "@/app/components/ui/toaster"
 import { GoogleAnalytics } from './components/google-analytics'
+import CookieConsent from './components/cookie-consent'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -57,6 +58,7 @@ export default function RootLayout({
             <Footer />
             <Toaster />
             <GoogleAnalytics />
+            <CookieConsent />
           </AuthProvider>
         </ThemeProvider>
       </body>

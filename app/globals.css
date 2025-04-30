@@ -76,3 +76,105 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Cookie Consent Custom Styling */
+#cc-main {
+  /* Base colors */
+  --cc-bg: #1E1E1E;
+  --cc-primary-color: #C9A227;  /* Updated to match site theme */
+  
+  /* Text colors - improved for accessibility */
+  --cc-title-color: #C9A227;  /* Updated to match site theme */
+  --cc-text: rgba(248, 245, 240, 0.95);  /* Ivory at 95% opacity for better contrast */
+  --cc-text-secondary: rgba(248, 245, 240, 0.85);  /* Slightly dimmed but still very readable */
+  
+  /* Button colors - ensuring good contrast */
+  --cc-btn-primary-bg: #C9A227;  /* Updated to match site theme */
+  --cc-btn-primary-text: #121212;  /* Dark text on light button */
+  --cc-btn-primary-hover-bg: #D4B03A;  /* Slightly lighter gold for hover */
+  
+  --cc-btn-secondary-bg: #1E1E1E;
+  --cc-btn-secondary-text: #F8F5F0; /* White/Ivory text */
+  --cc-btn-secondary-hover-bg: #2A2A2A;
+  --cc-btn-secondary-hover-text: #F8F5F0;
+  --cc-btn-secondary-border-color: #C9A227; /* Updated to match site theme */
+}
+
+/* Additional custom styles for better typography */
+#cc-main .cc-title {
+  font-family: var(--font-montserrat);
+  font-weight: 600;
+  color: var(--cc-title-color);
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.75rem;
+}
+
+#cc-main .cc-text {
+  font-family: var(--font-poppins);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--cc-text);
+  margin-bottom: 1.5rem;
+}
+
+#cc-main .cc-btn {
+  font-weight: 500;
+  padding: 0.75rem 1.25rem;
+  transition: all 150ms ease;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
+/* Improve button focus states for accessibility */
+#cc-main .cc-btn:focus-visible {
+  outline: 2px solid #C9A227;  /* Updated to match site theme */
+  outline-offset: 2px;
+}
+
+/* Add subtle text shadow to improve readability on varying backgrounds */
+#cc-main .cc-btn.cc-allow {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Improve modal contrast */
+#cc-main .cc-modal {
+  border: 1px solid rgba(201, 162, 39, 0.3);  /* Updated to match site theme */
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Target all button variations to ensure we catch the right one */
+#cc-main .cc-btn.cc-settings,
+#cc-main .cc-btn[data-role="show-preferences"],
+#cc-main button.cc-show-settings,
+#cc-main .cc-btn.cc-show-settings {
+  color: #F8F5F0 !important;
+  border: 1px solid #C9A227 !important;  /* Updated to match site theme */
+  background: #1E1E1E !important;
+}
+
+#cc-main .cc-btn.cc-settings:hover,
+#cc-main .cc-btn[data-role="show-preferences"]:hover,
+#cc-main button.cc-show-settings:hover,
+#cc-main .cc-btn.cc-show-settings:hover {
+  background: #2A2A2A !important;
+  transform: translateY(-1px);
+  color: #F8F5F0 !important;
+}
+
+/* Also target the text span if it exists inside the button */
+#cc-main .cc-btn.cc-settings span,
+#cc-main .cc-btn[data-role="show-preferences"] span,
+#cc-main button.cc-show-settings span,
+#cc-main .cc-btn.cc-show-settings span {
+  color: #F8F5F0 !important;
+}
+
+/* Update the close button styles to target the correct class */
+#cc-main .pm__close-btn svg {
+  stroke: #F8F5F0 !important; /* Using your ivory white color */
+}
+
+#cc-main .pm__close-btn:hover svg {
+  stroke: #C9A227 !important; /* Updated to match site theme */
+}

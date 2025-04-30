@@ -2,7 +2,7 @@
 
 import Script from 'next/script'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useEffect, Suspense } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 
 // Declare global gtag function
 declare global {
@@ -25,8 +25,39 @@ const GA_MEASUREMENT_ID = 'G-QCWP41T929'
 function GoogleAnalyticsInner() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const [hasAnalyticsConsent, setHasAnalyticsConsent] = useState(false)
+
+  // Check for analytics consent
+  useEffect(() => {
+    const checkConsent = () => {
+      const consent = localStorage.getItem('cookieConsent')
+      if (consent) {
+        try {
+          const { analytics } = JSON.parse(consent)
+          setHasAnalyticsConsent(analytics === true)
+        } catch (error) {
+          console.error('Error parsing cookie consent:', error)
+          setHasAnalyticsConsent(false)
+        }
+      }
+    }
+
+    // Check initial consent
+    checkConsent()
+
+    // Listen for cookie consent changes
+    window.addEventListener('cookie_consent_update', checkConsent)
+    
+    return () => {
+      window.removeEventListener('cookie_consent_update', checkConsent)
+    }
+  }, [])
 
   useEffect(() => {
+    if (!hasAnalyticsConsent) {
+      return // Don't track if no consent
+    }
+
     if (pathname) {
       const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '')
       
@@ -56,12 +87,44 @@ function GoogleAnalyticsInner() {
       
       console.groupEnd()
     }
-  }, [pathname, searchParams])
+  }, [pathname, searchParams, hasAnalyticsConsent])
 
   return null
 }
 
 export function GoogleAnalytics() {
+  const [hasAnalyticsConsent, setHasAnalyticsConsent] = useState(false)
+
+  // Check for analytics consent
+  useEffect(() => {
+    const checkConsent = () => {
+      const consent = localStorage.getItem('cookieConsent')
+      if (consent) {
+        try {
+          const { analytics } = JSON.parse(consent)
+          setHasAnalyticsConsent(analytics === true)
+        } catch (error) {
+          console.error('Error parsing cookie consent:', error)
+          setHasAnalyticsConsent(false)
+        }
+      }
+    }
+
+    // Check initial consent
+    checkConsent()
+
+    // Listen for cookie consent changes
+    window.addEventListener('cookie_consent_update', checkConsent)
+    
+    return () => {
+      window.removeEventListener('cookie_consent_update', checkConsent)
+    }
+  }, [])
+
+  if (!hasAnalyticsConsent) {
+    return null // Don't load GA scripts if no consent
+  }
+
   return (
     <>
       <Script
