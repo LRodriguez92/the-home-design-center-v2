@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Facebook, Instagram, Mail, Phone, MapPin } from 'lucide-react'
 import { useTheme } from './theme-provider'
 import { useTranslations } from '@/app/lib/translations'
 import { usePathname } from 'next/navigation'
+import HCaptcha from "@hcaptcha/react-hcaptcha"
 
 export default function Footer() {
   const { colors } = useTheme()
@@ -18,7 +19,10 @@ export default function Footer() {
     company: '',
     message: ''
   })
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const captcha = useRef<HCaptcha>(null)
+  const formRef = useRef<HTMLFormElement>(null)
 
   const isContactPage = pathname?.endsWith('/contact') || 
     pathname?.endsWith('/es/contact') || 
@@ -30,6 +34,11 @@ export default function Footer() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
+    if (!captchaToken) {
+      setSubmitStatus('error')
+      return
+    }
+
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -44,6 +53,7 @@ export default function Footer() {
           company: formData.company,
           message: formData.message,
           subject: 'New Footer Contact Form Submission - The Home Design Center',
+          'h-captcha-response': captchaToken,
         }),
       })
 
@@ -57,11 +67,23 @@ export default function Footer() {
           company: '',
           message: ''
         })
+        if (captcha.current) {
+          captcha.current.resetCaptcha()
+        }
+        setCaptchaToken(null)
       } else {
         setSubmitStatus('error')
+        if (captcha.current) {
+          captcha.current.resetCaptcha()
+        }
+        setCaptchaToken(null)
       }
     } catch {
       setSubmitStatus('error')
+      if (captcha.current) {
+        captcha.current.resetCaptcha()
+      }
+      setCaptchaToken(null)
     }
     
     setTimeout(() => setSubmitStatus('idle'), 3000)
@@ -117,6 +139,7 @@ export default function Footer() {
             <div className={`border-2 border-[${colors.surface}] p-6 rounded-lg`}>
               <h3 className={`text-2xl font-bold text-[${colors.text}] mb-6`}>Contact Us</h3>
               <form 
+                ref={formRef}
                 onSubmit={handleSubmit} 
                 className="space-y-4"
                 role="form"
@@ -213,9 +236,24 @@ export default function Footer() {
                     className={`w-full px-3 py-2 text-[${colors.text}] border-b-2 border-[${colors.textMuted}] bg-transparent resize-none focus:outline-none focus:border-[${colors.primary}]`}
                   ></textarea>
                 </div>
+
+                {/* hCaptcha integration */}
+                <div className="flex justify-center my-4">
+                  <HCaptcha
+                    ref={captcha}
+                    sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+                    onVerify={(token) => setCaptchaToken(token)}
+                    theme="dark"
+                    size="normal"
+                    onExpire={() => setCaptchaToken(null)}
+                    reCaptchaCompat={false}
+                  />
+                </div>
+
                 <button
                   type="submit"
-                  className={`w-full px-4 py-3 bg-[${colors.primary}] text-[${colors.onPrimary}] font-semibold rounded-md hover:bg-[${colors.primary}]/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2`}
+                  disabled={!captchaToken}
+                  className={`w-full px-4 py-3 bg-[${colors.primary}] text-[${colors.onPrimary}] font-semibold rounded-md hover:bg-[${colors.primary}]/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50`}
                   aria-label={t('contact.form.submit')}
                 >
                   {t('contact.form.submit')}

@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useTranslations, type Language } from '@/app/lib/translations'
+import HCaptcha from "@hcaptcha/react-hcaptcha"
 
 interface ContactFormProps {
   lang?: Language
@@ -17,8 +18,11 @@ export default function ContactForm({ lang }: ContactFormProps) {
     company: '',
     message: '',
   })
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const captcha = useRef<HCaptcha>(null)
+  const formRef = useRef<HTMLFormElement>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
@@ -29,6 +33,12 @@ export default function ContactForm({ lang }: ContactFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (!captchaToken) {
+      setSubmitStatus('error')
+      return
+    }
+
     setIsSubmitting(true)
     
     try {
@@ -45,17 +55,30 @@ export default function ContactForm({ lang }: ContactFormProps) {
           company: formData.company,
           message: formData.message,
           subject: 'New Contact Form Submission - The Home Design Center',
+          'h-captcha-response': captchaToken,
         }),
       })
 
       if (response.ok) {
         setSubmitStatus('success')
         setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', message: '' })
+        if (captcha.current) {
+          captcha.current.resetCaptcha()
+        }
+        setCaptchaToken(null)
       } else {
         setSubmitStatus('error')
+        if (captcha.current) {
+          captcha.current.resetCaptcha()
+        }
+        setCaptchaToken(null)
       }
     } catch {
       setSubmitStatus('error')
+      if (captcha.current) {
+        captcha.current.resetCaptcha()
+      }
+      setCaptchaToken(null)
     } finally {
       setIsSubmitting(false)
       setTimeout(() => setSubmitStatus('idle'), 3000)
@@ -63,7 +86,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="firstName" className="block text-sm font-medium text-[#B0B0B0] mb-1">
@@ -149,9 +172,23 @@ export default function ContactForm({ lang }: ContactFormProps) {
           className={`w-full px-3 py-2 bg-transparent text-[#F5F5F5] border-2 border-[#C9A227] focus:outline-none focus:border-[#8C7853] transition-colors rounded-md resize-none`}
         ></textarea>
       </div>
+
+      {/* hCaptcha integration */}
+      <div className="flex justify-center my-6">
+        <HCaptcha
+          ref={captcha}
+          sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+          onVerify={(token) => setCaptchaToken(token)}
+          theme="dark"
+          size="normal"
+          onExpire={() => setCaptchaToken(null)}
+          reCaptchaCompat={false}
+        />
+      </div>
+
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !captchaToken}
         className={`w-full px-6 py-3 bg-[#C9A227] text-black font-semibold rounded-md hover:bg-[#8C7853] hover:text-black transition-colors duration-300 disabled:opacity-50`}
       >
         {isSubmitting ? t('contact.form.sending') : t('contact.form.submit')}
