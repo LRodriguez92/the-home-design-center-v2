@@ -28,9 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Helper function to verify authorization with the server
   const verifyAuthorization = async (user: User) => {
     try {
-      console.log('Getting ID token...');
       const idToken = await user.getIdToken();
-      console.log('Got ID token, verifying with server...');
       
       const response = await fetch('/api/auth/verify', {
         method: 'POST',
@@ -52,7 +50,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         document.cookie = `session=${idToken}; path=/; max-age=3600; secure; samesite=strict`;
       }
 
-      console.log('Authorization response:', data);
       return data.isAuthorized;
     } catch (error) {
       console.error('Authorization verification error:', error);
@@ -61,20 +58,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    console.log('Setting up auth state listener...');
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      console.log('Auth state changed:', user?.email);
       if (user) {
         try {
-          console.log('Verifying user authorization...');
           const isAuthorized = await verifyAuthorization(user);
           if (!isAuthorized) {
-            console.log('User not authorized, signing out...');
             document.cookie = 'session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             await signOut(auth);
             setUser(null);
           } else {
-            console.log('User authorized, setting user state...');
             setUser(user);
           }
         } catch (error) {
@@ -84,7 +76,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setUser(null);
         }
       } else {
-        console.log('No user, clearing user state...');
         document.cookie = 'session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         setUser(null);
       }
@@ -92,24 +83,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     return () => {
-      console.log('Cleaning up auth state listener...');
       unsubscribe();
     };
   }, []);
 
   const signIn = async (email: string, password: string) => {
     try {
-      console.log('Attempting email/password sign in...');
       const result = await signInWithEmailAndPassword(auth, email, password);
-      console.log('Sign in successful, verifying authorization...');
       const isAuthorized = await verifyAuthorization(result.user);
       if (!isAuthorized) {
-        console.log('User not authorized, signing out...');
         document.cookie = 'session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         await signOut(auth);
         throw new Error('Unauthorized email address');
       }
-      console.log('Sign in and authorization complete');
     } catch (error) {
       console.error('Authentication error:', error);
       throw error;
@@ -118,17 +104,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signInWithGoogle = async () => {
     try {
-      console.log('Attempting Google sign in...');
       const result = await signInWithPopup(auth, googleProvider);
-      console.log('Google sign in successful, verifying authorization...');
       const isAuthorized = await verifyAuthorization(result.user);
       if (!isAuthorized) {
-        console.log('User not authorized, signing out...');
         document.cookie = 'session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         await signOut(auth);
         throw new Error('Unauthorized email address');
       }
-      console.log('Google sign in and authorization complete');
     } catch (error) {
       console.error('Google authentication error:', error);
       throw error;
@@ -139,7 +121,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       document.cookie = 'session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
       await signOut(auth);
-      console.log('User signed out');
     } catch (error) {
       console.error('Logout error:', error);
       throw error;

@@ -6,8 +6,6 @@ import * as CookieConsent from 'vanilla-cookieconsent'
 
 export default function CookieConsentComponent() {
   useEffect(() => {
-    console.log('CookieConsent component mounting...');
-    
     try {
       CookieConsent.run({
         autoShow: true,  // Force the modal to show
@@ -99,10 +97,7 @@ export default function CookieConsentComponent() {
       console.error('Error initializing CookieConsent:', error);
     }
 
-    return () => {
-      // Cleanup if needed
-      console.log('CookieConsent component unmounting...');
-    };
+    return () => {};
   }, []);
 
   return null; // The cookie consent UI is injected automatically
