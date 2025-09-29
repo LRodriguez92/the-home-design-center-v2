@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: 'Transform your living space with our expert home design and construction services.',
     images: [
       {
-        url: '/images/home-design-center.png',
+        url: 'https://hdckitchenandbath.com/images/home-design-center.png',
         width: 1200,
         height: 630,
         alt: 'The Home Design Center - Modern Kitchen Design',
@@ -33,10 +33,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'The HDC - The Home Design Center',
     description: 'Transform your living space with our expert home design and construction services.',
-    images: ['/images/home-design-center.png'],
+    images: ['https://hdckitchenandbath.com/images/home-design-center.png'],
   },
   other: {
-    'og:image': '/images/home-design-center.png',
+    'og:image': 'https://hdckitchenandbath.com/images/home-design-center.png',
   },
   icons: {
     icon: [
