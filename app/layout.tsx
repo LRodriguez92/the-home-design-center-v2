@@ -35,6 +35,9 @@ export const metadata: Metadata = {
     description: 'Transform your living space with our expert home design and construction services.',
     images: ['/images/home-design-center.png'],
   },
+  other: {
+    'og:image': '/images/home-design-center.png',
+  },
   icons: {
     icon: [
       {
