@@ -25,18 +25,12 @@ export const metadata: Metadata = {
         alt: 'The Home Design Center - Modern Kitchen Design',
       },
     ],
-    type: 'website',
-    locale: 'en_US',
-    siteName: 'The Home Design Center',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'The HDC - The Home Design Center',
     description: 'Transform your living space with our expert home design and construction services.',
     images: ['https://hdckitchenandbath.com/images/home-design-center.png'],
-  },
-  other: {
-    'og:image': 'https://hdckitchenandbath.com/images/home-design-center.png',
   },
   icons: {
     icon: [
