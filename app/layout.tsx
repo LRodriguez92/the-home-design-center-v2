@@ -14,6 +14,27 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'The HDC - The Home Design Center',
   description: 'Transform your living space with our expert home design and construction services.',
+  openGraph: {
+    title: 'The HDC - The Home Design Center',
+    description: 'Transform your living space with our expert home design and construction services.',
+    images: [
+      {
+        url: '/images/home-design-center.png',
+        width: 1200,
+        height: 630,
+        alt: 'The Home Design Center - Modern Kitchen Design',
+      },
+    ],
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'The Home Design Center',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The HDC - The Home Design Center',
+    description: 'Transform your living space with our expert home design and construction services.',
+    images: ['/images/home-design-center.png'],
+  },
   icons: {
     icon: [
       {
