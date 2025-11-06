@@ -34,7 +34,7 @@ export default function SpanishProjectsPage() {
               height={1080}
               priority={true}
               quality={90}
-              className="brightness-[.6]"
+              className="brightness-[.75]"
               style={{ objectFit: "cover" }}
               sizes="100vw"
             />

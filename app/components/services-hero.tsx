@@ -15,7 +15,7 @@ export default function ServicesHero({ title, description }: ServicesHeroProps) 
           alt={title}
           priority
           placeholder="blur"
-          style={{ objectFit: 'cover', filter: 'brightness(0.5)' }}
+          style={{ objectFit: 'cover', filter: 'brightness(0.6)' }}
           fill
           sizes="100vw"
           quality={45}
