@@ -43,10 +43,10 @@ export default function Hero({
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-8">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
             {title}
           </h1>
-          <p className="mx-auto max-w-2xl text-xl sm:text-2xl text-gray-100">
+          <p className="mx-auto max-w-2xl text-xl sm:text-2xl text-gray-100 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
             {subtitle}
           </p>
           <div 

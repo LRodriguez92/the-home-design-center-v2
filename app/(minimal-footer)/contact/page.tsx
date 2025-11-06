@@ -21,10 +21,10 @@ export default function ContactPage() {
           className="brightness-50"
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F5] mb-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
             Contact Us
           </h1>
-          <p className="text-xl md:text-2xl text-[#B0B0B0] mb-8 max-w-3xl">
+          <p className="text-xl md:text-2xl text-[#B0B0B0] mb-8 max-w-3xl drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
             We&apos;re here to help you transform your living space. Reach out to us for any questions, consultations, or to start your next project.
           </p>
         </div>
