@@ -19,7 +19,7 @@ export default function AboutPage() {
             alt="Sobre The Home Design Center"
             priority
             placeholder="blur"
-            className="brightness-50 object-cover"
+            className="brightness-[.6] object-cover"
             sizes="100vw"
             quality={100}
             fill

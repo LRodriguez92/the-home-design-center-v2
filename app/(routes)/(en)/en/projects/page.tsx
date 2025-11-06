@@ -34,7 +34,7 @@ export default function EnglishProjectsPage() {
               height={1080}
               priority={true}
               quality={90}
-              className="brightness-50"
+              className="brightness-[.6]"
               style={{ objectFit: "cover" }}
               sizes="100vw"
             />

@@ -25,7 +25,7 @@ export default function Hero({
       aria-label={t('home.hero.title')}
     >
       {/* Background Image */}
-      <div className="absolute inset-0 bg-black/70">
+      <div className="absolute inset-0 bg-black/30">
         <Image
           src="/images/heroes/kitchen-service-2.webp"
           alt={t('home.hero.image')}
