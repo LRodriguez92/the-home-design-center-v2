@@ -19,7 +19,6 @@ export default function Footer() {
     company: '',
     message: ''
   })
-  const [honeypot, setHoneypot] = useState('')
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const captcha = useRef<HCaptcha>(null)
@@ -40,6 +39,10 @@ export default function Footer() {
       return
     }
 
+    // Read honeypot value directly from DOM (bots fill DOM, not React state)
+    const honeypotValue = (e.currentTarget as HTMLFormElement).elements.namedItem('email_confirm') as HTMLInputElement
+    const honeypotFilled = honeypotValue?.value || ''
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -47,7 +50,7 @@ export default function Footer() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          honeypot,
+          honeypot: honeypotFilled,  // Use DOM value, not React state
           captchaToken,
           formData: {
             firstName: formData.firstName,
@@ -86,7 +89,10 @@ export default function Footer() {
           captcha.current.resetCaptcha()
         }
         setCaptchaToken(null)
-        setHoneypot('')
+        // Reset honeypot field in DOM
+        if (honeypotValue) {
+          honeypotValue.value = ''
+        }
       } else {
         setSubmitStatus('error')
         if (captcha.current) {
@@ -256,9 +262,8 @@ export default function Footer() {
                 {/* Honeypot field - hidden from users but visible to bots */}
                 <input
                   type="text"
-                  name="website"
-                  value={honeypot}
-                  onChange={(e) => setHoneypot(e.target.value)}
+                  name="email_confirm"
+                  defaultValue=""
                   style={{
                     position: 'absolute',
                     left: '-9999px',

@@ -18,7 +18,6 @@ export default function ContactForm({ lang }: ContactFormProps) {
     company: '',
     message: '',
   })
-  const [honeypot, setHoneypot] = useState('')
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -42,6 +41,10 @@ export default function ContactForm({ lang }: ContactFormProps) {
 
     setIsSubmitting(true)
     
+    // Read honeypot value directly from DOM (bots fill DOM, not React state)
+    const honeypotValue = (e.currentTarget as HTMLFormElement).elements.namedItem('email_confirm') as HTMLInputElement
+    const honeypotFilled = honeypotValue?.value || ''
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -49,7 +52,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          honeypot,
+          honeypot: honeypotFilled,  // Use DOM value, not React state
           captchaToken,
           formData: {
             firstName: formData.firstName,
@@ -83,7 +86,10 @@ export default function ContactForm({ lang }: ContactFormProps) {
           captcha.current.resetCaptcha()
         }
         setCaptchaToken(null)
-        setHoneypot('')
+        // Reset honeypot field in DOM
+        if (honeypotValue) {
+          honeypotValue.value = ''
+        }
       } else {
         setSubmitStatus('error')
         if (captcha.current) {
@@ -194,9 +200,8 @@ export default function ContactForm({ lang }: ContactFormProps) {
       {/* Honeypot field - hidden from users but visible to bots */}
       <input
         type="text"
-        name="website"
-        value={honeypot}
-        onChange={(e) => setHoneypot(e.target.value)}
+        name="email_confirm"
+        defaultValue=""
         style={{
           position: 'absolute',
           left: '-9999px',
