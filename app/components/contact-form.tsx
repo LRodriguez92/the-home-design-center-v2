@@ -18,6 +18,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
     company: '',
     message: '',
   })
+  const [honeypot, setHoneypot] = useState('')
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -42,36 +43,47 @@ export default function ContactForm({ lang }: ContactFormProps) {
     setIsSubmitting(true)
     
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
-          name: `${formData.firstName} ${formData.lastName}`,
-          email: formData.email,
-          phone: formData.phone,
-          company: formData.company,
-          message: formData.message,
+          honeypot,
+          captchaToken,
+          formData: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            phone: formData.phone,
+            company: formData.company,
+            message: formData.message,
+          },
           subject: 'New Contact Form Submission - The Home Design Center',
-          'h-captcha-response': captchaToken,
         }),
       })
 
       if (response.ok) {
-        setSubmitStatus('success')
-        // Track Google Ads conversion
-        if (typeof window !== 'undefined' && window.gtag) {
-          window.gtag('event', 'conversion', {
-            'send_to': 'AW-17707114672/ogZTCLeemL4bELDBtPtB'
-          })
+        const result = await response.json()
+        // Check if it was silently rejected (honeypot caught)
+        if (result.success && !result.message) {
+          // Bot was caught, but show success to not alert them
+          setSubmitStatus('success')
+        } else {
+          setSubmitStatus('success')
+          // Track Google Ads conversion
+          if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'conversion', {
+              'send_to': 'AW-17707114672/ogZTCLeemL4bELDBtPtB'
+            })
+          }
+          setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', message: '' })
         }
-        setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', message: '' })
         if (captcha.current) {
           captcha.current.resetCaptcha()
         }
         setCaptchaToken(null)
+        setHoneypot('')
       } else {
         setSubmitStatus('error')
         if (captcha.current) {
@@ -178,6 +190,23 @@ export default function ContactForm({ lang }: ContactFormProps) {
           className={`w-full px-3 py-2 bg-transparent text-[#F5F5F5] border-2 border-[#C9A227] focus:outline-none focus:border-[#8C7853] transition-colors rounded-md resize-none`}
         ></textarea>
       </div>
+
+      {/* Honeypot field - hidden from users but visible to bots */}
+      <input
+        type="text"
+        name="website"
+        value={honeypot}
+        onChange={(e) => setHoneypot(e.target.value)}
+        style={{
+          position: 'absolute',
+          left: '-9999px',
+          opacity: 0,
+          pointerEvents: 'none',
+        }}
+        tabIndex={-1}
+        aria-hidden="true"
+        autoComplete="off"
+      />
 
       {/* hCaptcha integration */}
       <div className="flex justify-center my-6">
