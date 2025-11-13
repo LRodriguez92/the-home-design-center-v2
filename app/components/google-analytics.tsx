@@ -64,11 +64,6 @@ function GoogleAnalyticsInner() {
     if (pathname) {
       const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '')
       
-      console.group('[GA] Navigation Tracking')
-      console.log('Current pathname:', pathname)
-      console.log('Search params:', searchParams?.toString() || 'none')
-      console.log('Full URL being tracked:', url)
-      
       try {
         // Configure the tracker with new page path
         window.gtag('config', GA_MEASUREMENT_ID, {
@@ -82,13 +77,9 @@ function GoogleAnalyticsInner() {
           page_path: url,
           send_to: GA_MEASUREMENT_ID
         })
-        
-        console.log('✅ Successfully sent config and page_view event to GA')
       } catch (error) {
-        console.error('❌ Failed to send tracking data to GA:', error)
+        console.error('Failed to send tracking data to GA:', error)
       }
-      
-      console.groupEnd()
     }
   }, [pathname, searchParams, hasAnalyticsConsent])
 
@@ -133,9 +124,6 @@ export function GoogleAnalytics() {
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        onLoad={() => {
-          console.log('[GA] Script loaded successfully')
-        }}
         onError={() => {
           console.error('[GA] Script failed to load')
         }}
@@ -150,10 +138,9 @@ export function GoogleAnalytics() {
             gtag('js', new Date());
             gtag('config', '${GA_MEASUREMENT_ID}', {
               page_path: window.location.pathname,
-              debug_mode: true
+              debug_mode: false
             });
             gtag('config', 'AW-17707114672');
-            console.log('[GA] Initialization complete');
           `,
         }}
       />

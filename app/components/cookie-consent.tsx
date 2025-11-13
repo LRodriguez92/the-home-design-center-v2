@@ -76,23 +76,57 @@ export default function CookieConsentComponent() {
           }
         },
         onFirstConsent: ({cookie}) => {
-          console.log('First consent given:', cookie);
+          // Sync consent to localStorage for Google Analytics
+          // cookie.categories is an array of accepted category names
+          const analyticsEnabled = Array.isArray(cookie.categories) && cookie.categories.includes('analytics');
+          localStorage.setItem('cookieConsent', JSON.stringify({ analytics: analyticsEnabled }));
+          window.dispatchEvent(new Event('cookie_consent_update'));
         },
         onConsent: ({cookie}) => {
-          console.log('Consent updated:', cookie);
+          // Sync consent to localStorage for Google Analytics
+          // cookie.categories is an array of accepted category names
+          const analyticsEnabled = Array.isArray(cookie.categories) && cookie.categories.includes('analytics');
+          localStorage.setItem('cookieConsent', JSON.stringify({ analytics: analyticsEnabled }));
+          window.dispatchEvent(new Event('cookie_consent_update'));
         },
-        onModalReady: ({modalName}) => {
-          console.log('Modal ready:', modalName);
+        onModalReady: () => {
+          // Modal is ready
         },
-        onModalShow: ({modalName}) => {
-          console.log('Modal shown:', modalName);
+        onModalShow: () => {
+          // Modal is shown
         },
-        onModalHide: ({modalName}) => {
-          console.log('Modal hidden:', modalName);
+        onModalHide: () => {
+          // Modal is hidden
         }
       });
 
-      console.log('CookieConsent initialized successfully');
+      // After initialization, check if consent already exists and sync it
+      // This handles the case where user refreshes after accepting consent
+      setTimeout(() => {
+        try {
+          // Try to read consent from the cookie consent library's cookie
+          // vanilla-cookieconsent typically stores in a cookie named 'cc_cookie'
+          const consentCookie = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('cc_cookie='));
+          
+          if (consentCookie) {
+            const cookieValue = decodeURIComponent(consentCookie.split('=')[1]);
+            try {
+              const parsed = JSON.parse(cookieValue);
+              if (parsed && Array.isArray(parsed.categories)) {
+                const analyticsEnabled = parsed.categories.includes('analytics');
+                localStorage.setItem('cookieConsent', JSON.stringify({ analytics: analyticsEnabled }));
+                window.dispatchEvent(new Event('cookie_consent_update'));
+              }
+            } catch {
+              // Cookie exists but format is different, that's okay
+            }
+          }
+        } catch {
+          // If we can't read existing consent, that's okay - it will sync on next consent action
+        }
+      }, 500);
     } catch (error) {
       console.error('Error initializing CookieConsent:', error);
     }
