@@ -66,24 +66,54 @@ export default function Footer() {
 
       if (response.ok) {
         const result = await response.json()
-        if (result.success && !result.message) {
+        // Check if it was silently rejected (honeypot caught)
+        if (result.success && !result.proceed) {
+          // Bot was caught, but show success to not alert them
           setSubmitStatus('success')
+        } else if (result.proceed) {
+          // Honeypot passed - now call Web3Forms directly from client
+          try {
+            const web3formsResponse = await fetch('https://api.web3forms.com/submit', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+                name: `${formData.firstName} ${formData.lastName}`,
+                email: formData.email,
+                phone: formData.phone,
+                company: formData.company,
+                message: formData.message,
+                subject: 'New Footer Contact Form Submission - The Home Design Center',
+                'h-captcha-response': captchaToken,
+              }),
+            })
+
+            if (web3formsResponse.ok) {
+              setSubmitStatus('success')
+              // Track Google Ads conversion
+              if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'conversion', {
+                  'send_to': 'AW-17707114672/ogZTCLeemL4bELDBtPtB'
+                })
+              }
+              setFormData({
+                firstName: '',
+                lastName: '',
+                email: '',
+                phone: '',
+                company: '',
+                message: ''
+              })
+            } else {
+              setSubmitStatus('error')
+            }
+          } catch {
+            setSubmitStatus('error')
+          }
         } else {
           setSubmitStatus('success')
-          // Track Google Ads conversion
-          if (typeof window !== 'undefined' && window.gtag) {
-            window.gtag('event', 'conversion', {
-              'send_to': 'AW-17707114672/ogZTCLeemL4bELDBtPtB'
-            })
-          }
-          setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            company: '',
-            message: ''
-          })
         }
         if (captcha.current) {
           captcha.current.resetCaptcha()
