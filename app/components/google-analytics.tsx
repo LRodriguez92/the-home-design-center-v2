@@ -9,10 +9,13 @@ declare global {
   interface Window {
     gtag: (
       command: 'config' | 'event' | 'js',
-      targetId: string,
+      targetId: string | Date,
       config?: {
         page_path?: string;
         debug_mode?: boolean;
+        send_to?: string;
+        value?: number;
+        currency?: string;
         [key: string]: unknown;
       }
     ) => void
@@ -149,6 +152,7 @@ export function GoogleAnalytics() {
               page_path: window.location.pathname,
               debug_mode: true
             });
+            gtag('config', 'AW-17707114672');
             console.log('[GA] Initialization complete');
           `,
         }}

@@ -59,6 +59,12 @@ export default function Footer() {
 
       if (response.ok) {
         setSubmitStatus('success')
+        // Track Google Ads conversion
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('event', 'conversion', {
+            'send_to': 'AW-17707114672/ogZTCLeemL4bELDBtPtB'
+          })
+        }
         setFormData({
           firstName: '',
           lastName: '',
