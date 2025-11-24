@@ -309,7 +309,7 @@ export default function Footer() {
                 <div className="flex justify-center my-4">
                   <HCaptcha
                     ref={captcha}
-                    sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+                    sitekey="419457b6-5c4a-459e-948c-e256cb08358a"
                     onVerify={(token) => setCaptchaToken(token)}
                     theme="dark"
                     size="normal"
