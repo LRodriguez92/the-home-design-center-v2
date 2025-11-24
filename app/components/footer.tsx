@@ -5,7 +5,7 @@ import { Facebook, Instagram, Mail, Phone, MapPin } from 'lucide-react'
 import { useTheme } from './theme-provider'
 import { useTranslations } from '@/app/lib/translations'
 import { usePathname } from 'next/navigation'
-import HCaptcha from "@hcaptcha/react-hcaptcha"
+import ReCAPTCHA from "react-google-recaptcha"
 
 export default function Footer() {
   const { colors } = useTheme()
@@ -21,7 +21,7 @@ export default function Footer() {
   })
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-  const captcha = useRef<HCaptcha>(null)
+  const captcha = useRef<ReCAPTCHA>(null)
   const formRef = useRef<HTMLFormElement>(null)
 
   const isContactPage = pathname?.endsWith('/contact') || 
@@ -86,7 +86,7 @@ export default function Footer() {
                 company: formData.company,
                 message: formData.message,
                 subject: 'New Footer Contact Form Submission - The Home Design Center',
-                'h-captcha-response': captchaToken, // Required by Web3Forms
+                // No captcha token - validated on backend only
               }),
             })
 
@@ -124,7 +124,7 @@ export default function Footer() {
           setSubmitStatus('success')
         }
         if (captcha.current) {
-          captcha.current.resetCaptcha()
+          captcha.current.reset()
         }
         setCaptchaToken(null)
         // Reset honeypot field in DOM
@@ -134,14 +134,14 @@ export default function Footer() {
       } else {
         setSubmitStatus('error')
         if (captcha.current) {
-          captcha.current.resetCaptcha()
+          captcha.current.reset()
         }
         setCaptchaToken(null)
       }
     } catch {
       setSubmitStatus('error')
       if (captcha.current) {
-        captcha.current.resetCaptcha()
+        captcha.current.reset()
       }
       setCaptchaToken(null)
     }
@@ -313,16 +313,14 @@ export default function Footer() {
                   autoComplete="off"
                 />
 
-                {/* hCaptcha integration */}
+                {/* reCaptcha integration */}
                 <div className="flex justify-center my-4">
-                  <HCaptcha
+                  <ReCAPTCHA
                     ref={captcha}
-                    sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
-                    onVerify={(token) => setCaptchaToken(token)}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                    onChange={(token) => setCaptchaToken(token)}
+                    onExpired={() => setCaptchaToken(null)}
                     theme="dark"
-                    size="normal"
-                    onExpire={() => setCaptchaToken(null)}
-                    reCaptchaCompat={false}
                   />
                 </div>
 

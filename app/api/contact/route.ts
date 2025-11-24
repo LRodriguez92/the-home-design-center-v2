@@ -14,10 +14,10 @@ export async function POST(request: Request) {
       }, { status: 400 })
     }
 
-    // Verify hCaptcha token with hCaptcha API
-    const hcaptchaSecret = process.env.HCAPTCHA_SECRET_KEY
-    if (!hcaptchaSecret) {
-      console.error('HCAPTCHA_SECRET_KEY is not set in environment variables')
+    // Verify reCaptcha token with reCaptcha API
+    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY
+    if (!recaptchaSecret) {
+      console.error('RECAPTCHA_SECRET_KEY is not set in environment variables')
       return NextResponse.json(
         { error: 'Server configuration error' },
         { status: 500 }
@@ -25,13 +25,13 @@ export async function POST(request: Request) {
     }
 
     try {
-      const verifyResponse = await fetch('https://hcaptcha.com/siteverify', {
+      const verifyResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-          secret: hcaptchaSecret,
+          secret: recaptchaSecret,
           response: captchaToken,
         }),
       })
@@ -39,8 +39,7 @@ export async function POST(request: Request) {
       const verifyResult = await verifyResponse.json()
 
       if (!verifyResult.success) {
-        console.log('Captcha verification failed:', verifyResult['error-codes'])
-        // Silently reject - don't let bots know they were caught
+        console.log('reCAPTCHA verification failed:', verifyResult['error-codes'])
         return NextResponse.json({ success: true }, { status: 200 })
       }
     } catch (captchaError) {
