@@ -86,7 +86,7 @@ export default function Footer() {
                 company: formData.company,
                 message: formData.message,
                 subject: 'New Footer Contact Form Submission - The Home Design Center',
-                'h-captcha-response': captchaToken,
+                'h-captcha-response': captchaToken, // Required by Web3Forms
               }),
             })
 
@@ -107,9 +107,17 @@ export default function Footer() {
                 message: ''
               })
             } else {
+              // Log the error response for debugging
+              const errorData = await web3formsResponse.json().catch(() => ({}))
+              console.error('Web3Forms error:', {
+                status: web3formsResponse.status,
+                statusText: web3formsResponse.statusText,
+                error: errorData
+              })
               setSubmitStatus('error')
             }
-          } catch {
+          } catch (error) {
+            console.error('Web3Forms request failed:', error)
             setSubmitStatus('error')
           }
         } else {
@@ -309,7 +317,7 @@ export default function Footer() {
                 <div className="flex justify-center my-4">
                   <HCaptcha
                     ref={captcha}
-                    sitekey="419457b6-5c4a-459e-948c-e256cb08358a"
+                    sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
                     onVerify={(token) => setCaptchaToken(token)}
                     theme="dark"
                     size="normal"
